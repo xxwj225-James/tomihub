@@ -397,6 +397,21 @@ export function GlobalAiAssistant() {
       setCurrentSessionId(sid);
     }
 
+    // No session yet → auto-create one instead of asking the user to click
+    // "+ New chat" first.
+    if (!sid) {
+      try {
+        const { data } = await chatSessionApi.create(currentProject?.id, trimmed.slice(0, 60) || 'New Chat');
+        if (data?.data?.id) {
+          sid = data.data.id;
+          currentSidRef.current = sid;
+          setCurrentSessionId(sid);
+          ensureSession(sid, 'New Chat');
+          loadSessions();
+        }
+      } catch { /* fall through to the error below */ }
+    }
+
     if (!sid) { setError('No session. Please create a new chat first.'); return; }
 
     // Create user message + assistant placeholder in session

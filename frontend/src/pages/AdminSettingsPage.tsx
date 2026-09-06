@@ -11,6 +11,13 @@ import { useT } from '@/i18n/useT';
 
 type TabKey = 'ai' | 'smtp' | 'db';
 
+// Fallback if master_data ai_language fails to load (matches the 017 seed).
+const DEFAULT_AI_LANGS = [
+  { key: 'en', value: 'English', icon: '🇺🇸' },
+  { key: 'zh', value: '简体中文', icon: '🇨🇳' },
+  { key: 'ja', value: '日本語', icon: '🇯🇵' },
+];
+
 export function AdminSettingsPage() {
   // In a no-AI build there is no AI-model tab — land on SMTP instead.
   const [tab, setTab] = useState<TabKey>(aiEnabled ? 'ai' : 'smtp');
@@ -398,7 +405,7 @@ export function AdminSettingsPage() {
         <h3 className="text-sm font-semibold text-ink-primary mb-2">{t.admin.aiOutputLanguage}</h3>
         <p className="text-xs text-ink-muted mb-3">{t.admin.aiOutputLanguageDesc}</p>
         <div className="flex gap-2">
-          {languageList.map(l => (
+          {(languageList.length > 0 ? languageList : DEFAULT_AI_LANGS).map(l => (
             <button key={l.key} type="button"
               className={cn('flex items-center gap-1.5 px-4 py-2 rounded-btn border text-sm transition-colors',
                 aiLanguage === l.key ? 'border-brand-main bg-brand-soft text-brand-main' : 'border-edge text-ink-secondary hover:border-edge-hover'

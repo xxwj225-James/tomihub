@@ -279,6 +279,18 @@ services:
     networks:
     - ai-pm-net
     restart: unless-stopped
+    healthcheck:
+      test:
+      - CMD
+      - python
+      - -c
+      - import os,sys; procs=[open("/proc/"+x+"/cmdline").read() for x in os.listdir("/proc")
+        if x.isdigit()]; sys.exit(0 if any(("celery" in c) and ("beat" in c) for c
+        in procs) else 1)
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
     pull_policy: always
   frontend:
     build:

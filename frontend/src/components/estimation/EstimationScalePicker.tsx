@@ -40,9 +40,9 @@ export function EstimationScalePicker({ value, onChange, disabled }: EstimationS
         )}
         onClick={() => onChange(null)}
         disabled={disabled}
-        title="Not estimated"
+        title="Not estimated (clear)"
       >
-        ?
+        —
       </button>
     </div>
   );

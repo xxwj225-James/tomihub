@@ -29,6 +29,10 @@ http.interceptors.request.use((config: InternalAxiosRequestConfig) => {
 
 // Track if we've already redirected to prevent loops
 let redirected = false;
+// Single-flight refresh: the backend rotates (single-use) refresh tokens, so
+// concurrent 401s must share ONE refresh — otherwise the second request uses
+// an already-revoked token and the server logs the user out everywhere.
+let refreshInFlight: Promise<boolean> | null = null;
 
 // ─── Response Interceptor ───
 http.interceptors.response.use(
@@ -56,19 +60,42 @@ http.interceptors.response.use(
         return Promise.reject(error);
       }
 
-      // Try refresh once
+      // Try refresh once — but share a single in-flight refresh across all
+      // concurrent 401s (the backend rotates refresh tokens).
       originalRequest._retry = true;
       try {
-        const rt = useAuthStore.getState().refreshToken;
-        if (!rt) throw new Error('No refresh token');
-        const { data } = await axios.post(
-          (import.meta.env.VITE_API_BASE_URL || '') + '/api/v1/auth/refresh',
-          { refreshToken: rt },
-        );
-        useAuthStore.getState().setTokens(data.data);
-        // Retry with new token
-        if (data.data?.accessToken) {
-          originalRequest.headers.Authorization = `Bearer ${data.data.accessToken}`;
+        if (!refreshInFlight) {
+          refreshInFlight = (async () => {
+            try {
+              const rt = useAuthStore.getState().refreshToken;
+              if (!rt) return false;
+              const { data } = await axios.post(
+                (import.meta.env.VITE_API_BASE_URL || '') + '/api/v1/auth/refresh',
+                { refreshToken: rt },
+              );
+              useAuthStore.getState().setTokens(data.data);
+              return !!data.data?.accessToken;
+            } catch {
+              return false;
+            } finally {
+              refreshInFlight = null;
+            }
+          })();
+        }
+        const refreshed = await refreshInFlight;
+        if (!refreshed) {
+          if (!redirected) {
+            redirected = true;
+            useAuthStore.getState().logout();
+            const from = encodeURIComponent(window.location.pathname + window.location.search);
+            window.location.assign(`/login?expired=1&redirect=${from}`);
+          }
+          return Promise.reject(error);
+        }
+        // Retry with the NEW token from the store
+        const newToken = useAuthStore.getState().accessToken;
+        if (newToken) {
+          originalRequest.headers.Authorization = `Bearer ${newToken}`;
         }
         return http(originalRequest);
       } catch {

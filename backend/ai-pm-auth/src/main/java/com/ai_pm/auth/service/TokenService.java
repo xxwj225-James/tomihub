@@ -101,9 +101,10 @@ public class TokenService {
             throw new BusinessException(40102, "Refresh token expired");
         }
 
-        // Revoke old token (rotation)
-        stored.setRevoked(true);
-        refreshTokenRepo.updateById(stored);
+        // Revoke old token (rotation) — update ONLY revoked, not the whole
+        // entity: device_info is jsonb in the DB and a full updateById would
+        // write the String field back into the jsonb column and fail.
+        refreshTokenRepo.revokeById(stored.getId());
 
         // Issue new token pair
         String tenantId = jwtProvider.getTenantId(rawRefreshToken);
