@@ -1,0 +1,43 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: ai-pm-auth
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/ai_pm}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 15
+      minimum-idle: 5
+  mail:
+    host: ${SMTP_HOST:smtp.resend.com}
+    port: ${SMTP_PORT:587}
+    username: ${SMTP_USERNAME:}
+    password: ${SMTP_PASSWORD:}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+  flyway:
+    enabled: false
+
+app:
+  base-url: ${APP_BASE_URL:http://localhost}
+
+jwt:
+  private-key: ${JWT_PRIVATE_KEY:}
+  public-key: ${JWT_PUBLIC_KEY:}
+  access-token-ttl: 15m
+  refresh-token-ttl: 1d
+  remember-me-refresh-ttl: 7d
+
+verification:
+  code-length: 6
+  code-ttl: 5m
+  resend-cooldown: 60s
+
+login:
+  max-failed-attempts: 5
+  lock-duration: 15m

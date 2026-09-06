@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:ai_pm_core_test;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: ASSIGN_UUID
+  configuration:
+    map-underscore-to-camel-case: true

@@ -1,0 +1,41 @@
+# ==========================================
+# AI-PM: Production Overrides
+# ==========================================
+# Usage: docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+# ==========================================
+
+services:
+  # ★ Frontend: Nginx serving static files (not Vite dev server)
+  frontend:
+    build:
+      target: prod
+    ports:
+      - "80:80"
+    volumes: []  # No source code mount in prod
+    environment: []
+    restart: always
+
+  # ★ Scale AI workers for production load
+  ai-brain-worker:
+    deploy:
+      replicas: 3
+    environment:
+      AIPM_DEBUG: "false"
+      CELERY_CONCURRENCY: "4"
+
+  # ★ Production security
+  postgres:
+    environment:
+      POSTGRES_PASSWORD: ${PROD_DB_PASSWORD}
+    ports:
+      - "127.0.0.1:5432:5432"  # Bind to localhost only
+
+  redis:
+    ports:
+      - "127.0.0.1:6379:6379"
+
+  rabbitmq:
+    environment:
+      RABBITMQ_DEFAULT_PASS: ${PROD_RABBITMQ_PASSWORD}
+    ports:
+      - "127.0.0.1:5672:5672"

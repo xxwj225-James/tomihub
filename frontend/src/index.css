@@ -1,0 +1,719 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════
+   Theme 1 — Clean Pipeline (default)
+   ═══════════════════════════════════════════ */
+:root,
+[data-theme="pipeline"] {
+  --brand: 245 57% 50%;
+  --brand-hover: 245 57% 43%;
+  --brand-soft: 245 100% 97%;
+  --brand-text:    0 0% 100%;
+  --brand-main:    var(--brand);
+
+  --surface-app:    240 3% 98%;
+  --surface-card:   0 0% 100%;
+  --surface-hover:  240 5% 96%;
+  --surface-sidebar:240 4% 14%;
+
+  --ink-primary:    240 4% 12%;
+  --ink-secondary:  240 3% 38%;
+  --ink-muted:      240 3% 55%;
+  --ink-sidebar:    240 3% 55%;
+  --ink-sidebar-active: 0 0% 100%;
+
+  --edge-default:   240 4% 92%;
+  --edge-hover:     240 4% 84%;
+  --edge-sidebar:   240 3% 18%;
+
+  --danger:     0 65% 48%;
+  --danger-soft:0 70% 97%;
+  --success:    142 45% 40%;
+  --success-soft:140 50% 97%;
+  --warning:    32 85% 44%;
+  --warning-soft:32 90% 96%;
+
+  --radius-card:  0.5rem;
+  --radius-btn:   0.5rem;
+  --radius-input: 0.5rem;
+
+  --shadow-xs:   0 1px 2px rgb(0 0 0 / 0.04);
+  --shadow-sm:   0 1px 3px rgb(0 0 0 / 0.06), 0 1px 2px rgb(0 0 0 / 0.04);
+  --shadow-md:   0 4px 6px rgb(0 0 0 / 0.05), 0 2px 4px rgb(0 0 0 / 0.04);
+  --shadow-lg:   0 10px 15px rgb(0 0 0 / 0.06), 0 4px 6px rgb(0 0 0 / 0.04);
+  --shadow-xl:   0 20px 25px rgb(0 0 0 / 0.08), 0 8px 10px rgb(0 0 0 / 0.04);
+  --shadow-2xl:  0 25px 50px rgb(0 0 0 / 0.12);
+  --shadow-card:       var(--shadow-sm);
+  --shadow-card-hover: var(--shadow-md);
+  --shadow-dialog:     var(--shadow-xl);
+
+  --font-ui: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+}
+
+/* ═══════════════════════════════════════════
+   Theme 2 — Connected Hub
+   ═══════════════════════════════════════════ */
+[data-theme="hub"] {
+  --brand:         214 89% 52%;
+  --brand-hover:   214 89% 45%;
+  --brand-soft:    214 100% 97%;
+  --brand-text:    0 0% 100%;
+  --brand-main:    var(--brand);
+
+  --surface-app:    214 25% 95%;
+  --surface-card:   0 0% 100%;
+  --surface-hover:  214 25% 93%;
+  --surface-sidebar:0 0% 100%;
+
+  --ink-primary:    214 25% 12%;
+  --ink-secondary:  214 10% 38%;
+  --ink-muted:      214 8% 56%;
+  --ink-sidebar:    214 10% 40%;
+  --ink-sidebar-active: 214 90% 42%;
+
+  --edge-default:   214 18% 88%;
+  --edge-hover:     214 18% 78%;
+  --edge-sidebar:   214 20% 90%;
+
+  --danger:     0 65% 48%;
+  --danger-soft:0 70% 97%;
+  --success:    125 45% 42%;
+  --success-soft:125 50% 97%;
+  --warning:    38 85% 48%;
+  --warning-soft:38 90% 96%;
+
+  --radius-card:  0.625rem;
+  --radius-btn:   0.625rem;
+  --radius-input: 0.625rem;
+
+  --shadow-card:        0 1px 3px rgb(0 0 0 / 0.06);
+  --shadow-card-hover:  0 4px 14px rgb(0 0 0 / 0.1);
+  --shadow-dialog:      0 12px 28px rgb(0 0 0 / 0.12);
+
+  --font-ui: system-ui, -apple-system, sans-serif;
+  --font-mono: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+}
+
+/* ═══════════════════════════════════════════
+   Theme 3 — Material Canvas
+   ═══════════════════════════════════════════ */
+[data-theme="canvas"] {
+  --brand:         210 80% 45%;
+  --brand-hover:   210 80% 38%;
+  --brand-soft:    210 100% 96%;
+  --brand-text:    0 0% 100%;
+  --brand-main:    var(--brand);
+
+  --surface-app:    0 0% 98%;
+  --surface-card:   0 0% 100%;
+  --surface-hover:  0 0% 95%;
+  --surface-sidebar:0 0% 100%;
+
+  --ink-primary:    0 0% 10%;
+  --ink-secondary:  0 0% 34%;
+  --ink-muted:      0 0% 50%;
+  --ink-sidebar:    0 0% 38%;
+  --ink-sidebar-active: 210 80% 40%;
+
+  --edge-default:   0 0% 86%;
+  --edge-hover:     0 0% 74%;
+  --edge-sidebar:   0 0% 88%;
+
+  --danger:     4 85% 52%;
+  --danger-soft:4 90% 97%;
+  --success:    140 45% 42%;
+  --success-soft:140 50% 97%;
+  --warning:    38 90% 48%;
+  --warning-soft:38 90% 96%;
+
+  --radius-card:  0.25rem;
+  --radius-btn:   0.25rem;
+  --radius-input: 0.25rem;
+
+  --shadow-card:        0 1px 2px rgb(0 0 0 / 0.08), 0 1px 3px rgb(0 0 0 / 0.04);
+  --shadow-card-hover:  0 2px 4px rgb(0 0 0 / 0.12), 0 4px 8px rgb(0 0 0 / 0.06);
+  --shadow-dialog:      0 8px 16px rgb(0 0 0 / 0.15), 0 24px 48px rgb(0 0 0 / 0.08);
+
+  --font-ui: 'Roboto', system-ui, sans-serif;
+  --font-mono: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+}
+
+/* ═══════════════════════════════════════════
+   Theme 4 — Quantum Grid
+   NVIDIA-style: white background, black text, green accents
+   ═══════════════════════════════════════════ */
+[data-theme="quantum"] {
+  --brand:         80 100% 36%;
+  --brand-hover:   80 100% 30%;
+  --brand-soft:    80 40% 92%;
+  --brand-text:    0 0% 10%;
+
+  --surface-app:    0 0% 100%;
+  --surface-card:   0 0% 98%;
+  --surface-hover:  0 0% 94%;
+  --surface-sidebar:0 0% 96%;
+
+  --ink-primary:    0 0% 10%;
+  --ink-secondary:  0 0% 30%;
+  --ink-muted:      0 0% 40%;
+  --ink-sidebar:    0 0% 35%;
+  --ink-sidebar-active: 80 100% 36%;
+
+  --edge-default:   0 0% 88%;
+  --edge-hover:     0 0% 78%;
+  --edge-sidebar:   0 0% 90%;
+
+  --danger:     0 65% 50%;
+  --danger-soft:0 60% 93%;
+  --success:    80 100% 36%;
+  --success-soft:80 40% 92%;
+  --warning:    35 100% 45%;
+  --warning-soft:35 60% 92%;
+
+  --radius-card:  6px;
+  --radius-btn:   6px;
+  --radius-input: 6px;
+
+  /* Multi-layer shadow system — creates physical depth perception */
+  --shadow-xs:   0 1px 2px rgb(0 0 0 / 0.04);
+  --shadow-sm:   0 1px 3px rgb(0 0 0 / 0.06), 0 1px 2px rgb(0 0 0 / 0.04);
+  --shadow-md:   0 4px 6px rgb(0 0 0 / 0.05), 0 2px 4px rgb(0 0 0 / 0.04);
+  --shadow-lg:   0 10px 15px rgb(0 0 0 / 0.06), 0 4px 6px rgb(0 0 0 / 0.04);
+  --shadow-xl:   0 20px 25px rgb(0 0 0 / 0.08), 0 8px 10px rgb(0 0 0 / 0.04);
+  --shadow-2xl:  0 25px 50px rgb(0 0 0 / 0.12);
+
+  /* Legacy aliases */
+  --shadow-card:        var(--shadow-sm);
+  --shadow-card-hover:  var(--shadow-md);
+  --shadow-dialog:      var(--shadow-xl);
+
+  --font-ui: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+}
+
+/* ═══════════════════════════════════════════
+   Base
+   ═══════════════════════════════════════════ */
+@layer base {
+  html {
+    @apply antialiased;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  html, body, #root { height: 100%; margin: 0; padding: 0; }
+  body {
+    @apply bg-surface-app text-ink-primary font-ui;
+  }
+  ::selection {
+    background: hsl(var(--brand));
+    color: hsl(var(--brand-text));
+  }
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: hsl(var(--edge-default)); border-radius: 3px; }
+}
+
+/* ═══════════════════════════════════════════
+   Components — semantic only. No magic values.
+   ═══════════════════════════════════════════ */
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center font-medium text-sm px-5 py-2.5
+           transition-all duration-150 ease-out
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-0
+           disabled:opacity-40 disabled:pointer-events-none;
+    border-radius: var(--radius-btn);
+  }
+  .btn-xs {
+    @apply text-xs px-3 py-1.5;
+  }
+  .btn-brand {
+    @apply btn bg-brand-main text-brand-text;
+  }
+  .btn-brand:hover { @apply bg-brand-hover; }
+
+  .btn-secondary {
+    @apply btn bg-surface-card text-ink-secondary border border-edge;
+  }
+  .btn-secondary:hover { @apply bg-surface-hover border-edge-hover text-ink-primary; }
+
+  .btn-ghost {
+    @apply btn text-ink-secondary;
+  }
+  .btn-ghost:hover { @apply bg-surface-hover text-ink-primary; }
+
+  .btn-danger {
+    @apply btn text-white bg-danger;
+  }
+  .btn-danger:hover { opacity: 0.9; }
+
+  .input {
+    @apply w-full px-3 py-2 text-sm transition-colors duration-150 outline-none
+           bg-surface-card border border-edge text-ink-primary font-ui;
+    border-radius: var(--radius-input);
+  }
+  .input::placeholder { @apply text-ink-muted; }
+  .input:focus {
+    border-color: hsl(var(--brand));
+    box-shadow: 0 0 0 3px hsl(var(--brand) / 0.12);
+  }
+  .input-error { @apply input border-danger; }
+  .input-error:focus { box-shadow: 0 0 0 3px hsl(var(--danger) / 0.12); }
+
+  .card {
+    @apply bg-surface-card border border-edge;
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+  .card:hover {
+    box-shadow: var(--shadow-card-hover);
+    border-color: hsl(var(--edge-hover));
+  }
+
+  .badge {
+    @apply inline-flex items-center px-1.5 py-0.5 text-[0.6875rem] font-medium;
+    border-radius: calc(var(--radius-card) - 2px);
+  }
+
+  .sidebar-link {
+    @apply flex items-center gap-2.5 px-2.5 py-[7px] rounded-md text-[0.8125rem]
+           transition-all duration-[120ms];
+    border-radius: var(--radius-btn);
+    color: hsl(var(--ink-sidebar));
+  }
+  .sidebar-link:hover {
+    background: hsl(var(--surface-hover) / 0.08);
+    color: hsl(var(--ink-sidebar-active));
+  }
+  .sidebar-link-active {
+    @apply font-medium;
+    background: hsl(var(--surface-sidebar) / 0.3);
+    color: hsl(var(--ink-sidebar-active));
+  }
+}
+
+/* ═══════════════════════════════════════════
+   Sidebar — exact Mockup CSS (copied verbatim)
+   Overrides Tailwind spacing for pixel-perfect match
+   ═══════════════════════════════════════════ */
+
+.sb-nav {
+  flex: 1;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  overflow-y: auto;
+}
+
+.sb-sep {
+  margin-top: 8px;
+}
+
+.sb-label {
+  padding: 3px 10px 2px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: hsl(var(--ink-sidebar) / 0.45);
+}
+
+/* ═══ Content Header (mockup .ch) ═══ */
+.ch {
+  border-bottom: 1px solid hsl(var(--edge-default));
+  padding: 14px 24px;
+  background: hsl(var(--surface-card));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 53px;
+}
+
+/* ═══ Dashboard — mockup-aligned components ═══ */
+
+.ai-glow {
+  position: relative;
+}
+.ai-glow::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: var(--radius-card);
+  background: linear-gradient(135deg, hsl(var(--brand) / 0.15), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+.ai-glow > * {
+  position: relative;
+  z-index: 1;
+}
+
+.pulse {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: hsl(var(--brand));
+  margin-right: 6px;
+  animation: ai-pulse 2s infinite;
+}
+@keyframes ai-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.2s ease-out;
+}
+@keyframes slide-in {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.card-hd {
+  padding: 14px 18px;
+  border-bottom: 1px solid hsl(var(--edge-default));
+}
+.card-hd h3 {
+  font-size: 14px;
+  font-weight: 600;
+}
+.card-bd {
+  padding: 16px 18px;
+}
+.card-bd-nopad {
+  padding: 0;
+}
+
+.hover-row {
+  padding: 10px 16px;
+  border-bottom: 1px solid hsl(var(--edge-default));
+  transition: background 0.1s;
+}
+.hover-row:hover {
+  background: hsl(var(--surface-hover));
+}
+
+.av {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: hsl(var(--brand-soft));
+  color: hsl(var(--brand));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.tag-hi {
+  background: hsl(var(--danger-soft));
+  color: hsl(var(--danger));
+}
+.tag-med {
+  background: hsl(var(--warning-soft));
+  color: hsl(var(--warning));
+}
+.tag-lo {
+  background: hsl(var(--success-soft));
+  color: hsl(var(--success));
+}
+.tag-b {
+  background: hsl(var(--brand-soft));
+  color: hsl(var(--brand));
+}
+
+.progress {
+  height: 6px;
+  background: hsl(var(--surface-hover));
+  border-radius: 99px;
+  overflow: hidden;
+}
+.progress-bar {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.3s;
+}
+.progress-bar.brand {
+  background: hsl(var(--brand));
+}
+.progress-bar.success {
+  background: hsl(var(--success));
+}
+.progress-bar.warning {
+  background: hsl(var(--warning));
+}
+
+/* ═══ Form controls (mockup .form-input / .form-select) ═══ */
+.form-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid hsl(var(--edge-default));
+  border-radius: var(--radius-input);
+  font-size: 13px;
+  font-family: inherit;
+  background: hsl(var(--surface-card));
+  color: hsl(var(--ink-primary));
+}
+.form-input:focus {
+  outline: none;
+  border-color: hsl(var(--brand));
+  box-shadow: 0 0 0 3px hsl(var(--brand) / 0.1);
+}
+.form-select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid hsl(var(--edge-default));
+  border-radius: var(--radius-input);
+  font-size: 13px;
+  background: hsl(var(--surface-card));
+  color: hsl(var(--ink-primary));
+  font-family: inherit;
+}
+.form-textarea {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid hsl(var(--edge-default));
+  border-radius: var(--radius-input);
+  font-size: 13px;
+  font-family: inherit;
+  background: hsl(var(--surface-card));
+  color: hsl(var(--ink-primary));
+  resize: vertical;
+  line-height: 1.5;
+}
+.form-textarea:focus {
+  outline: none;
+  border-color: hsl(var(--brand));
+  box-shadow: 0 0 0 3px hsl(var(--brand) / 0.1);
+}
+.cursor-grab {
+  cursor: grab;
+}
+
+/* ═══ Report icon buttons (View / Download / Delete) ═══ */
+.rpt-icon-btn {
+  width: 28px; height: 28px; border-radius: 6px; flex-shrink: 0;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.12s;
+  border: none;
+  background: transparent;
+  color: hsl(var(--ink-muted));
+}
+.rpt-icon-btn:hover { background: hsl(var(--edge-default)) !important; }
+.rpt-icon-btn.rpt-view  { color: hsl(var(--brand)); }
+.rpt-icon-btn.rpt-delete { color: hsl(var(--danger)); }
+
+.section-heading {
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: hsl(var(--ink-muted));
+  margin-bottom: 8px;
+  margin-top: 24px;
+}
+
+.form-grp {
+  margin-bottom: 16px;
+}
+.form-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: hsl(var(--ink-secondary));
+  margin-bottom: 4px;
+}
+
+/* ─── Robot Face Blink Animation ─── */
+.blink-eye { animation: blink 3s infinite; transform-origin: center; }
+@keyframes blink {
+  0%, 92%, 96%, 100% { transform: scaleY(1); }
+  94% { transform: scaleY(0.1); }
+}
+
+/* ─── Markdown Table Rendering ─── */
+/* Applied to rendered HTML output (issue detail, report preview, chat, wiki) */
+.prose table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 300px;
+  margin: 12px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.prose .tableWrapper {
+  overflow-x: auto;
+  border-radius: 8px;
+}
+.prose th {
+  background: linear-gradient(135deg, hsl(var(--brand-main)), hsl(var(--brand-main) / 0.85));
+  color: #fff;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border: none;
+}
+.prose td {
+  padding: 7px 12px;
+  border-bottom: 1px solid hsl(var(--edge-default));
+  font-size: 13px;
+  vertical-align: top;
+}
+.prose tr:last-child td { border-bottom: none; }
+.prose tr:nth-child(even) td { background: hsl(var(--surface-hover)); }
+.prose tr:hover td { background: hsl(var(--brand-soft)); }
+
+.prose pre {
+  background: #0d1117;
+  color: #c9d1d9;
+  padding: 12px 16px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 10px 0;
+}
+.prose pre code { background: none; padding: 0; color: inherit; font-size: inherit; }
+
+.prose blockquote {
+  margin: 12px 0;
+  padding: 14px 18px;
+  background: linear-gradient(135deg, hsl(var(--brand-soft)), rgba(99,102,241,0.02));
+  border-radius: 8px;
+}
+.prose blockquote p { margin: 0; }
+
+.prose ul { list-style-type: disc; padding-left: 20px; margin: 4px 0 8px; }
+.prose ol { list-style-type: decimal; padding-left: 20px; margin: 4px 0 8px; }
+.prose ul.task-list { list-style: none; padding-left: 0; }
+.prose ul.task-list li { display: flex; align-items: flex-start; gap: 6px; }
+.prose ul.task-list input[type="checkbox"] { margin-top: 3px; accent-color: hsl(var(--brand-main)); }
+
+.prose hr {
+  height: 2px;
+  border: none;
+  margin: 16px 0;
+  background: linear-gradient(90deg, hsl(var(--brand-main)), transparent);
+}
+
+.prose img {
+  max-width: 100%;
+  max-height: 400px;
+  border-radius: 6px;
+}
+
+.prose a {
+  color: hsl(var(--brand-main));
+  text-decoration: underline;
+}
+
+.prose h1 { font-size: 20px; font-weight: 700; margin: 16px 0 8px; }
+.prose h2 { font-size: 16px; font-weight: 700; margin: 14px 0 6px; }
+.prose h3 { font-size: 14px; font-weight: 600; margin: 12px 0 4px; }
+
+.prose code {
+  background: hsl(var(--surface-hover));
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+}
+
+.prose p { margin: 0 0 8px; }
+
+/* ─── Milkdown Editor Container ─── */
+.md-container {
+  border: 1px solid hsl(var(--edge-default));
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ─── Micro-interactions & Global Transitions ─── */
+.btn, button, a, input, select, textarea {
+  transition: background-color 0.15s ease, border-color 0.15s ease,
+              opacity 0.15s ease, transform 0.15s ease,
+              box-shadow 0.15s ease, color 0.15s ease;
+}
+.card:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+.btn:active, button:active {
+  transform: scale(0.97);
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(8px); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+}
+:focus-visible {
+  outline: 2px solid hsl(var(--brand-main) / 0.5);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: hsl(var(--edge-default)); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: hsl(var(--edge-hover)); }
+
+/* ─── Milkdown editor styles (moved out of JSX — re-injecting <style> every render
+       resets CSS animations and can cause UI flicker) ─── */
+        .md-tbar { display:flex; gap:1px; padding:3px 8px; border-bottom:1px solid hsl(var(--edge-default)); background:hsl(var(--surface-card)); flex-shrink:0; position:relative; z-index:1; flex-wrap:wrap; overflow:visible; }
+        .md-tbar button { background:none; border:none; cursor:pointer; padding:3px 8px; border-radius:4px; font-size:11px; color:hsl(var(--ink-muted)); transition:all .1s; white-space:nowrap; font-family:monospace; }
+        .md-tbar button:hover { background:hsl(var(--surface-hover)); color:hsl(var(--ink-primary)); }
+        .md-sep { width:1px; background:hsl(var(--edge-default)); margin:2px 4px; align-self:stretch; }
+        .md-tbar-table { border-top:1px solid hsl(var(--edge-default)); padding:2px 8px; }
+        .md-table-label { font-size:10px; color:hsl(var(--ink-muted)); margin-right:6px; font-weight:600; }
+        .md-hint { padding:2px 8px; font-size:9px; color:hsl(var(--ink-muted)); border-bottom:1px solid hsl(var(--edge-default)); text-align:center; }
+        .md-overlay { position:absolute; top:0; left:0; right:0; bottom:0; z-index:10; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.3); }
+        .md-popup { background:hsl(var(--surface-card)); border-radius:8px; padding:16px; border:1px solid hsl(var(--edge-default)); min-width:360px; box-shadow:0 4px 16px rgba(0,0,0,0.15); }
+        .md-popup-title { font-size:13px; font-weight:600; margin-bottom:10px; color:hsl(var(--ink-primary)); }
+        .md-popup-input { width:100%; font-size:12px; margin-bottom:10px; padding:6px 10px; border:1px solid hsl(var(--edge-default)); border-radius:6px; background:hsl(var(--surface-card)); color:hsl(var(--ink-primary)); }
+        .md-popup-input:focus { outline:none; border-color:hsl(var(--brand-main)); }
+        .md-popup-actions { display:flex; gap:6px; justify-content:flex-end; }
+        .md-color-grid { display:flex; gap:8px; margin-bottom:10px; }
+        .md-color-btn { width:22px; height:22px; border-radius:4px; border:1px solid transparent; cursor:pointer; flex-shrink:0; }
+
+        .milkdown-editor { padding:14px 16px; font-size:13px; line-height:1.8; }
+        .milkdown-editor h1 { font-size:20px; font-weight:700; margin:16px 0 8px; }
+        .milkdown-editor h2 { font-size:15px; font-weight:700; margin:20px 0 10px; padding:8px 12px; background:linear-gradient(135deg, hsl(var(--surface-hover)), transparent); border-radius:var(--radius-sm, 4px); }
+        .milkdown-editor h3 { font-size:15px; font-weight:600; margin:12px 0 4px; }
+        .milkdown-editor p { margin:0 0 8px; }
+        .milkdown-editor ul,.milkdown-editor ol { padding-left:20px; margin:0 0 8px; }
+        .milkdown-editor ul { list-style-type:disc; }
+        .milkdown-editor ol { list-style-type:decimal; }
+        .milkdown-editor code { background:hsl(var(--surface-hover)); padding:1px 5px; border-radius:3px; font-size:12px; font-family:monospace; }
+        .milkdown-editor pre { background:#0d1117; color:#c9d1d9; padding:12px 16px; border-radius:6px; overflow-x:auto; font-size:12px; line-height:1.6; font-family:'Consolas','Monaco','Courier New',monospace; }
+        .milkdown-editor pre code { background:none; padding:0; color:inherit; font-size:inherit; }
+        .milkdown-editor blockquote { margin:12px 0; padding:14px 18px; background:linear-gradient(135deg, hsl(var(--brand-soft)), rgba(99,102,241,0.02)); border-radius:var(--radius-md, 8px); color:hsl(var(--ink-primary)); }
+        .milkdown-editor blockquote p { margin:0; }
+        .milkdown-editor table { border-collapse:collapse; width:auto!important; max-width:100%; min-width:300px!important; margin:10px 0; border-radius:var(--radius-md, 8px); overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,0.06); table-layout:fixed; }
+        .milkdown-editor .tableWrapper { overflow-x:auto; border-radius:var(--radius-md, 8px); }
+        .milkdown-editor th { background:linear-gradient(135deg, hsl(var(--brand-main)), hsl(var(--brand-main)/0.85)); color:#fff; padding:8px 12px; font-size:12px; font-weight:600; border:1px solid hsl(var(--brand-main)/0.7); }
+        .milkdown-editor td { padding:7px 12px; border:1px solid hsl(var(--edge-default)); font-size:13px; }
+        
+        .milkdown-editor tr:hover td { background:hsl(var(--surface-hover)); }
+        .milkdown-editor hr { height:2px; border:none; margin:16px 0; background:linear-gradient(90deg, hsl(var(--brand-main)), transparent); }
+        .milkdown-editor a { color:hsl(var(--brand-main)); text-decoration:underline; }
+        .resize-cursor { cursor:col-resize!important; }
+        .column-resize-handle { position:absolute; top:0; right:-3px; bottom:0; width:6px; z-index:20; background:transparent; cursor:col-resize; }
+        .column-resize-handle:hover { background:hsl(var(--brand-main)); opacity:0.4; }
+        [data-milkdown-root] { flex:1; min-height:0; overflow-y:auto; display:block!important; }
+        .ProseMirror { outline:none!important; min-height:200px; }
+        .ProseMirror img { max-width:100%; max-height:400px; min-width:40px; min-height:20px; display:inline-block; vertical-align:middle; }
+        .ProseMirror img.ProseMirror-selectednode { outline:2px solid hsl(var(--brand-main)); }
+        .ProseMirror-focused { outline:none!important; }

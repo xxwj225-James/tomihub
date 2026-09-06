@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="pipeline">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TomiHub — AI Portfolio Sync Cabin Mockup</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ═══ THEME ═══ */
+:root,[data-theme="pipeline"]{--brand:237 47% 57%;--brand-h:237 47% 50%;--brand-s:237 100% 98%;--brand-t:0 0% 100%;--sf-a:240 3% 98%;--sf-c:0 0% 100%;--sf-h:240 5% 96%;--sf-s:240 4% 14%;--i-p:240 4% 12%;--i-s:240 3% 38%;--i-m:240 3% 55%;--i-sb:240 3% 55%;--i-sba:0 0% 100%;--e-d:240 4% 92%;--e-h:240 4% 84%;--e-s:240 3% 18%;--d:0 65% 48%;--d-s:0 70% 97%;--s:142 45% 40%;--s-s:140 50% 97%;--w:32 85% 44%;--w-s:32 90% 96%;--r:0.5rem;--sh:0 0 0 1px rgba(0,0,0,.03),0 1px 3px rgba(0,0,0,.04);--sh-h:0 0 0 1px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.08);--f:'Inter',system-ui,sans-serif}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--f);font-size:14px;background:hsl(var(--sf-a));color:hsl(var(--i-p));-webkit-font-smoothing:antialiased}
+button{font:inherit;cursor:pointer;border:none;background:none}
+svg{display:block}
+
+/* ═══ LAYOUT ═══ */
+.layout{display:flex;height:100vh;overflow:hidden}
+.sb{width:220px;flex-shrink:0;display:flex;flex-direction:column;background:hsl(var(--sf-s));border-right:1px solid hsl(var(--e-s));overflow-y:auto}
+.sb-logo{display:flex;align-items:center;gap:10px;padding:0 16px;height:52px;border-bottom:1px solid hsl(var(--e-s))}
+.sb-logo-icon{width:26px;height:26px;border-radius:6px;background:hsl(var(--brand));display:flex;align-items:center;justify-content:center;color:hsl(var(--brand-t));font-weight:700;font-size:12px;flex-shrink:0}
+.sb-logo-text{font-weight:600;font-size:14px;color:hsl(var(--i-sba));letter-spacing:-0.01em}
+.sb-nav{flex:1;padding:8px;display:flex;flex-direction:column;gap:1px}
+.sb-label{padding:6px 10px 4px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:hsl(var(--i-sb)/0.45)}
+.nav{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:var(--r);font-size:13px;color:hsl(var(--i-sb));transition:all 0.12s}
+.nav:hover{background:hsl(var(--sf-h)/0.08);color:hsl(var(--i-sba))}
+.nav.act{background:hsl(var(--sf-s)/0.3);color:hsl(var(--i-sba));font-weight:500}
+.nav svg{width:16px;height:16px;flex-shrink:0}
+.nav .badge{margin-left:auto;font-size:10px;padding:1px 6px;border-radius:99px;background:hsl(var(--brand));color:hsl(var(--brand-t));font-weight:600}
+.sb-foot{padding:8px;border-top:1px solid hsl(var(--e-s))}
+.sb-foot-btn{display:flex;align-items:center;gap:10px;width:100%;padding:7px 10px;border-radius:var(--r);font-size:12px;color:hsl(var(--i-sb))}
+
+.ct{flex:1;overflow-y:auto;background:hsl(var(--sf-a))}
+.ch{border-bottom:1px solid hsl(var(--e-d));padding:14px 24px;background:hsl(var(--sf-c));display:flex;align-items:center;justify-content:space-between;min-height:53px}
+.ch h2{font-size:16px;font-weight:600}
+.cb{padding:24px;max-width:1400px}
+
+.card{background:hsl(var(--sf-c));border:1px solid hsl(var(--e-d));border-radius:var(--r);box-shadow:var(--sh)}
+.card-hd{padding:12px 16px;border-bottom:1px solid hsl(var(--e-d));display:flex;align-items:center;justify-content:space-between}
+.card-hd h3{font-size:13px;font-weight:600}
+.card-bd{padding:14px 16px}
+
+/* ═══ BUTTONS ═══ */
+.btn-brand{padding:7px 16px;border-radius:6px;background:hsl(var(--brand));color:hsl(var(--brand-t));font-size:12px;font-weight:600;transition:all 0.15s}
+.btn-brand:hover{background:hsl(var(--brand-h))}
+.btn-ghost{padding:6px 12px;border-radius:6px;font-size:12px;color:hsl(var(--i-sb));transition:all 0.15s}
+.btn-ghost:hover{background:hsl(var(--sf-h))}
+.btn-xs{padding:4px 10px;font-size:11px;border-radius:4px}
+
+.tag{padding:1px 8px;border-radius:99px;font-size:11px;font-weight:500}
+.tag-act{background:hsl(var(--s)/0.12);color:hsl(var(--s))}
+.tag-warn{background:hsl(var(--w)/0.12);color:hsl(var(--w))}
+.tag-pend{background:hsl(var(--i-m)/0.12);color:hsl(var(--i-m))}
+
+.badge-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.badge-dot.green{background:hsl(var(--s))}
+.badge-dot.yellow{background:hsl(var(--w))}
+
+.avatar{width:28px;height:28px;border-radius:50%;background:hsl(var(--brand)/0.15);color:hsl(var(--brand));display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0}
+.avatar-stack{display:flex;gap:-6px}
+.avatar-stack .avatar{margin-left:-8px;border:2px solid hsl(var(--sf-c))}
+.avatar-stack .avatar:first-child{margin-left:0}
+
+.pulse{display:inline-block;width:6px;height:6px;border-radius:50%;background:hsl(var(--s));animation:pulse-ani 2s infinite}
+@keyframes pulse-ani{0%,100%{opacity:1}50%{opacity:0.4}}
+
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.grid-2{display:grid;grid-template-columns:1fr 380px;gap:16px}
+
+.cabin-card{cursor:pointer;transition:all 0.2s}
+.cabin-card:hover{border-color:hsl(var(--brand)/0.3);box-shadow:var(--sh-h)}
+.cabin-card .card-hd{background:linear-gradient(135deg,hsl(var(--brand)/0.03),hsl(var(--sf-c)) 60%)}
+
+/* ═══ MODAL ═══ */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:100;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(2px)}
+.modal{background:hsl(var(--sf-c));border-radius:10px;box-shadow:0 24px 60px rgba(0,0,0,.18);width:520px;max-height:80vh;overflow-y:auto}
+.modal-hd{padding:16px 20px;border-bottom:1px solid hsl(var(--e-d));display:flex;align-items:center;justify-content:space-between}
+.modal-hd h3{font-size:15px;font-weight:600}
+.modal-bd{padding:20px}
+.modal-ft{padding:12px 20px;border-top:1px solid hsl(var(--e-d));display:flex;justify-content:flex-end;gap:8px}
+
+.form-input{width:100%;padding:8px 12px;border:1px solid hsl(var(--e-d));border-radius:6px;font-size:13px;font-family:var(--f);outline:none;transition:border-color 0.15s}
+.form-input:focus{border-color:hsl(var(--brand))}
+.form-label{display:block;font-size:11px;font-weight:600;color:hsl(var(--i-m));text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px}
+.form-hint{font-size:11px;color:hsl(var(--i-m));margin-top:3px}
+
+.user-chip{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:6px;border:1px solid hsl(var(--e-d));cursor:pointer;transition:all 0.12s}
+.user-chip:hover{background:hsl(var(--sf-h))}
+.user-chip.selected{background:hsl(var(--brand)/0.08);border-color:hsl(var(--brand))}
+
+.progress-bar{width:100%;height:3px;border-radius:3px;background:hsl(var(--e-d));overflow:hidden}
+.progress-fill{height:100%;border-radius:3px;background:hsl(var(--brand));transition:width 0.3s}
+
+.ai-glow{position:relative}
+.ai-glow::before{content:'';position:absolute;inset:-1px;border-radius:calc(var(--r) + 1px);background:linear-gradient(135deg,hsl(var(--brand)/0.2),transparent 50%,hsl(var(--s)/0.15));z-index:-1;opacity:0.6}
+
+.text-xs{font-size:12px}.text-sm{font-size:13px}.text-2xs{font-size:11px}
+.muted{color:hsl(var(--i-m))}
+.fw-600{font-weight:600}
+.mb-2{margin-bottom:8px}.mb-3{margin-bottom:12px}.mb-4{margin-bottom:16px}
+.mt-1{margin-top:4px}.mt-2{margin-top:8px}
+.gap-2{gap:8px}.gap-3{gap:12px}
+.flex{display:flex}.items-center{align-items:center}.justify-between{justify-content:space-between}.flex-1{flex:1}
+</style>
+</head>
+<body>
+
+<div class="layout">
+  <!-- ═══ SIDEBAR ═══ -->
+  <aside class="sb">
+    <div class="sb-logo">
+      <div class="sb-logo-icon">T</div>
+      <span class="sb-logo-text">TomiHub</span>
+    </div>
+    <nav class="sb-nav">
+      <a class="nav act"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>Home</a>
+      <a class="nav"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/></svg>Board</a>
+      <a class="nav"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>Sprints</a>
+      <div class="sb-label" style="margin-top:12px">Project</div>
+      <a class="nav"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/></svg>Issues</a>
+      <a class="nav"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zm0 8a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zm6-6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zm0 8a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>Gantt</a>
+      <a class="nav"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>Members</a>
+      <div class="sb-label" style="margin-top:12px">AI</div>
+      <a class="nav"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 2a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V4a2 2 0 00-2-2H4zm3 5h6a1 1 0 010 2H7a1 1 0 010-2zm0 4h4a1 1 0 010 2H7a1 1 0 010-2z" clip-rule="evenodd"/></svg>Reports</a>
+      <a class="nav"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zm6 0a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zm4 2a1 1 0 011 1v.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-5.268a2 2 0 010-3.464V7a1 1 0 011-1z"/></svg>Knowledge</a>
+
+      <!-- ★ NEW: Cabins nav entry ★ -->
+      <a class="nav" style="background:hsl(var(--brand)/0.06);color:hsl(var(--brand));font-weight:500">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7 2a1 1 0 011 1v1h4V3a1 1 0 112 0v1h1a2 2 0 012 2v1a1 1 0 01-1 1H4a1 1 0 01-1-1V6a2 2 0 012-2h1V3a1 1 0 011-1zM3 10a1 1 0 011-1h12a1 1 0 011 1v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6z" clip-rule="evenodd"/></svg>
+        Cabins
+        <span class="badge">NEW</span>
+      </a>
+    </nav>
+    <div class="sb-foot">
+      <div class="sb-foot-btn"><span style="width:26px;height:26px;border-radius:50%;background:hsl(var(--brand));display:flex;align-items:center;justify-content:center;color:hsl(var(--brand-t));font-size:11px;font-weight:600">JM</span>James Wu</div>
+    </div>
+  </aside>
+
+  <!-- ═══ MAIN CONTENT ═══ -->
+  <main class="ct">
+    <!-- HEADER -->
+    <div class="ch">
+      <div>
+        <h2>Home</h2>
+        <div class="text-xs muted mt-1">Welcome back, James</div>
+      </div>
+      <div class="flex items-center gap-2">
+        <!-- ★ NEW: Cabin quick-action in header — all users can initiate ★ -->
+        <button class="btn-brand" onclick="document.getElementById('cabin-create-modal').style.display='flex'" style="display:flex;align-items:center;gap:6px">
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7 2a1 1 0 011 1v1h4V3a1 1 0 112 0v1h1a2 2 0 012 2v1a1 1 0 01-1 1H4a1 1 0 01-1-1V6a2 2 0 012-2h1V3a1 1 0 011-1zM3 10a1 1 0 011-1h12a1 1 0 011 1v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6z" clip-rule="evenodd"/></svg>
+          Start Sync Meeting
+        </button>
+        <button class="btn-ghost" style="padding:7px 16px">+ New Project</button>
+      </div>
+    </div>
+
+    <div class="cb">
+      <!-- ═══ TOP STATS ROW ═══ -->
+      <div class="grid-4 mb-4">
+        <div class="card" style="padding:16px">
+          <div class="text-2xs fw-600 muted" style="text-transform:uppercase;letter-spacing:0.06em">My Tasks</div>
+          <div style="font-size:24px;font-weight:700;color:hsl(var(--brand));margin-top:4px">4</div>
+          <div class="text-2xs muted mt-1">2 high · 2 medium</div>
+        </div>
+        <div class="card" style="padding:16px">
+          <div class="text-2xs fw-600 muted" style="text-transform:uppercase;letter-spacing:0.06em">In Progress</div>
+          <div style="font-size:24px;font-weight:700;color:hsl(var(--w));margin-top:4px">2</div>
+          <div class="text-2xs muted mt-1">Click to expand</div>
+        </div>
+        <div class="card" style="padding:16px">
+          <div class="text-2xs fw-600 muted" style="text-transform:uppercase;letter-spacing:0.06em">Completed</div>
+          <div style="font-size:24px;font-weight:700;color:hsl(var(--s));margin-top:4px">1</div>
+          <div class="text-2xs muted mt-1">1 this week</div>
+        </div>
+        <div class="card ai-glow" style="padding:16px">
+          <div class="text-2xs fw-600 muted flex items-center gap-1.5" style="text-transform:uppercase;letter-spacing:0.06em">
+            <span class="pulse"></span>My Health Score
+          </div>
+          <div style="font-size:24px;font-weight:700;color:hsl(var(--s));margin-top:4px">72</div>
+          <div class="text-2xs muted mt-1">healthy · 2 warnings</div>
+        </div>
+      </div>
+
+      <!-- ═══ TWO COLUMN LAYOUT ═══ -->
+      <div class="grid-2">
+        <!-- LEFT: AI Analysis -->
+        <div class="flex flex-col gap-4">
+          <!-- ★ NEW: Active Cabins Section ★ -->
+          <div class="card ai-glow" style="border-color:hsl(var(--brand)/0.2)">
+            <div class="card-hd" style="background:linear-gradient(135deg,hsl(var(--brand)/0.04),hsl(var(--sf-c)) 70%)">
+              <div class="flex items-center gap-2">
+                <svg width="16" height="16" viewBox="0 0 20 20" fill="hsl(var(--brand))"><path fill-rule="evenodd" d="M7 2a1 1 0 011 1v1h4V3a1 1 0 112 0v1h1a2 2 0 012 2v1a1 1 0 01-1 1H4a1 1 0 01-1-1V6a2 2 0 012-2h1V3a1 1 0 011-1zM3 10a1 1 0 011-1h12a1 1 0 011 1v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6z" clip-rule="evenodd"/></svg>
+                <h3>Active Sync Cabins</h3>
+                <span class="tag tag-act" style="font-size:10px">2 active</span>
+              </div>
+              <button class="btn-brand btn-xs" onclick="document.getElementById('cabin-create-modal').style.display='flex'" style="display:flex;align-items:center;gap:4px">
+                <svg width="12" height="12" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/></svg>
+                New Cabin
+              </button>
+            </div>
+            <div class="card-bd" style="display:flex;flex-direction:column;gap:8px">
+
+              <!-- Cabin Card 1 -->
+              <div class="card cabin-card" onclick="document.getElementById('cabin-detail-modal').style.display='flex'">
+                <div class="card-hd" style="border-bottom:none;padding:12px 14px">
+                  <div class="flex-1">
+                    <div class="flex items-center gap-2 mb-1">
+                      <span class="badge-dot green"></span>
+                      <span style="font-size:13px;font-weight:600">Q2 研发进度协同会</span>
+                      <span class="tag tag-act" style="font-size:10px">generated</span>
+                    </div>
+                    <div class="flex items-center gap-3 text-2xs muted">
+                      <span>3 projects mounted</span>
+                      <span>·</span>
+                      <span>Document v2 · 14:30</span>
+                      <span>·</span>
+                      <span>Created by JM</span>
+                    </div>
+                  </div>
+                  <div class="avatar-stack">
+                    <div class="avatar" style="background:hsl(var(--brand)/0.15);color:hsl(var(--brand))">JM</div>
+                    <div class="avatar" style="background:hsl(var(--s)/0.15);color:hsl(var(--s))">JT</div>
+                    <div class="avatar" style="background:hsl(var(--w)/0.15);color:hsl(var(--w))">DV</div>
+                  </div>
+                </div>
+                <div style="padding:0 14px 10px">
+                  <div class="progress-bar"><div class="progress-fill" style="width:66%"></div></div>
+                  <div class="flex items-center justify-between text-2xs muted mt-1">
+                    <span>2 of 3 projects mounted</span>
+                    <span>Deadline: Jun 25</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Cabin Card 2 -->
+              <div class="card cabin-card" onclick="document.getElementById('cabin-detail-modal').style.display='flex'">
+                <div class="card-hd" style="border-bottom:none;padding:12px 14px">
+                  <div class="flex-1">
+                    <div class="flex items-center gap-2 mb-1">
+                      <span class="badge-dot yellow"></span>
+                      <span style="font-size:13px;font-weight:600">月会 — 6月研发回顾</span>
+                      <span class="tag tag-pend" style="font-size:10px">pending</span>
+                    </div>
+                    <div class="flex items-center gap-3 text-2xs muted">
+                      <span>1 project mounted</span>
+                      <span>·</span>
+                      <span>Created by JT</span>
+                      <span>·</span>
+                      <span>Awaiting 2 more managers</span>
+                    </div>
+                  </div>
+                  <div class="avatar-stack">
+                    <div class="avatar" style="background:hsl(var(--w)/0.15);color:hsl(var(--w))">JT</div>
+                    <div class="avatar" style="background:hsl(var(--i-m)/0.15);color:hsl(var(--i-m))">?</div>
+                  </div>
+                </div>
+                <div style="padding:0 14px 10px">
+                  <div class="progress-bar"><div class="progress-fill" style="width:20%"></div></div>
+                  <div class="flex items-center justify-between text-2xs muted mt-1">
+                    <span>1 of 3 projects mounted</span>
+                    <span>No deadline set</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- My Workspace Card -->
+          <div class="card ai-glow">
+            <div class="card-hd" style="display:flex;align-items:center;justify-content:space-between">
+              <div class="flex items-center gap-1.5">
+                <span class="pulse"></span>
+                <h3 style="font-size:12px;font-weight:600;color:hsl(var(--brand));text-transform:uppercase;letter-spacing:0.04em">My Workspace — James</h3>
+              </div>
+              <button class="btn-ghost btn-xs">🔄</button>
+            </div>
+            <div class="card-bd">
+              <div class="flex items-center gap-4 mb-3" style="padding:12px;border-radius:8px;background:hsl(var(--sf-h))">
+                <div style="width:54px;height:54px;position:relative">
+                  <svg viewBox="0 0 54 54"><circle cx="27" cy="27" r="23" fill="none" stroke="hsl(var(--e-d))" stroke-width="4"/><circle cx="27" cy="27" r="23" fill="none" stroke="hsl(var(--s))" stroke-width="4" stroke-dasharray="144.5" stroke-dashoffset="40" stroke-linecap="round" transform="rotate(-90 27 27)"/><text x="27" y="30" text-anchor="middle" fill="hsl(var(--i-p))" font-size="14" font-weight="700">72</text></svg>
+                </div>
+                <div>
+                  <div style="font-weight:600">Healthy</div>
+                  <div class="text-xs muted mt-0.5">Your work health score</div>
+                </div>
+              </div>
+              <div class="text-sm muted" style="line-height:1.5">2 pending tasks — both high priority, focus on critical first. Low throughput (2 done/30d) — consider single-task focus.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Tasks -->
+        <div class="flex flex-col gap-4">
+          <div class="card">
+            <div class="card-hd"><h3>My Active Tasks</h3></div>
+            <div class="card-bd" style="display:flex;flex-direction:column;gap:8px">
+              <div style="padding:8px 10px;border-radius:6px;background:hsl(var(--d)/0.04);display:flex;align-items:center;gap:10px;font-size:12px">
+                <span class="tag" style="background:hsl(var(--d)/0.12);color:hsl(var(--d))">TOMAT-1</span>
+                <span class="flex-1">Gantt chart error</span>
+                <span class="muted">critical</span>
+              </div>
+              <div style="padding:8px 10px;border-radius:6px;background:hsl(var(--sf-h));display:flex;align-items:center;gap:10px;font-size:12px">
+                <span class="tag" style="background:hsl(var(--w)/0.12);color:hsl(var(--w))">TOMAT-5</span>
+                <span class="flex-1">Create issue page issues</span>
+                <span class="muted">high</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ═══ MODAL 1: Create Cabin ═══ -->
+<div id="cabin-create-modal" class="modal-overlay" style="display:none" onclick="if(event.target===this)this.style.display='none'">
+  <div class="modal">
+    <div class="modal-hd">
+      <h3>Start Portfolio Sync Meeting</h3>
+      <button class="btn-ghost btn-xs" onclick="document.getElementById('cabin-create-modal').style.display='none'" style="font-size:16px;padding:2px 8px">✕</button>
+    </div>
+    <div class="modal-bd">
+      <!-- Step 1: Cabin Name -->
+      <div class="mb-3">
+        <label class="form-label">Meeting Name</label>
+        <input class="form-input" placeholder="e.g. Q2 研发进度协同会" value="Q2 研发进度协同会" style="font-size:14px">
+      </div>
+
+      <!-- Step 2: Invite Participants -->
+      <div class="mb-3">
+        <label class="form-label">Invite Project Managers</label>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div class="user-chip selected">
+            <div class="avatar" style="width:24px;height:24px;font-size:10px">JT</div>
+            <span class="text-sm flex-1">JianTest (xxwj225@hotmail.com)</span>
+            <span class="text-2xs muted">TomiHubKanban Owner</span>
+            <span style="color:hsl(var(--s));font-size:18px">✓</span>
+          </div>
+          <div class="user-chip">
+            <div class="avatar" style="width:24px;height:24px;font-size:10px;background:hsl(var(--w)/0.15);color:hsl(var(--w))">DV</div>
+            <span class="text-sm flex-1">devin (350177712@qq.com)</span>
+            <span class="text-2xs muted">TomiHub Dev Developer</span>
+            <span style="color:hsl(var(--e-d));font-size:18px">○</span>
+          </div>
+          <div class="user-chip">
+            <div class="avatar" style="width:24px;height:24px;font-size:10px;background:hsl(var(--i-m)/0.15);color:hsl(var(--i-m))">JM</div>
+            <span class="text-sm flex-1">siqiliu (siqiliu_67@163.com)</span>
+            <span class="text-2xs muted">Pending invite</span>
+            <span style="color:hsl(var(--e-d));font-size:18px">○</span>
+          </div>
+        </div>
+        <div class="form-hint">Selected managers can mount their project reports to this cabin</div>
+      </div>
+
+      <!-- Step 3: AI Preview hint -->
+      <div style="padding:12px;border-radius:8px;background:hsl(var(--brand)/0.04);border:1px solid hsl(var(--brand)/0.1);margin-top:12px">
+        <div class="flex items-center gap-2 mb-1">
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="hsl(var(--brand))"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+          <span class="text-xs fw-600" style="color:hsl(var(--brand))">AI will auto-generate after projects are mounted</span>
+        </div>
+        <div class="text-2xs muted" style="line-height:1.5">
+          Once managers mount their projects, AI will:
+          <br>1. Cross-audit project health across all mounted projects
+          <br>2. Detect cross-project dependencies (BGE-M3 semantic search)
+          <br>3. Generate executive meeting minutes with decision suggestions
+        </div>
+      </div>
+    </div>
+    <div class="modal-ft">
+      <button class="btn-ghost" onclick="document.getElementById('cabin-create-modal').style.display='none'">Cancel</button>
+      <button class="btn-brand" onclick="this.innerHTML='Creating...';setTimeout(()=>{document.getElementById('cabin-create-modal').style.display='none';alert('Cabin created! Notifications sent.')},800)">Create Cabin & Send Invites</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODAL 2: Cabin Detail ═══ -->
+<div id="cabin-detail-modal" class="modal-overlay" style="display:none" onclick="if(event.target===this)this.style.display='none'">
+  <div class="modal" style="width:680px">
+    <div class="modal-hd">
+      <div>
+        <h3>Q2 研发进度协同会</h3>
+        <div class="text-2xs muted mt-1">Created by JamesWuPM · June 23, 2026</div>
+      </div>
+      <button class="btn-ghost btn-xs" onclick="document.getElementById('cabin-detail-modal').style.display='none'" style="font-size:16px;padding:2px 8px">✕</button>
+    </div>
+    <div class="modal-bd">
+      <!-- Participants -->
+      <div class="mb-3">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs fw-600">Participants (3)</span>
+          <button class="btn-ghost btn-xs" style="display:flex;align-items:center;gap:4px">
+            <svg width="12" height="12" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/></svg>
+            Invite
+          </button>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="user-chip selected" style="padding:4px 8px;font-size:11px"><span class="badge-dot green"></span>JM (Creator)</div>
+          <div class="user-chip selected" style="padding:4px 8px;font-size:11px"><span class="badge-dot green"></span>JT (Mounted)</div>
+          <div class="user-chip" style="padding:4px 8px;font-size:11px;opacity:0.6"><span class="badge-dot" style="background:hsl(var(--i-m))"></span>DV (Pending)</div>
+        </div>
+      </div>
+
+      <!-- Mounted Projects -->
+      <div class="mb-3">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs fw-600">Mounted Projects (2/3)</span>
+          <button class="btn-brand btn-xs" style="display:flex;align-items:center;gap:4px">
+            <svg width="12" height="12" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/></svg>
+            Mount Project
+          </button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div class="card" style="padding:10px 14px;display:flex;align-items:center;gap:12px">
+            <span class="badge-dot green"></span>
+            <span class="text-sm flex-1">TomiHub Dev (TOMAT)</span>
+            <span class="tag tag-act">Phase: Development</span>
+            <span class="text-2xs muted">Mounted by JM</span>
+          </div>
+          <div class="card" style="padding:10px 14px;display:flex;align-items:center;gap:12px">
+            <span class="badge-dot green"></span>
+            <span class="text-sm flex-1">TomiHubScrum (TOMATSCM)</span>
+            <span class="tag tag-warn">Phase: Testing</span>
+            <span class="text-2xs muted">Mounted by JT</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Generated Document -->
+      <div style="padding:12px;border-radius:8px;background:hsl(var(--sf-h));margin-bottom:12px">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs fw-600">Latest Panorama Document — v2 (Jun 23, 14:30)</span>
+          <button class="btn-brand btn-xs" style="display:flex;align-items:center;gap:4px">
+            <svg width="12" height="12" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/></svg>
+            Re-generate
+          </button>
+        </div>
+
+        <!-- Module 1: Traffic Lights -->
+        <div style="padding:8px 10px;border-radius:6px;background:hsl(var(--sf-c));margin-bottom:6px">
+          <div class="text-xs fw-600 mb-1">🚨 Cross-Project Health Audit</div>
+          <div class="text-2xs muted" style="line-height:1.6">
+            <span class="badge-dot green" style="display:inline-block"></span> TOMAT: Health 78 · On track<br>
+            <span class="badge-dot yellow" style="display:inline-block"></span> TOMATSCM: Health 0 · ⚠ No issues found — manager needs to mount active phase
+          </div>
+        </div>
+
+        <!-- Module 2: Dependencies -->
+        <div style="padding:8px 10px;border-radius:6px;background:hsl(var(--sf-c));margin-bottom:6px">
+          <div class="text-xs fw-600 mb-1">🧩 Cross-Project Dependencies</div>
+          <div class="text-2xs muted">No cross-project blockers detected between mounted projects.</div>
+        </div>
+
+        <!-- Module 3: Minutes -->
+        <div style="padding:8px 10px;border-radius:6px;background:hsl(var(--sf-c))">
+          <div class="text-xs fw-600 mb-1">📋 Executive Minutes Draft</div>
+          <div class="text-2xs muted" style="line-height:1.6">
+            <strong>TOMAT:</strong> Phase Development at 80% · Core bug resolution under control · <span style="color:hsl(var(--brand))">AI suggests phase review in 3 days</span><br>
+            <strong>TOMATSCM:</strong> No active issues — suggest manager attaches Testing phase<br>
+            <strong>Decision:</strong> <span style="color:hsl(var(--brand))">AI recommends re-mounting TOMATSCM with active data before next meeting</span>
+            <span class="tag tag-act" style="font-size:9px;margin-left:4px">Accepted by JM</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-brand" style="width:100%;padding:10px">Re-generate Panorama Document</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

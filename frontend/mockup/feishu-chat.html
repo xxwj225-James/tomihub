@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feishu × TomiHub Chat Mockup</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:#e8eaed;display:flex;justify-content:center;padding:20px}
+.chat{width:520px;background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.1);overflow:hidden;display:flex;flex-direction:column;height:90vh}
+.chat-hd{background:#1f2329;color:#fff;padding:12px 16px;font-size:14px;font-weight:600;display:flex;align-items:center;gap:10px}
+.chat-hd .dot{width:8px;height:8px;border-radius:50%;background:#22c55e}
+.chat-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:14px}
+.chat-ft{border-top:1px solid #e5e7eb;padding:12px;display:flex;gap:8px}
+.chat-ft input{flex:1;border:none;outline:none;font-size:13px;font-family:inherit;padding:8px}
+.chat-ft .menu{border-top:1px solid #e5e7eb;padding:8px 12px;display:flex;gap:6px;overflow-x:auto}
+.chat-ft .menu button{flex-shrink:0;padding:6px 12px;border-radius:99px;border:1px solid #e5e7eb;background:#fff;font-size:11px;cursor:pointer;white-space:nowrap;font-family:inherit}
+
+.msg{max-width:90%}
+.msg.other{align-self:flex-start}.msg.other .bubble{background:#f0f1f2;border-radius:2px 12px 12px 12px}
+.msg.self{align-self:flex-end}.msg.self .bubble{background:#3370ff;color:#fff;border-radius:12px 2px 12px 12px}
+.bubble{padding:10px 14px;font-size:13px;line-height:1.5}
+.msg .sender{font-size:11px;color:#8f959e;margin-bottom:2px}
+.msg .time{font-size:10px;color:#8f959e;margin-top:2px;text-align:right}
+
+.card{border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;background:#fff;font-size:13px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.card-hd{padding:10px 14px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;gap:8px;font-weight:600}
+.card-bd{padding:12px 14px;line-height:1.6}
+.card-ft{padding:8px 14px;border-top:1px solid #f0f0f0;display:flex;gap:8px}
+.card-ft button{padding:6px 14px;border-radius:6px;border:1px solid #e5e7eb;background:#fff;font-size:12px;cursor:pointer;font-family:inherit;transition:all .15s}
+.card-ft button:hover{background:#f5f5f5}
+.card-ft button.primary{background:#3370ff;color:#fff;border-color:#3370ff}
+.hi{color:#ef4444}.med{color:#f59e0b}.lo{color:#22c55e}.brand{color:#4f46e5}
+.tag{display:inline-block;font-size:10px;padding:1px 6px;border-radius:99px;font-weight:600;margin-right:4px}
+.tag-hi{background:#fef2f2;color:#ef4444}.tag-med{background:#fffbeb;color:#d97706}.tag-lo{background:#f0fdf4;color:#16a34a}
+.mono{font-family:'JetBrains Mono',monospace;font-size:11px}
+.row{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.prog{height:6px;background:#f0f0f0;border-radius:99px;overflow:hidden;margin-top:4px}
+.prog-bar{height:100%;border-radius:99px}
+.bot-icon{width:28px;height:28px;border-radius:6px;background:#4f46e5;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;flex-shrink:0}
+.msg.other .sender-row{display:flex;align-items:center;gap:6px;margin-bottom:4px}
+</style>
+</head>
+<body>
+
+<div class="chat">
+  <div class="chat-hd"><span class="dot"></span> TomiHub Core · 开发群 (12人) <span style="margin-left:auto;font-size:12px;font-weight:400">🔔</span></div>
+
+  <div class="chat-msgs">
+
+    <!-- Bob assigns issue -->
+    <div class="msg other">
+      <div class="sender-row"><div class="av" style="width:20px;height:20px;font-size:9px;background:#3370ff;color:#fff">B</div><span class="sender">Bob</span><span class="time" style="margin-left:4px">10:30</span></div>
+      <div class="bubble">@TomiHub assign AIPM-42 to @Alice</div>
+    </div>
+
+    <!-- Bot response card -->
+    <div class="msg other">
+      <div class="sender-row"><div class="bot-icon">A</div><span class="sender">TomiHub Bot</span><span class="time" style="margin-left:4px">10:30</span></div>
+      <div class="card" style="width:100%">
+        <div class="card-hd">✅ AIPM-42 assigned to Alice</div>
+        <div class="card-bd">
+          <div class="row"><span class="mono" style="color:#ef4444">🔴 AIPM-42</span><span class="tag tag-hi">High · Bug</span></div>
+          <p style="margin:6px 0;font-weight:500">Fix login page layout on mobile devices</p>
+          <div class="row" style="color:#8f959e;font-size:12px"><span>Status: In Progress</span><span>SP: 8</span></div>
+        </div>
+        <div class="card-ft"><button>View Details</button><button class="primary">Change Status</button></div>
+      </div>
+    </div>
+
+    <!-- Alice checks status -->
+    <div class="msg other">
+      <div class="sender-row"><div class="av" style="width:20px;height:20px;font-size:9px;background:#22c55e;color:#fff">A</div><span class="sender">Alice</span><span class="time" style="margin-left:4px">10:31</span></div>
+      <div class="bubble">@TomiHub status AIPM-42</div>
+    </div>
+
+    <!-- Bot: issue detail card -->
+    <div class="msg other">
+      <div class="sender-row"><div class="bot-icon">A</div><span class="sender">TomiHub Bot</span><span class="time" style="margin-left:4px">10:31</span></div>
+      <div class="card" style="width:100%">
+        <div class="card-hd"><span class="mono" style="color:#ef4444">🔴 AIPM-42</span> Fix login page layout on mobile</div>
+        <div class="card-bd">
+          <div class="row" style="margin-bottom:6px"><span class="tag tag-hi">In Progress</span><span class="tag tag-hi">High</span><span class="tag tag-lo">Bug</span></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px">
+            <div><span style="color:#8f959e">Assignee</span><br><strong>Alice</strong></div>
+            <div><span style="color:#8f959e">Sprint</span><br><strong>Sprint 3</strong></div>
+            <div><span style="color:#8f959e">Story Points</span><br><strong>8</strong></div>
+            <div><span style="color:#8f959e">Created</span><br><strong>Jun 3</strong></div>
+          </div>
+          <div style="margin-top:10px;padding:8px 10px;background:#f5f3ff;border-radius:6px;font-size:12px">
+            <span style="color:#4f46e5;font-weight:600">🤖 AI Analysis</span>
+            <div style="margin-top:4px">Risk: <span class="lo">Low (32)</span> · Root: Flex layout not responsive on mobile</div>
+          </div>
+        </div>
+        <div class="card-ft"><button>Assign</button><button class="primary">Update Status</button><button>Comment</button></div>
+      </div>
+    </div>
+
+    <!-- Charlie reports a bug via NL -->
+    <div class="msg other">
+      <div class="sender-row"><div class="av" style="width:20px;height:20px;font-size:9px;background:#f59e0b;color:#fff">C</div><span class="sender">Charlie</span><span class="time" style="margin-left:4px">10:35</span></div>
+      <div class="bubble">@TomiHub create bug "Dashboard stat cards not clickable on iPad" assign to me priority high sprint "Sprint 3"</div>
+    </div>
+
+    <!-- Bot: created -->
+    <div class="msg other">
+      <div class="sender-row"><div class="bot-icon">A</div><span class="sender">TomiHub Bot</span><span class="time" style="margin-left:4px">10:35</span></div>
+      <div class="card" style="width:100%">
+        <div class="card-hd">✅ Issue created</div>
+        <div class="card-bd"><div class="row"><span class="mono" style="color:#ef4444">🔴 AIPM-53</span><span class="tag tag-hi">High · Bug</span></div><p style="margin:6px 0;font-weight:500">Dashboard stat cards not clickable on iPad</p><div class="row" style="color:#8f959e;font-size:12px"><span>Assignee: Charlie</span><span>Sprint 3</span></div></div>
+        <div class="card-ft"><button class="primary">Add Description</button><button>View</button></div>
+      </div>
+    </div>
+
+    <!-- HITL: AI agent requests write → Feishu sends confirmation card -->
+    <div class="msg other">
+      <div class="sender-row"><div class="bot-icon">A</div><span class="sender">TomiHub Bot</span><span class="time" style="margin-left:4px">11:05</span></div>
+      <div class="card" style="width:100%;border-left:3px solid #f59e0b">
+        <div class="card-hd">🤖 Claude requested: bulk update 3 issues to Sprint 4</div>
+        <div class="card-bd" style="font-size:12px;line-height:1.6">
+          <p style="margin-bottom:6px"><strong>Affected issues:</strong></p>
+          <p>· AIPM-45 Gantt chart timeline → Sprint 4</p>
+          <p>· AIPM-48 Dark mode email templates → Sprint 4</p>
+          <p>· AIPM-46 WebSocket reconnection → Sprint 4</p>
+          <p style="margin-top:8px;color:#f59e0b;font-weight:600">⏰ Auto-deny in 4:30</p>
+        </div>
+        <div class="card-ft">
+          <button class="primary" style="background:#22c55e;border-color:#22c55e">✅ Approve</button>
+          <button style="border-color:#ef4444;color:#ef4444">❌ Deny</button>
+          <button>View Details</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bob checks project health -->
+    <div class="msg other">
+      <div class="sender-row"><div class="av" style="width:20px;height:20px;font-size:9px;background:#3370ff;color:#fff">B</div><span class="sender">Bob</span><span class="time" style="margin-left:4px">10:40</span></div>
+      <div class="bubble">@TomiHub health AIPM</div>
+    </div>
+
+    <!-- Bot: project health card -->
+    <div class="msg other">
+      <div class="sender-row"><div class="bot-icon">A</div><span class="sender">TomiHub Bot</span><span class="time" style="margin-left:4px">10:40</span></div>
+      <div class="card" style="width:100%">
+        <div class="card-hd">📊 AIPM Core Platform · Health Score</div>
+        <div class="card-bd">
+          <div style="font-size:32px;font-weight:700;color:#4f46e5;text-align:center;margin-bottom:8px">78<span style="font-size:14px;font-weight:400;color:#f59e0b"> 🟡 At Risk</span></div>
+          <div class="row" style="margin-bottom:6px"><span style="font-size:12px">Sprint 3 Progress</span><span style="font-size:12px;font-weight:600;color:#4f46e5">60%</span></div><div class="prog"><div class="prog-bar" style="width:60%;background:#4f46e5"></div></div>
+          <div class="row" style="margin:8px 0 6px"><span style="font-size:12px">Bug Resolution Rate</span><span style="font-size:12px;font-weight:600;color:#22c55e">90%</span></div><div class="prog"><div class="prog-bar" style="width:90%;background:#22c55e"></div></div>
+          <div class="row" style="margin:8px 0 6px"><span style="font-size:12px">Team Velocity</span><span style="font-size:12px;font-weight:600;color:#f59e0b">-15%</span></div><div class="prog"><div class="prog-bar" style="width:34%;background:#f59e0b"></div></div>
+          <div style="margin-top:10px;padding:8px;background:#fef2f2;border-radius:6px;font-size:12px">
+            <span style="color:#ef4444;font-weight:600">⚠ 2 risks</span><br>
+            · 2 P0 bugs unassigned for 48h<br>
+            · Sprint behind schedule (60% at 80% timeline)
+          </div>
+        </div>
+        <div class="card-ft"><button class="primary">Open Board</button><button>View Risks</button><button>Full Report</button></div>
+      </div>
+    </div>
+
+    <!-- Alice checks her tasks -->
+    <div class="msg other">
+      <div class="sender-row"><div class="av" style="width:20px;height:20px;font-size:9px;background:#22c55e;color:#fff">A</div><span class="sender">Alice</span><span class="time" style="margin-left:4px">10:42</span></div>
+      <div class="bubble">@TomiHub my tasks</div>
+    </div>
+
+    <!-- Bot: task list -->
+    <div class="msg other">
+      <div class="sender-row"><div class="bot-icon">A</div><span class="sender">TomiHub Bot</span><span class="time" style="margin-left:4px">10:42</span></div>
+      <div class="card" style="width:100%">
+        <div class="card-hd">📋 Alice · 5 open tasks</div>
+        <div class="card-bd" style="padding:0">
+          <div style="padding:8px 14px;border-bottom:1px solid #f0f0f0;font-size:12px;display:flex;align-items:center;gap:8px"><span class="tag tag-hi">High</span><span class="mono">AIPM-42</span><span style="flex:1;font-weight:500">Fix login layout</span><span style="color:#8f959e">In Progress</span></div>
+          <div style="padding:8px 14px;border-bottom:1px solid #f0f0f0;font-size:12px;display:flex;align-items:center;gap:8px"><span class="tag tag-hi">High</span><span class="mono">AIPM-53</span><span style="flex:1;font-weight:500">Dashboard iPad bug</span><span style="color:#8f959e">Open</span></div>
+          <div style="padding:8px 14px;border-bottom:1px solid #f0f0f0;font-size:12px;display:flex;align-items:center;gap:8px"><span class="tag tag-med">Med</span><span class="mono">AIPM-35</span><span style="flex:1;font-weight:500">Permission system</span><span style="color:#8f959e">To Do</span></div>
+          <div style="padding:8px 14px;font-size:12px;display:flex;align-items:center;gap:8px"><span class="tag tag-lo">Low</span><span class="mono">AIPM-21</span><span style="flex:1;font-weight:500">Auth unit tests</span><span style="color:#8f959e">Blocked</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bot menu bar -->
+  <div class="chat-ft">
+    <div class="menu">
+      <button>📋 Tasks</button>
+      <button>🔍 Search</button>
+      <button>📊 Health</button>
+      <button>📅 Sprint</button>
+      <button>➕ Create</button>
+      <button>⚙ Help</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

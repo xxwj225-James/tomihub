@@ -1,0 +1,22 @@
+jwt:
+  public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAheCUkhvpubmi0CfpBEMXY/CEHyNQ5ZoeYsbqdNWuXjn7n0oyz4D0kEREYG1XJmpoz6L+oNDtRSIMkHftDFpBR7u/nMiZM/vXUI+cDQ1tsQwH/DmOYIX6kfZZWTgcyZ0BLRFJUmH2FgmYm7n1KgIzmYqkf6Mm6+41Ag9n536KALre/ttPfxF9yqBiCyvoqjewwXED95Cnm8AC760gW6J1p4yNFaQW7M4H6BqvCEJAEfidooHiXG0XNsb0oxtThkO8Le6folWKhRwwRM/xJbgAqQOs+B2PxA3w9sLYzLhgHXXlhS1UD52P7LHi+ozTLoO0uwaU77+qGlLgts7hBiwZNwIDAQAB
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5434/aipm
+    driver-class-name: org.postgresql.Driver
+    username: aipm
+    password: aipm_dev_password
+  sql:
+    init:
+      mode: never
+  flyway:
+    enabled: false
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    com.ai_pm: DEBUG

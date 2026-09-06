@@ -1,0 +1,188 @@
+# =========================================================
+# tomihub-oss-test — self-contained no-AI test stack
+#
+# Runs the open (no-ai-brain) edition with names/ports/network fully
+# isolated from the running tomihub-test stack on the same host:
+#   host ports: postgres 15433 · redis 16379 · rabbitmq 15672/15673
+#               auth 28081 · core 28082 · frontend 28080 (HTTP only)
+#   frontend built with VITE_ENABLE_AI_FEATURES=false
+#
+# Usage (from docker/):
+#   cp .env.example .env
+#   bash gen-keys.sh                 # fills JWT_PRIVATE_KEY / JWT_PUBLIC_KEY
+#   docker compose -f docker-compose.oss-test.yml up -d --build
+#   open http://localhost:28080
+# Teardown: docker compose -f docker-compose.oss-test.yml down
+# =========================================================
+name: tomihub-oss-test
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: tomihub-oss-postgres
+    environment:
+      POSTGRES_DB: ai_pm
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "15433:5432"
+    volumes:
+      - oss_pgdata:/var/lib/postgresql/data
+      - ../supabase/migrations:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d ai_pm"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - tomihub-oss-net
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: tomihub-oss-redis
+    ports:
+      - "16379:6379"
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - oss_redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+    networks:
+      - tomihub-oss-net
+    restart: unless-stopped
+
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    container_name: tomihub-oss-rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    ports:
+      - "15672:5672"
+      - "15673:15672"
+    volumes:
+      - oss_rabbitdata:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_port_connectivity"]
+      interval: 10s
+      timeout: 30s
+      retries: 5
+    networks:
+      - tomihub-oss-net
+    restart: unless-stopped
+
+  auth:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.java
+      target: auth
+    image: tomihub-oss-auth
+    container_name: tomihub-oss-auth
+    ports:
+      - "28081:8081"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      DB_URL: jdbc:postgresql://postgres:5432/ai_pm
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      REDIS_HOST: redis
+      RABBITMQ_HOST: rabbitmq
+      JWT_PRIVATE_KEY: ${JWT_PRIVATE_KEY}
+      JWT_PUBLIC_KEY: ${JWT_PUBLIC_KEY}
+      TZ: Asia/Shanghai
+      APP_BASE_URL: ${APP_BASE_URL:-http://localhost:28080}
+      ENCRYPT_KEY: ${ENCRYPT_KEY:-TomiHub2026}
+      DEMO_EMAIL_SUFFIX: "@demo.local"
+      HTTPS_PROXY: ${HTTPS_PROXY:-}
+      HTTP_PROXY: ${HTTP_PROXY:-}
+      ALL_PROXY: ${ALL_PROXY:-}
+      NO_PROXY: ${NO_PROXY:-}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:8081/actuator/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 40s
+    networks:
+      - tomihub-oss-net
+    restart: unless-stopped
+
+  core:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.java
+      target: core
+    image: tomihub-oss-core
+    container_name: tomihub-oss-core
+    ports:
+      - "28082:8082"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      DB_URL: jdbc:postgresql://postgres:5432/ai_pm
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      REDIS_HOST: redis
+      RABBITMQ_HOST: rabbitmq
+      JWT_PUBLIC_KEY: ${JWT_PUBLIC_KEY}
+      TZ: Asia/Shanghai
+      ENCRYPT_KEY: ${ENCRYPT_KEY:-TomiHub2026}
+      HTTPS_PROXY: ${HTTPS_PROXY:-}
+      HTTP_PROXY: ${HTTP_PROXY:-}
+      ALL_PROXY: ${ALL_PROXY:-}
+      NO_PROXY: ${NO_PROXY:-}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      auth:
+        condition: service_healthy
+    volumes:
+      - oss_logs:/var/log/tomiHub
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:8082/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 40s
+    networks:
+      - tomihub-oss-net
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.frontend
+      target: prod
+      args:
+        VITE_ENABLE_AI_FEATURES: "false"
+        VITE_ENABLE_DEMO_MODE: "false"
+        VITE_DEMO_EMAIL_SUFFIX: "@demo.local"
+    image: tomihub-oss-frontend
+    container_name: tomihub-oss-frontend
+    ports:
+      - "28080:80"
+    depends_on:
+      core:
+        condition: service_healthy
+    networks:
+      - tomihub-oss-net
+    restart: unless-stopped
+
+networks:
+  tomihub-oss-net:
+    driver: bridge
+    enable_ipv6: false
+
+volumes:
+  oss_pgdata:
+  oss_redisdata:
+  oss_rabbitdata:
+  oss_logs:

@@ -1,0 +1,187 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: ai-pm-postgres
+    environment:
+      POSTGRES_DB: ai_pm
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+    - 5433:5432
+    volumes:
+    - postgres_data:/var/lib/postgresql/data
+    - ../supabase/migrations:/docker-entrypoint-initdb.d
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - pg_isready -U postgres -d ai_pm
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+    - ai-pm-net
+  redis:
+    image: redis:7-alpine
+    container_name: ai-pm-redis
+    ports:
+    - 6379:6379
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+    - redis_data:/data
+    healthcheck:
+      test:
+      - CMD
+      - redis-cli
+      - ping
+      interval: 5s
+    networks:
+    - ai-pm-net
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    container_name: ai-pm-rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    ports:
+    - 5672:5672
+    - 15672:15672
+    volumes:
+    - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test:
+      - CMD
+      - rabbitmq-diagnostics
+      - check_port_connectivity
+      interval: 10s
+      timeout: 30s
+      retries: 5
+    networks:
+    - ai-pm-net
+  auth:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.java
+      target: auth
+    image: tomihub-auth
+    container_name: ai-pm-auth
+    ports:
+    - 8081:8081
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      DB_URL: jdbc:postgresql://postgres:5432/ai_pm
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      REDIS_HOST: redis
+      RABBITMQ_HOST: rabbitmq
+      JWT_PRIVATE_KEY: ${JWT_PRIVATE_KEY}
+      JWT_PUBLIC_KEY: ${JWT_PUBLIC_KEY}
+      TZ: Asia/Shanghai
+      APP_BASE_URL: ${APP_BASE_URL:-http://localhost}
+      ENCRYPT_KEY: ${ENCRYPT_KEY:-TomiHub2026}
+      DEMO_EMAIL_SUFFIX: ${DEMO_EMAIL_SUFFIX:-@tomihub.demo}
+      HTTPS_PROXY: ${HTTPS_PROXY:-}
+      HTTP_PROXY: ${HTTP_PROXY:-}
+      ALL_PROXY: ${ALL_PROXY:-}
+      NO_PROXY: ${NO_PROXY:-}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -sf
+      - http://localhost:8081/actuator/health
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 30s
+    volumes:
+    - tomiHub_logs:/var/log/tomiHub
+    networks:
+    - ai-pm-net
+    restart: unless-stopped
+  core:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.java
+      target: core
+    image: tomihub-core
+    container_name: ai-pm-core
+    ports:
+    - 8082:8082
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      DB_URL: jdbc:postgresql://postgres:5432/ai_pm
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      REDIS_HOST: redis
+      RABBITMQ_HOST: rabbitmq
+      JWT_PUBLIC_KEY: ${JWT_PUBLIC_KEY}
+      TZ: Asia/Shanghai
+      ENCRYPT_KEY: ${ENCRYPT_KEY:-TomiHub2026}
+      HTTPS_PROXY: ${HTTPS_PROXY:-}
+      HTTP_PROXY: ${HTTP_PROXY:-}
+      ALL_PROXY: ${ALL_PROXY:-}
+      NO_PROXY: ${NO_PROXY:-}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      auth:
+        condition: service_healthy
+    volumes:
+    - tomiHub_logs:/var/log/tomiHub
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -sf
+      - http://localhost:8082/actuator/health
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 30s
+    networks:
+      ai-pm-net:
+        mac_address: 02:42:ac:16:00:10
+    restart: unless-stopped
+  frontend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.frontend
+      target: prod
+      args:
+        VITE_ENABLE_AI_FEATURES: 'false'
+        VITE_ENABLE_DEMO_MODE: 'false'
+        VITE_DEMO_EMAIL_SUFFIX: ${DEMO_EMAIL_SUFFIX:-@tomihub.demo}
+    image: tomihub-frontend
+    container_name: ai-pm-frontend
+    ports:
+    - 80:80
+    - 443:443
+    volumes:
+    - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      core:
+        condition: service_healthy
+    networks:
+    - ai-pm-net
+volumes:
+  postgres_data: null
+  redis_data: null
+  rabbitmq_data: null
+  tomiHub_logs: null
+  ollama_embed_data: null
+networks:
+  ai-pm-net:
+    driver: bridge
+    enable_ipv6: ${ENABLE_IPV6:-false}
+    ipam:
+      config:
+      - subnet: 172.22.0.0/16
+      - subnet: 2001:db8:1::/64
+        gateway: 2001:db8:1::1

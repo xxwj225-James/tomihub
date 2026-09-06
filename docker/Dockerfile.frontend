@@ -1,0 +1,76 @@
+# ==========================================
+# Multi-stage Dockerfile — React Frontend
+# ==========================================
+#
+# Dev:   Node + Vite HMR (hot reload, not for production)
+# Prod:  Nginx serving static files (gzip, cache headers, 10k+ concurrent)
+#
+# ★ Never run Vite preview in production.
+#   Nginx handles static files 50-100x faster than Node.js.
+# ==========================================
+
+# ═══ Stage 1: Install dependencies (cached) ═══
+FROM node:20-alpine AS deps
+WORKDIR /app
+
+# Layer cache: package.json changes infrequently
+COPY frontend/package.json frontend/package-lock.json* ./
+RUN npm ci --prefer-offline
+
+# ═══ Stage 2: Dev server (Vite HMR, local development only) ═══
+FROM deps AS dev
+COPY frontend/ .
+EXPOSE 3000
+ENV NODE_ENV=development
+CMD ["npx", "vite", "--host", "0.0.0.0", "--port", "3000"]
+
+# ═══ Stage 3: Build static assets ═══
+FROM deps AS build
+COPY frontend/ .
+ENV NODE_ENV=production
+# AI feature gate — set VITE_ENABLE_AI_FEATURES=false to build the no-AI
+# (pure project-management) edition. Defaults to true (full TomiHub).
+ARG VITE_ENABLE_AI_FEATURES=true
+ENV VITE_ENABLE_AI_FEATURES=${VITE_ENABLE_AI_FEATURES}
+# Demo identity suffix. Cloud AI demo keeps @tomihub.demo (AI-demo chrome);
+# the no-AI open edition sets @demo.local so Try-demo is a plain PM demo.
+ARG VITE_DEMO_EMAIL_SUFFIX=@tomihub.demo
+ENV VITE_DEMO_EMAIL_SUFFIX=${VITE_DEMO_EMAIL_SUFFIX}
+RUN npm run build
+# Output: /app/dist/
+
+# ═══ Stage 4: Production (Nginx + static files) ═══
+FROM nginx:alpine AS prod
+
+# Remove default Nginx config
+RUN rm -f /etc/nginx/conf.d/default.conf
+
+# Custom Nginx config — optimized for SPA
+COPY docker/nginx-frontend.conf /etc/nginx/conf.d/default.conf
+
+# ★ Copy compiled static files (HTML/JS/CSS — pure static, no Node.js)
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Security headers + gzip
+RUN echo 'add_header X-Content-Type-Options "nosniff";' \
+        'add_header X-Frame-Options "DENY";' \
+        'add_header X-XSS-Protection "1; mode=block";' \
+        'add_header Referrer-Policy "strict-origin-when-cross-origin";' > \
+        /etc/nginx/conf.d/security-headers.conf
+
+# Generate self-signed SSL cert (user can mount real certs over this)
+RUN mkdir -p /etc/nginx/ssl && \
+    apk add --no-cache openssl && \
+    openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+      -keyout /etc/nginx/ssl/key.pem \
+      -out /etc/nginx/ssl/cert.pem \
+      -subj "/CN=localhost" && \
+    chmod 600 /etc/nginx/ssl/*.pem
+
+EXPOSE 80
+EXPOSE 443
+
+HEALTHCHECK --interval=15s --timeout=3s --retries=3 \
+  CMD curl -sf http://127.0.0.1/health || exit 1
+
+CMD ["nginx", "-g", "daemon off;"]

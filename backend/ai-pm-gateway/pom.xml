@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.ai-pm</groupId>
+        <artifactId>ai-pm-backend</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>ai-pm-gateway</artifactId>
+    <packaging>jar</packaging>
+    <name>AI-PM Gateway</name>
+    <description>API Gateway — Auth, Rate Limiting, Routing, TraceId injection</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.ai-pm</groupId>
+            <artifactId>ai-pm-common</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-gateway</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+        </dependency>
+        <!-- Redis for rate limiting -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+        </dependency>
+        <!-- Circuit breaker -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
+        </dependency>
+    </dependencies>
+
+        <build>
+        <plugins>        <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>obfuscate</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <version>3.6.1</version>
+                        <executions>
+                            <execution>
+                                <id>proguard-libjars</id>
+                                <phase>process-classes</phase>
+                                <goals><goal>build-classpath</goal></goals>
+                                <configuration>
+                                    <includeScope>compile</includeScope>
+                                    <outputFile>${project.build.directory}/proguard-libraryjars.txt</outputFile>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>proguard-obfuscate</id>
+                                <phase>process-classes</phase>
+                                <goals><goal>run</goal></goals>
+                                <configuration>
+                                    <target>
+                                        <loadfile property="pg.libs" srcFile="${project.build.directory}/proguard-libraryjars.txt" failonerror="true"/>
+                                        <echo file="${project.build.directory}/proguard-args.txt">
+-injars ${project.build.outputDirectory}
+-outjars ${project.build.outputDirectory}-obfuscated
+-libraryjars /jdk-libs
+-libraryjars ${pg.libs}
+-include
+${maven.multiModuleProjectDirectory}/proguard.cfg
+                                        </echo>
+                                        <exec executable="java" failonerror="true">
+                                            <arg value="-Xmx1536m"/>
+                                            <arg value="-cp"/>
+                                            <arg value="${settings.localRepository}/com/guardsquare/proguard-base/7.4.2/proguard-base-7.4.2.jar${path.separator}${settings.localRepository}/com/guardsquare/proguard-core/9.1.1/proguard-core-9.1.1.jar${path.separator}${settings.localRepository}/org/apache/logging/log4j/log4j-api/2.19.0/log4j-api-2.19.0.jar${path.separator}${settings.localRepository}/org/apache/logging/log4j/log4j-core/2.19.0/log4j-core-2.19.0.jar"/>
+                                            <arg value="proguard.ProGuard"/>
+                                            <arg value="@${project.build.directory}/proguard-args.txt"/>
+                                        </exec>
+                                        <delete dir="${project.build.outputDirectory}"/>
+                                        <move todir="${project.build.outputDirectory}">
+                                            <fileset dir="${project.build.outputDirectory}-obfuscated"/>
+                                        </move>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

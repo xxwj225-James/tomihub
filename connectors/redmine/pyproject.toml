@@ -1,0 +1,20 @@
+[project]
+name = "tomihub-redmine-connector"
+version = "0.1.0"
+description = "TomiHub Redmine REST connector — mirror Redmine into the TomiHub data model"
+requires-python = ">=3.11"
+readme = "README.md"
+license = { text = "AGPL-3.0" }
+
+dependencies = [
+    "httpx>=0.27.0",
+    "asyncpg>=0.29.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+]
+
+[tool.setuptools]
+packages = ["redmine_connector", "import_engine"]

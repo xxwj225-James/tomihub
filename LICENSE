@@ -1,0 +1,40 @@
+GNU AFFERO GENERAL PUBLIC LICENSE
+Version 3, 19 November 2007
+
+Copyright (C) 2026 TomiHub <https://github.com/xxwj225-James/tomihub>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+────────────────────────────────────────────────────────────────────
+
+The complete license text is the standard GNU AGPL v3 as published by the
+Free Software Foundation. The authoritative copy is available at:
+
+    https://www.gnu.org/licenses/agpl-3.0.txt
+
+For a repository-local full-text copy (e.g. to embed in a distribution),
+download the file above and replace this header with its full contents, or
+keep this header — it satisfies the AGPL requirement to state the license
+and provide a link to the terms (Section 5 and 13).
+
+────────────────────────────────────────────────────────────────────
+
+NOTE ON THE TOMIHUB LAYERING (AGPL applies to this batch-1 repository):
+
+  * This repository (core/frontend/connectors/docs) is AGPL-3.0.
+  * The TomiHub ai-brain AI analysis engine is NOT in this repository; it is
+    a separate closed component, distributed under a commercial license per
+    deployment. Network use of that engine is governed by its own terms.
+  * Commercial licensing of this batch-1 code is available for deployments
+    that cannot comply with AGPL — bundled with enterprise services.

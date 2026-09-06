@@ -1,0 +1,55 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: ai-pm-gateway
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  cloud:
+      httpclient:
+        connect-timeout: 5000
+        response-timeout: 60s
+    gateway:
+      routes:
+        - id: auth
+          uri: ${AUTH_URL:http://localhost:8081}
+          predicates:
+            - Path=/api/v1/auth/**
+        - id: tenant
+          uri: ${TENANT_URL:http://localhost:8083}
+          predicates:
+            - Path=/api/v1/tenants/**
+        - id: core
+          uri: ${CORE_URL:http://localhost:8082}
+          predicates:
+            - Path=/api/v1/projects/**,/api/v1/issues/**,/api/v1/boards/**,/api/v1/sprints/**,/api/v1/workflows/**
+        - id: notification
+          uri: ${NOTIFY_URL:http://localhost:8084}
+          predicates:
+            - Path=/api/v1/notifications/**
+        - id: webhook
+          uri: ${WEBHOOK_URL:http://localhost:8085}
+          predicates:
+            - Path=/api/v1/webhooks/**
+        - id: ai-brain
+          uri: ${AI_BRAIN_URL:http://localhost:8000}
+          predicates:
+            - Path=/api/v1/ai/**,/api/v1/reports/**
+        - id: external
+          uri: ${CORE_URL:http://localhost:8082}
+          predicates:
+            - Path=/api/external/v1/**
+jwt:
+  public-key: ${JWT_PUBLIC_KEY}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,prometheus,circuitbreakers
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: when-authorized

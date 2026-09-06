@@ -1,0 +1,37 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:ai_pm_test;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema-test.sql
+  mail:
+    host: localhost
+    port: 3025
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: ASSIGN_UUID
+
+jwt:
+  issuer: ai-pm-test
+  access-token-ttl: 15m
+  refresh-token-ttl: 1d
+  remember-me-refresh-ttl: 7d
+
+verification:
+  code-length: 6
+  code-ttl: 5m
+  resend-cooldown: 1s
+
+login:
+  max-failed-attempts: 5
+  lock-duration: 15m

@@ -1,0 +1,2053 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="pipeline">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TomiHub UI Mockup — Full Coverage</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ═══ THEMES ═══ */
+:root,[data-theme="pipeline"]{--brand:237 47% 57%;--brand-h:237 47% 50%;--brand-s:237 100% 98%;--brand-t:0 0% 100%;--sf-a:240 3% 98%;--sf-c:0 0% 100%;--sf-h:240 5% 96%;--sf-s:240 4% 14%;--i-p:240 4% 12%;--i-s:240 3% 38%;--i-m:240 3% 55%;--i-sb:240 3% 55%;--i-sba:0 0% 100%;--e-d:240 4% 92%;--e-h:240 4% 84%;--e-s:240 3% 18%;--d:0 65% 48%;--d-s:0 70% 97%;--s:142 45% 40%;--s-s:140 50% 97%;--w:32 85% 44%;--w-s:32 90% 96%;--r:0.5rem;--sh:0 0 0 1px rgba(0,0,0,.03),0 1px 3px rgba(0,0,0,.04);--sh-h:0 0 0 1px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.08);--sh-d:0 0 0 1px rgba(0,0,0,.05),0 24px 60px rgba(0,0,0,.15);--f:'Inter',system-ui,sans-serif}
+[data-theme="hub"]{--brand:214 89% 52%;--brand-h:214 89% 45%;--brand-s:214 100% 97%;--sf-a:214 25% 95%;--sf-s:0 0% 100%;--sf-h:214 25% 93%;--i-p:214 25% 12%;--i-s:214 10% 38%;--i-m:214 8% 56%;--i-sb:214 10% 40%;--i-sba:214 90% 42%;--e-d:214 18% 88%;--e-h:214 18% 78%;--e-s:214 20% 90%;--r:0.625rem;--sh:0 1px 3px rgba(0,0,0,.06)}
+[data-theme="canvas"]{--brand:210 80% 45%;--brand-h:210 80% 38%;--brand-s:210 100% 96%;--sf-a:0 0% 98%;--sf-s:0 0% 100%;--sf-h:0 0% 95%;--i-p:0 0% 10%;--i-s:0 0% 34%;--i-m:0 0% 50%;--i-sb:0 0% 38%;--i-sba:210 80% 40%;--e-d:0 0% 86%;--e-h:0 0% 74%;--e-s:0 0% 92%;--r:0.25rem;--sh:0 1px 2px rgba(0,0,0,.08)}
+[data-theme="quantum"]{--brand:80 55% 48%;--brand-h:80 60% 55%;--brand-s:80 50% 10%;--brand-t:80 5% 6%;--sf-a:80 3% 11%;--sf-c:80 3% 13%;--sf-h:80 3% 16%;--sf-s:80 5% 9%;--i-p:80 8% 90%;--i-s:80 6% 68%;--i-m:80 4% 48%;--i-sb:80 5% 52%;--i-sba:80 55% 62%;--e-d:80 3% 20%;--e-h:80 3% 28%;--e-s:80 3% 16%;--r:0;--sh:0 0 0 1px hsl(80 3% 18%)}
+
+/* ═══ RESET & BASE ═══ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--f);font-size:14px;background:hsl(var(--sf-a));color:hsl(var(--i-p));-webkit-font-smoothing:antialiased}
+svg{display:block}button{font:inherit;cursor:pointer;border:none;background:none}
+a{color:inherit;text-decoration:none}
+
+/* ═══ LAYOUT ═══ */
+.layout{display:flex;height:100vh;overflow:hidden;transition:flex-direction 0.25s}
+.sb{width:224px;flex-shrink:0;display:flex;flex-direction:column;background:hsl(var(--sf-s));border-right:1px solid hsl(var(--e-s));overflow-y:auto;transition:all 0.25s}
+.sb-top{width:100%!important;height:48px!important;flex-direction:row!important;align-items:center!important;flex-shrink:0!important;overflow-y:hidden!important;overflow-x:auto!important;border-right:none!important;border-bottom:1px solid hsl(var(--e-s))!important}
+.sb-top .sb-logo{height:48px;border-bottom:none;padding:0 12px}
+.sb-top .sb-nav{display:none}
+.sb-top .sb-foot{display:flex!important;padding:0 8px;border-top:none;flex-direction:row;align-items:center;gap:4px}
+.sb-top .sb-foot .theme-row{margin-top:0!important;padding:0}
+.top-nav-row{display:none;width:100%;height:44px;background:hsl(var(--sf-s));border-bottom:1px solid hsl(var(--e-s));align-items:center;padding:0 12px;gap:2px}
+.sb-top .top-nav-row{display:flex}
+.top-nav-item{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:6px;font-size:13px;color:hsl(var(--i-sb));cursor:pointer;transition:all 0.12s;white-space:nowrap;border:none;background:transparent;font-family:var(--f)}
+.top-nav-item:hover{background:hsl(var(--sf-h));color:hsl(var(--i-sba))}
+.top-nav-item svg{width:15px;height:15px;flex-shrink:0}
+.top-breadcrumb{display:none;width:100%;height:32px;background:hsl(var(--sf-a));border-bottom:1px solid hsl(var(--e-d));align-items:center;padding:0 16px;font-size:12px;color:hsl(var(--i-m));gap:4px}
+.sb-top .top-breadcrumb{display:flex}
+.top-breadcrumb span{color:hsl(var(--i-s));font-weight:500}
+.top-dropdown{position:relative}
+.top-dropdown-menu{display:none;position:absolute;top:100%;left:0;z-index:100;min-width:180px;background:hsl(var(--sf-c));border:1px solid hsl(var(--e-d));border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.12);padding:4px;margin-top:4px}
+.top-dropdown:hover .top-dropdown-menu{display:block}
+.top-dropdown-item{display:flex;align-items:center;gap:8px;padding:7px 12px;border-radius:5px;font-size:12px;color:hsl(var(--i-p));cursor:pointer;border:none;background:transparent;width:100%;text-align:left;font-family:var(--f)}
+.top-dropdown-item:hover{background:hsl(var(--sf-h))}
+.layout-top-mode{flex-direction:column!important}
+.layout-top-mode .sb{order:-1}
+.sb-logo{display:flex;align-items:center;gap:10px;padding:0 16px;height:52px;border-bottom:1px solid hsl(var(--e-s))}
+.sb-logo-icon{width:26px;height:26px;border-radius:6px;background:hsl(var(--brand));display:flex;align-items:center;justify-content:center;color:hsl(var(--brand-t));font-weight:700;font-size:12px;flex-shrink:0}
+.sb-logo-text{font-weight:600;font-size:14px;color:hsl(var(--i-sba));letter-spacing:-0.01em}
+.sb-nav{flex:1;padding:8px;display:flex;flex-direction:column;gap:1px}
+.sb-sep{margin-top:12px}
+.sb-label{padding:6px 10px 4px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:hsl(var(--i-sb)/0.45)}
+.nav{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:var(--r);font-size:13px;color:hsl(var(--i-sb));transition:all 0.12s}
+.nav:hover{background:hsl(var(--sf-h)/0.08);color:hsl(var(--i-sba))}
+.nav.act{background:hsl(var(--sf-s)/0.3);color:hsl(var(--i-sba));font-weight:500}
+.nav svg{width:16px;height:16px;flex-shrink:0}
+.nav .badge{margin-left:auto;font-size:10px;padding:1px 6px;border-radius:99px;background:hsl(var(--brand));color:hsl(var(--brand-t));font-weight:600}
+.sb-foot{padding:8px;border-top:1px solid hsl(var(--e-s))}
+.sb-foot-btn{display:flex;align-items:center;gap:10px;width:100%;padding:7px 10px;border-radius:var(--r);font-size:12px;color:hsl(var(--i-sb));transition:all 0.12s}
+.sb-foot-btn:hover{background:hsl(var(--sf-h)/0.08);color:hsl(var(--i-sba))}
+.sb-foot-btn svg{width:16px;height:16px;flex-shrink:0}
+.theme-row{display:flex;gap:4px;padding:6px 10px}
+.tdot{width:18px;height:18px;border-radius:50%;border:2px solid transparent;cursor:pointer;flex-shrink:0;transition:all 0.15s}
+.tdot:hover{border-color:hsl(var(--i-sba));transform:scale(1.15)}
+.tdot.act{border-color:hsl(var(--i-sba));box-shadow:0 0 0 2px hsl(var(--i-sba)/.2)}
+.sdot{width:18px;height:18px;border-radius:50%;border:2px solid transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;background:hsl(var(--i-sb)/0.2);color:#fff;flex-shrink:0}
+.sdot:hover{border-color:hsl(var(--i-sba));transform:scale(1.15)}
+.sdot.act{background:hsl(var(--brand));border-color:hsl(var(--brand));color:#fff}
+
+/* ═══ CONTENT ═══ */
+.ct{flex:1;overflow-y:auto;background:hsl(var(--sf-a))}
+.ch{border-bottom:1px solid hsl(var(--e-d));padding:14px 24px;background:hsl(var(--sf-c));display:flex;align-items:center;justify-content:space-between;min-height:53px}
+.ch h2{font-size:16px;font-weight:600}.ch .bc{font-size:12px;color:hsl(var(--i-m))}
+.cb{padding:24px;max-width:1400px}
+
+/* ═══ CARDS ═══ */
+.card{background:hsl(var(--sf-c));border:1px solid hsl(var(--e-d));border-radius:var(--r);box-shadow:var(--sh);transition:box-shadow 0.2s}
+.card:hover{box-shadow:var(--sh-h)}
+.card-hd{padding:14px 18px;border-bottom:1px solid hsl(var(--e-d))}
+.card-hd h3{font-size:14px;font-weight:600}
+.card-bd{padding:16px 18px}
+.card-bd-nopad{padding:0}
+
+/* ═══ BUTTONS ═══ */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:var(--r);font-size:13px;font-weight:500;transition:all 0.15s;white-space:nowrap}
+.btn-b{background:hsl(var(--brand));color:hsl(var(--brand-t))}.btn-b:hover{background:hsl(var(--brand-h))}
+.btn-s{border:1px solid hsl(var(--e-d));color:hsl(var(--i-s))}.btn-s:hover{background:hsl(var(--sf-h));color:hsl(var(--i-p))}
+.btn-g{color:hsl(var(--i-s))}.btn-g:hover{background:hsl(var(--sf-h))}
+.btn-xs{padding:4px 10px;font-size:11px}
+
+.danger{color:hsl(var(--d))}.dg-soft{background:hsl(var(--d-s))}.warn{color:hsl(var(--w))}.warn-soft{background:hsl(var(--w-s))}.success-text{color:hsl(var(--s))}.succ-soft{background:hsl(var(--s-s))}.brand{color:hsl(var(--brand))}.brand-soft{background:hsl(var(--brand-s))}
+.muted{color:hsl(var(--i-m))}.muted-text{color:hsl(var(--i-m))}.pri{color:hsl(var(--i-p))}.sec{color:hsl(var(--i-s))}
+
+/* ═══ UTILITY ═══ */
+.flex{display:flex}.items-center{align-items:center}.gap2{gap:8px}.gap3{gap:12px}.gap4{gap:16px}.justify-between{justify-content:space-between}.flex-1{flex:1}.shrink{flex-shrink:0}.text-r{text-align:right}.text-c{text-align:center}
+.mono{font-family:'JetBrains Mono',monospace}.fs11{font-size:11px}.fs12{font-size:12px}.fs13{font-size:13px}.fs14{font-size:14px}.fw6{font-weight:600}.fw5{font-weight:500}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.grid-aside{display:grid;grid-template-columns:280px 1fr;gap:16px}
+.mb4{margin-bottom:16px}.mt4{margin-top:16px}.p2{padding:8px}.p3{padding:12px}.p4{padding:16px}.px3{padding-left:12px;padding-right:12px}.py2{padding-top:8px;padding-bottom:8px}
+.tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:99px;font-weight:500;white-space:nowrap}
+.tag-hi{background:hsl(var(--d-s));color:hsl(var(--d))}.tag-med{background:hsl(var(--w-s));color:hsl(var(--w))}.tag-lo{background:hsl(var(--s-s));color:hsl(var(--s))}.tag-b{background:hsl(var(--brand-s));color:hsl(var(--brand))}
+.av{width:22px;height:22px;border-radius:50%;background:hsl(var(--brand-s));color:hsl(var(--brand));display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0}
+.av-sm{width:18px;height:18px;font-size:9px}
+.view-off{display:none!important}
+.divider{border-top:1px solid hsl(var(--e-d))}
+.hover-row{padding:10px 16px;border-bottom:1px solid hsl(var(--e-d));transition:background 0.1s}
+.hover-row:hover{background:hsl(var(--sf-h))}
+.progress{height:6px;background:hsl(var(--sf-h));border-radius:99px;overflow:hidden}
+.progress-bar{height:100%;border-radius:99px;transition:width 0.3s}
+.progress-bar.brand{background:hsl(var(--brand))}.progress-bar.success{background:hsl(var(--s))}.progress-bar.warn{background:hsl(var(--w))}
+
+/* ═══ BOARD ═══ */
+.board-scroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px}
+.bcol{min-width:270px;max-width:270px;background:hsl(var(--sf-c));border:1px solid hsl(var(--e-d));border-radius:var(--r);display:flex;flex-direction:column}
+.bcol-hd{padding:12px 14px;border-bottom:1px solid hsl(var(--e-d));display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.bcol-hd h4{font-size:13px;font-weight:600}
+.bcol-cnt{font-size:11px;color:hsl(var(--i-m));background:hsl(var(--sf-h));padding:1px 7px;border-radius:99px}
+.bcol-bd{padding:8px;flex:1;min-height:60px}
+.bcard{background:hsl(var(--sf-c));border:1px solid hsl(var(--e-d));border-radius:var(--r);padding:10px 12px;margin-bottom:6px;font-size:13px;cursor:grab;box-shadow:var(--sh)}
+.bcard:hover{box-shadow:var(--sh-h)}
+.bcard .k{font-family:'JetBrains Mono',monospace;font-size:11px;color:hsl(var(--i-m))}
+.bcard .t{font-weight:500;margin:4px 0;line-height:1.4}
+.bcard .m{display:flex;align-items:center;gap:6px;margin-top:6px}
+
+/* ═══ ISSUE DETAIL ═══ */
+.detail-layout{max-width:900px}
+.detail-hd{margin-bottom:20px}
+.detail-id{font-family:'JetBrains Mono',monospace;font-size:14px;color:hsl(var(--i-m))}
+.detail-title{font-size:22px;font-weight:700;margin:6px 0 12px}
+.detail-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12px;color:hsl(var(--i-s))}
+.detail-body{display:grid;grid-template-columns:1fr 260px;gap:24px}
+.detail-desc{font-size:14px;line-height:1.7}
+.detail-sidebar .side-item{padding:8px 0;border-bottom:1px solid hsl(var(--e-d))}
+.detail-sidebar .side-label{font-size:11px;font-weight:600;color:hsl(var(--i-m));text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px}
+
+/* ═══ TAB BAR ═══ */
+.tabs{display:flex;border-bottom:1px solid hsl(var(--e-d));gap:0}
+.tab{padding:10px 18px;font-size:13px;font-weight:500;color:hsl(var(--i-s));border-bottom:2px solid transparent;transition:all 0.15s;cursor:pointer}
+.tab:hover{color:hsl(var(--i-p))}
+.tab.act{color:hsl(var(--brand));border-bottom-color:hsl(var(--brand))}
+.risk-l{left:3px}
+
+/* ═══ FORM ═══ */
+.form-grp{margin-bottom:16px}
+.form-label{display:block;font-size:12px;font-weight:600;color:hsl(var(--i-s));margin-bottom:4px}
+.form-input{width:100%;padding:8px 12px;border:1px solid hsl(var(--e-d));border-radius:var(--r);font-size:13px;font-family:inherit;background:hsl(var(--sf-c))}
+.form-input:focus{outline:none;border-color:hsl(var(--brand));box-shadow:0 0 0 3px hsl(var(--brand)/.1)}
+.form-textarea{min-height:120px;resize:vertical;font-family:inherit}
+.form-row{display:flex;gap:12px}.form-row>*{flex:1}
+.form-select{padding:8px 12px;border:1px solid hsl(var(--e-d));border-radius:var(--r);font-size:13px;background:hsl(var(--sf-c))}
+
+/* ═══ GANTT ═══ */
+.gantt-row{display:flex;align-items:center;border-bottom:1px solid hsl(var(--e-d));height:38px}
+.gantt-label{width:260px;flex-shrink:0;padding:0 12px;font-size:12px;display:flex;align-items:center;gap:8px}
+.gantt-timeline{flex:1;position:relative;height:100%}
+.gantt-bar{position:absolute;top:8px;height:22px;border-radius:4px;display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:600;cursor:pointer;transition:opacity 0.15s;white-space:nowrap;overflow:hidden}
+.gantt-bar:hover{opacity:0.85}
+.gantt-marker{position:absolute;top:0;width:2px;height:100%;background:hsl(var(--d))}
+
+/* ═══ BURNDOWN ═══ */
+.burndown{position:relative;height:200px;border-bottom:1px solid hsl(var(--e-d));overflow:hidden}
+.burndown svg{width:100%;height:100%}
+
+/* ═══ AUTH PAGES ═══ */
+.auth-page{min-height:100vh;display:flex;align-items:center;justify-content:center;background:hsl(var(--sf-a))}
+.auth-card{width:100%;max-width:400px}
+.auth-logo{text-align:center;margin-bottom:24px}
+.auth-logo-icon{width:40px;height:40px;margin:0 auto 8px;border-radius:var(--r);background:hsl(var(--brand));display:flex;align-items:center;justify-content:center;color:hsl(var(--brand-t));font-weight:700;font-size:16px}
+.auth-logo-text{font-size:11px;font-weight:500;color:hsl(var(--i-m));letter-spacing:0.03em}
+.auth-form-item{margin-bottom:14px}
+.auth-form-label{display:block;font-size:12px;font-weight:600;color:hsl(var(--i-s));margin-bottom:4px}
+.auth-form-input{width:100%;padding:9px 12px;border:1px solid hsl(var(--e-d));border-radius:var(--r);font-size:13px;font-family:inherit;background:hsl(var(--sf-c))}
+.auth-form-input:focus{outline:none;border-color:hsl(var(--brand));box-shadow:0 0 0 3px hsl(var(--brand)/.1)}
+.auth-link{font-weight:500;color:hsl(var(--brand))}
+
+/* ═══ STAT CARD DASH ═══ */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.sc{padding:16px 18px;background:hsl(var(--sf-c));border:1px solid hsl(var(--e-d));border-radius:var(--r);box-shadow:var(--sh)}
+.sc .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:hsl(var(--i-m))}
+.sc .val{font-size:26px;font-weight:700;margin-top:4px}
+.sc .sub{font-size:11px;color:hsl(var(--i-m));margin-top:2px}
+.ai-glow{position:relative}.ai-glow::before{content:'';position:absolute;inset:-1px;border-radius:var(--r);background:linear-gradient(135deg,hsl(var(--brand)/.15),transparent 60%);pointer-events:none;z-index:0}
+.ai-glow>*{position:relative;z-index:1}
+.pulse{display:inline-block;width:6px;height:6px;border-radius:50%;background:hsl(var(--brand));margin-right:6px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+
+/* ═══ RESPONSIVE HINT ═══ */
+@media(max-width:1024px){.sb{width:52px}.sb-logo-text,.sb-label,.nav span:not(.badge),.sb-foot-btn span,.sb-sep{display:none}.nav{gap:0;justify-content:center}}
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+<!-- ══════════════ SIDEBAR ══════════════ -->
+<aside class="sb">
+  <div class="sb-logo"><div class="sb-logo-icon">A</div><span class="sb-logo-text">TomiHub</span></div>
+
+  <nav class="sb-nav">
+    <a class="nav" onclick="document.getElementById('notif-panel').classList.toggle('view-off')" href="javascript:void(0)" style="position:relative">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/></svg>
+      <span>Notifications</span>
+      <span class="badge" style="position:absolute;right:10px;background:hsl(var(--danger));min-width:18px;text-align:center">3</span>
+    </a>
+    <a class="nav act" data-v="dash" onclick="show('dash')" href="javascript:void(0)">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.707 2.293a1 1 0 00-1.414 0l-7 7A1 1 0 003 11h1v6a1 1 0 001 1h4v-4a1 1 0 011-1h2a1 1 0 011 1v4h4a1 1 0 001-1v-6h1a1 1 0 00.707-1.707l-7-7z" clip-rule="evenodd"/></svg>
+      <span>Home</span>
+    </a>
+
+    <div class="sb-sep"></div>
+    <div class="sb-label">Project / AIPM</div>
+    <a class="nav" data-v="project-home" onclick="show('project-home')" href="javascript:void(0)">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 0h8v12H6V4zm2 2a1 1 0 000 2h4a1 1 0 100-2H8z" clip-rule="evenodd"/></svg>
+      <span>Overview</span>
+    </a>
+    <a class="nav" data-v="board" onclick="show('board')" href="javascript:void(0)">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path d="M4 5a1 1 0 011-1h4a1 1 0 011 1v5a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm10 0a1 1 0 011 1v3a1 1 0 01-1 1h-4a1 1 0 01-1-1V6a1 1 0 011-1h4zM4 13a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-3zm10-1a1 1 0 00-1 1v3a1 1 0 001 1h4a1 1 0 001-1v-3a1 1 0 00-1-1h-4z"/></svg>
+      <span>Board</span>
+    </a>
+    <a class="nav" data-v="issues" onclick="show('issues')" href="javascript:void(0)">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 4.5a1 1 0 012 0v1.5h2.5a1 1 0 010 2H11v2.5a1 1 0 01-2 0V8H6.5a1 1 0 010-2H9V4.5zM3.5 4a1 1 0 00-1 1v11a1 1 0 001 1h11a1 1 0 001-1V5a1 1 0 00-1-1h-11z" clip-rule="evenodd"/></svg>
+      <span>Issues</span><span class="badge">8</span>
+    </a>
+    <a class="nav" data-v="issue-detail" onclick="show('issue-detail')" href="javascript:void(0)">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+      <span>Issue Detail</span>
+    </a>
+    <a class="nav" data-v="issue-create" onclick="show('issue-create')" href="javascript:void(0)">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/></svg>
+      <span>Create Issue</span>
+    </a>
+    <a class="nav" data-v="sprints" onclick="show('sprints')" href="javascript:void(0)">
+      <svg viewBox="0 0 20 20" fill="currentColor"><circle cx="10" cy="10" r="8.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M12 8v4l3 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <span>Sprints</span>
+    </a>
+    <a class="nav" data-v="gantt" onclick="show('gantt')" href="javascript:void(0)">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h8a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h10a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1z"/></svg>
+      <span>Gantt</span>
+    </a>
+    <a class="nav" data-v="settings" onclick="show('settings')" href="javascript:void(0)">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
+      <span>Settings</span>
+    </a>
+
+    <div class="sb-sep"></div>
+    <div class="sb-label">AI</div>
+    <a class="nav" data-v="reports" onclick="show('reports')" href="javascript:void(0)">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11 4a1 1 0 10-2 0v4a1 1 0 102 0V7zm-3 1a1 1 0 10-2 0v3a1 1 0 102 0V8zM8 9a1 1 0 00-2 0v2a1 1 0 102 0V9z"/></svg>
+      <span>Reports</span>
+    </a>
+
+    <div class="sb-sep"></div>
+    <div class="sb-label">Admin</div>
+    <a class="nav" data-v="members" onclick="show('members')" href="javascript:void(0)">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>
+      <span>Members</span>
+    </a>
+    <a class="nav" data-v="admin-settings" onclick="show('admin-settings')" href="javascript:void(0)">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
+      <span>Settings</span>
+    </a>
+    <a class="nav" data-v="roles" onclick="show('roles')" href="javascript:void(0)">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+      <span>Roles & Permissions</span>
+    </a>
+    <a class="nav" data-v="apikeys" onclick="show('apikeys')" href="javascript:void(0)">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v-2l.743-.743L6 12.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z" clip-rule="evenodd"/></svg>
+      <span>API Keys</span>
+    </a>
+    <a class="nav" data-v="integrations" onclick="show('integrations')" href="javascript:void(0)">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 2a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V4a2 2 0 00-2-2H5zm0 2h10v12H5V4zm5 9a1 1 0 100-2 1 1 0 000 2zm-3-5a1 1 0 011-1h.01a1 1 0 010 2H8a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
+      <span>ChatOps</span>
+    </a>
+
+    <div class="sb-sep"></div>
+    <div class="sb-label">Account</div>
+    <a class="nav" data-v="profile" onclick="show('profile')" href="javascript:void(0)">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
+      <span>Profile</span>
+    </a>
+    <a class="nav" data-v="api-keys" onclick="show('api-keys')" href="javascript:void(0)">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v-2l.743-.743L6 12.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z" clip-rule="evenodd"/></svg>
+      <span>API Keys</span>
+    </a>
+    <a class="nav" data-v="mcp-audit" onclick="show('mcp-audit')" href="javascript:void(0)">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+      <span>MCP Audit</span>
+    </a>
+  </nav>
+
+  <div class="sb-foot">
+    <div class="theme-row">
+      <span class="tdot act" data-theme="pipeline" onclick="setT('pipeline')" style="background:#5E6AD2" title="Clean Pipeline"></span>
+      <span class="tdot" data-theme="hub" onclick="setT('hub')" style="background:#1877F2" title="Connected Hub"></span>
+      <span class="tdot" data-theme="canvas" onclick="setT('canvas')" style="background:#1A73E8" title="Material Canvas"></span>
+      <span class="tdot" data-theme="quantum" onclick="setT('quantum')" style="background:#76B900" title="Quantum Grid"></span>
+    </div>
+    <!-- Sidebar position -->
+    <div class="theme-row" style="margin-top:8px">
+      <span class="sdot act" data-pos="left" onclick="switchSidebar('left')" title="Sidebar Left">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" style="width:13px;height:13px"><line x1="3" y1="2" x2="3" y2="14" stroke-width="1.8" stroke-linecap="round"/><polyline points="11,4 6,8 11,12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <!-- Top option hidden — design TBD -->
+<span class="sdot" data-pos="right" onclick="switchSidebar('right')" title="Sidebar Right">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" style="width:13px;height:13px"><line x1="13" y1="2" x2="13" y2="14" stroke-width="1.8" stroke-linecap="round"/><polyline points="5,4 10,8 5,12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </div>
+    <button class="sb-foot-btn" onclick="toggleLang()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg><span id="langLabel">EN</span></button>
+  </div>
+</aside>
+
+  <!-- ═══ TOP NAV BAR (hidden, shown when sidebar=top) ═══ -->
+  <div class="top-nav-row" id="top-nav-row" style="display:none">
+    <a class="top-nav-item" onclick="show('dash')"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>Home</a>
+    <a class="top-nav-item" onclick="show('board')"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm0 6a1 1 0 011-1h3a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zm7-1a1 1 0 00-1 1v6a1 1 0 001 1h6a1 1 0 001-1v-6a1 1 0 00-1-1h-6z"/></svg>Board</a>
+    <a class="top-nav-item" onclick="show('issues')"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/></svg>Issues <span class="badge">8</span></a>
+    <a class="top-nav-item" onclick="show('sprints')"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>Sprints</a>
+    <a class="top-nav-item" onclick="show('gantt')"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h8a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h4a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>Gantt</a>
+    <a class="top-nav-item" onclick="show('settings')"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>Settings</a>
+    <span style="flex:1"></span>
+    <a class="top-nav-item" onclick="document.getElementById('notif-panel').classList.toggle('view-off')"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/></svg><span class="badge">3</span></a>
+    <a class="top-nav-item" onclick="show('profile')"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg></a>
+  </div>
+  <div class="top-breadcrumb" id="top-breadcrumb" style="display:none">
+    <span>TomiHub Dev</span> / <span>TOMAT</span> / Issues
+  </div>
+
+<!-- Notification panel — slides out from sidebar -->
+<div id="notif-panel" class="view-off card" style="position:fixed;top:12px;left:232px;width:420px;max-height:560px;overflow-y:auto;z-index:998;box-shadow:var(--sh-d)"><div class="card-hd flex justify-between items-center"><h3>Notifications</h3><div class="flex gap2"><button class="btn btn-g btn-xs fs11">Mark all read</button><button class="btn btn-g btn-xs" onclick="document.getElementById(`notif-panel`).classList.add(`view-off`)">x</button></div></div><div class="card-bd-nopad">
+<div style="padding:8px 14px;background:hsl(var(--w-s));border-bottom:1px solid hsl(var(--e-d));font-size:11px;font-weight:600;color:hsl(var(--w))">Needs your approval</div>
+<div style="padding:12px 14px;border-bottom:1px solid hsl(var(--e-d));border-left:3px solid hsl(var(--w))"><div class="flex items-start gap3 mb4"><span style="font-size:18px">AI</span><div class="flex-1"><div class="fs13 fw6">Claude wants to update AIPM-42</div><div class="fs11 muted mt4">Status to In Review · Assignee to Bob</div><div class="fs11 muted">2 min ago · Auto-deny in 4:30</div></div></div><div class="flex gap2"><button class="btn btn-b btn-xs" style="padding:3px 10px;font-size:11px">Approve</button><button class="btn btn-s btn-xs" style="padding:3px 10px;font-size:11px">Deny</button></div></div>
+<div style="padding:12px 14px;border-left:3px solid hsl(var(--d))"><div class="flex items-start gap3 mb4"><span style="font-size:18px">AI</span><div class="flex-1"><div class="fs13 fw6">Claude wants to move 3 issues to Sprint 4</div><div class="fs11 muted mt4">AIPM-45, 48, 46 to Sprint 4</div><div class="fs11 muted">5 min ago · Auto-deny in 2:30</div></div></div><div class="flex gap2"><button class="btn btn-b btn-xs" style="padding:3px 10px;font-size:11px">Approve</button><button class="btn btn-s btn-xs" style="padding:3px 10px;font-size:11px">Deny</button></div></div>
+<div style="padding:8px 14px;background:hsl(var(--sf-h));font-size:11px;color:hsl(var(--i-m))">Earlier</div>
+<div class="hover-row flex items-start gap3" style="cursor:pointer;padding:12px 14px" onclick="show(`issue-detail`)"><span style="font-size:18px">Task</span><div class="flex-1"><div class="fs13 fw6">Bob assigned AIPM-42 to you</div><div class="fs11 muted mt4">5 min ago</div></div></div>
+<div class="hover-row flex items-start gap3" style="cursor:pointer;padding:12px 14px" onclick="show(`reports`)"><span style="font-size:18px">Report</span><div class="flex-1"><div class="fs13 fw6">Bob shared a Weekly Report</div><div class="fs11 muted mt4">1 hour ago</div></div></div>
+<div class="hover-row flex items-start gap3" style="cursor:pointer;padding:12px 14px"><span style="font-size:18px">AI</span><div class="flex-1"><div class="fs13 fw6">AI Health analysis complete</div><div class="fs11 muted mt4">2 hours ago</div></div></div>
+<div class="hover-row flex items-start gap3" style="cursor:pointer;padding:12px 14px" onclick="show(`issue-detail`)"><span style="font-size:18px">Comment</span><div class="flex-1"><div class="fs13 fw6">Charlie mentioned you in AIPM-38</div><div class="fs11 muted mt4">3 hours ago</div></div></div>
+</div></div>
+
+<!-- ══════════════ CONTENT AREA ══════════════ -->
+<main class="ct">
+
+<!-- ─── DASHBOARD ─── -->
+<div id="v-dash">
+<div class="ch"><h2>Home</h2><div class="flex gap2 items-center"><span class="fs12 muted">Role: Project Manager</span><button class="btn btn-b fs12" onclick="show('issue-create')">+ New Project</button></div></div>
+<div class="cb">
+<!-- Search Bar — interactive -->
+<div class="card mb4" style="padding:0">
+  <div class="flex items-center gap-2" style="padding:8px 16px">
+    <svg style="width:20px;height:20px;flex-shrink:0;color:hsl(var(--ink-muted))" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    <input id="search-input" class="form-input flex-1" style="border:none;padding:10px 0;font-size:14px;box-shadow:none"
+      placeholder="Search across your projects — issues, docs, sprints..."
+      oninput="handleSearchInput(this.value)"
+      onkeydown="if(event.key==='Enter')handleSearch(this.value, false)">
+    
+  </div>
+  <!-- Results area — max-height + scroll + close button -->
+  <div id="search-results" class="view-off" style="border-top:1px solid hsl(var(--e-d));max-height:420px;overflow-y:auto;position:relative">
+    <div style="position:sticky;top:0;right:0;z-index:1;display:flex;justify-content:flex-end;padding:4px 8px;background:hsl(var(--surface-card));border-bottom:1px solid hsl(var(--edge-default))">
+      <button class="btn btn-g btn-xs" onclick="closeSearch()" title="Close search">✕ Close</button>
+    </div>
+    <div id="search-quick-results" class="view-off" style="padding:0"></div>
+    <div id="search-ai-results" class="view-off" style="padding:16px 20px"></div>
+    <div id="search-empty" class="view-off" style="padding:20px;text-align:center">
+      <p class="fs14 text-ink-muted">No results found for "<span id="search-empty-query"></span>"</p>
+      <p class="fs12 text-ink-muted mt-2">Try different keywords or use 🤖 AI Deep search</p>
+    </div>
+    <div id="search-loading" class="view-off" style="padding:20px;text-align:center">
+      <p class="fs14 text-ink-muted">🤖 AI is analyzing...</p>
+      <div class="progress mt-3" style="width:200px;margin:0 auto"><div id="ai-progress-bar" class="progress-bar brand" style="width:0%;transition:width 0.5s"></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="stat-row">
+  <div class="sc"><div class="lbl">My Tasks</div><div class="val brand">5</div><div class="sub">3 high · 2 medium</div></div>
+  <div class="sc" onclick="document.getElementById('inprogress-expand').classList.toggle('view-off');this.querySelector('.expand-icon').classList.toggle('rotate-90')" style="cursor:pointer">
+    <div class="lbl flex items-center gap2">In Progress <span class="expand-icon fs11" style="transition:transform 0.2s">▶</span></div><div class="val warn">3</div><div class="sub">Click to expand</div>
+  </div>
+  <div class="sc" onclick="document.getElementById('completed-expand').classList.toggle('view-off');this.querySelector('.expand-icon2').classList.toggle('rotate-90')" style="cursor:pointer">
+    <div class="lbl flex items-center gap2">Completed <span class="expand-icon2 fs11" style="transition:transform 0.2s">▶</span></div><div class="val success-text">12</div><div class="sub">4 this week · Click to expand</div>
+  </div>
+  <div class="sc ai-glow"><div class="lbl"><span class="pulse"></span>My Health Score</div><div class="val brand">78</div><div class="sub">At Risk · 2 warnings</div></div>
+</div>
+
+<!-- Expandable lists -->
+<div id="inprogress-expand" class="view-off card mb4"><div class="card-bd-nopad">
+  <div class="hover-row flex items-center gap3" onclick="show('issue-detail')" style="cursor:pointer"><span class="mono fs12 muted">AIPM-42</span><span class="flex-1 fs13 fw5">Fix login layout on mobile</span><span class="tag tag-hi">High</span><span class="av">T</span><span class="fs11 muted">3d</span></div>
+  <div class="hover-row flex items-center gap3" onclick="show('issue-detail')" style="cursor:pointer"><span class="mono fs12 muted">AIPM-38</span><span class="flex-1 fs13 fw5">Rate limit for email verification</span><span class="tag tag-hi">High</span><span class="av">B</span><span class="fs11 muted">2d</span></div>
+  <div class="hover-row flex items-center gap3" onclick="show('issue-detail')" style="cursor:pointer"><span class="mono fs12 muted">AIPM-35</span><span class="flex-1 fs13 fw5">3-tier permission system</span><span class="tag tag-med">Med</span><span class="av">T</span><span class="fs11 muted">8h</span></div>
+</div></div>
+<div id="completed-expand" class="view-off card mb4"><div class="card-bd-nopad">
+  <div class="hover-row flex items-center gap3" onclick="show('issue-detail')" style="cursor:pointer"><span class="mono fs12 muted">AIPM-40</span><span class="flex-1 fs13 fw5">API Key anomaly detection</span><span class="tag tag-hi">High</span><span class="av">T</span><span class="fs11 muted">Jun 5</span></div>
+  <div class="hover-row flex items-center gap3" onclick="show('issue-detail')" style="cursor:pointer"><span class="mono fs12 muted">AIPM-33</span><span class="flex-1 fs13 fw5">MCP HITL protocol</span><span class="tag tag-lo">Low</span><span class="av">T</span><span class="fs11 muted">Jun 4</span></div>
+  <div class="hover-row flex items-center gap3" onclick="show('issue-detail')" style="cursor:pointer"><span class="mono fs12 muted">AIPM-28</span><span class="flex-1 fs13 fw5">Tenant isolation interceptor</span><span class="tag tag-med">Med</span><span class="av">C</span><span class="fs11 muted">Jun 3</span></div>
+  <div class="hover-row flex items-center gap3" onclick="show('issue-detail')" style="cursor:pointer"><span class="mono fs12 muted">AIPM-25</span><span class="flex-1 fs13 fw5">JWT two-stage token refactor</span><span class="tag tag-hi">High</span><span class="av">B</span><span class="fs11 muted">Jun 2</span></div>
+</div></div>
+
+<div class="grid-aside mb4">
+  <div class="flex gap4" style="flex-direction:column">
+    <div class="card"><div class="card-hd flex justify-between items-center"><h3>My Tasks</h3><a href="#" class="fs12 brand" onclick="show('issues')">View all →</a></div><div class="card-bd-nopad">
+      <div class="hover-row flex items-center gap3" onclick="show('issue-detail')" style="cursor:pointer"><span class="mono fs12 muted">AIPM-42</span><span class="flex-1 fs13 fw5">Fix login layout on mobile</span><span class="tag tag-hi">High</span><span class="av">T</span></div>
+      <div class="hover-row flex items-center gap3" onclick="show('issue-detail')" style="cursor:pointer"><span class="mono fs12 muted">AIPM-38</span><span class="flex-1 fs13 fw5">Rate limit for email verification</span><span class="tag tag-hi">High</span><span class="av">B</span></div>
+      <div class="hover-row flex items-center gap3" onclick="show('issue-detail')" style="cursor:pointer"><span class="mono fs12 muted">AIPM-35</span><span class="flex-1 fs13 fw5">3-tier permission system</span><span class="tag tag-med">Med</span><span class="av">T</span></div>
+      <div class="hover-row flex items-center gap3" onclick="show('issue-detail')" style="cursor:pointer"><span class="mono fs12 muted">AIPM-29</span><span class="flex-1 fs13 fw5">Board drag-and-drop API</span><span class="tag tag-med">Med</span><span class="av">C</span></div>
+      <div class="hover-row flex items-center gap3" onclick="show('issue-detail')" style="cursor:pointer"><span class="mono fs12 muted">AIPM-21</span><span class="flex-1 fs13 fw5">Unit tests for auth service</span><span class="tag tag-lo">Low</span><span class="av">B</span></div>
+    </div></div>
+    <div class="card"><div class="card-hd flex justify-between items-center"><h3>Created by Me</h3></div><div class="card-bd-nopad">
+      <div class="hover-row flex items-center gap3" onclick="show('issue-detail')" style="cursor:pointer"><span class="mono fs12 muted">AIPM-45</span><span class="flex-1 fs13 fw5">Gantt chart timeline view</span><span class="tag tag-med">Med</span><span class="av">T</span></div>
+      <div class="hover-row flex items-center gap3" onclick="show('issue-detail')" style="cursor:pointer"><span class="mono fs12 muted">AIPM-40</span><span class="flex-1 fs13 fw5">API Key anomaly detection engine</span><span class="tag tag-hi">High</span><span class="av">T</span></div>
+      <div class="hover-row flex items-center gap3" onclick="show('issue-detail')" style="cursor:pointer"><span class="mono fs12 muted">AIPM-33</span><span class="flex-1 fs13 fw5">MCP HITL async confirmation</span><span class="tag tag-lo">Low</span><span class="av">T</span></div>
+    </div></div>
+  </div>
+  <div class="flex gap4" style="flex-direction:column">
+    <!-- ★ AI Summary — 3 tiers -->
+    <div class="card ai-glow"><div class="card-hd"><div class="fs11 fw6" style="letter-spacing:0.04em;text-transform:uppercase;color:hsl(var(--brand))"><span class="pulse"></span>AI Summary — Alice (PM)</div></div><div class="card-bd fs13" style="line-height:1.7">
+      <div class="mb4" style="padding:10px;background:hsl(var(--brand-s));border-radius:var(--r)">
+        <p class="fw6 brand mb4">📋 Pending Tasks Analysis</p>
+        <p class="mb4">You have <strong>5 open tasks</strong>. AIPM-42 and AIPM-38 are <span class="tag tag-hi">High Priority</span> and should be completed within 3 days.</p>
+        <p class="mb4"><span class="warn fw6">⚠ Risk:</span> AIPM-21 is blocked by AIPM-18 (DB migration). Suggest escalating during standup.</p>
+        <p>💡 <strong>Recommendation:</strong> Focus on AIPM-42 first (small scope, blocks Bob's review). Delegate AIPM-29 to Charlie (has capacity).</p>
+      </div>
+      <div class="mb4" style="padding:10px;background:hsl(var(--sf-h));border-radius:var(--r)">
+        <p class="fw6 pri mb4">📈 Work Review & Improvement</p>
+        <p class="mb4">Last sprint: completed <strong>8 tasks (22 SP)</strong>. Strengths: high code quality (0 reopens), fast PR turnaround (avg 6h).</p>
+        <p class="mb4">Area to improve: <span class="muted">Bug fix cycle is 2.3 days (team avg 1.5).</span> Consider pairing on complex bugs to reduce debug time.</p>
+        <p>💡 As PM, your task distribution is balanced, but <strong>code review bottleneck</strong> is slowing the team. Suggest adding Bob as secondary reviewer.</p>
+      </div>
+      <div style="padding:10px;background:hsl(var(--s-s));border-radius:var(--r)">
+        <p class="fw6 success-text mb4">📊 Project Overview (2 projects managed)</p>
+        <div class="mb4"><strong>AIPM Self Hosted:</strong> Sprint 3 at 60% — on track. Health: 78/100 (At Risk — 2 unassigned bugs). <a href="#" class="brand fw6" onclick="show('project-home')">View details →</a></div>
+        <div class="mb4"><strong>Mobile App Redesign:</strong> Planning phase — 5 members onboarded. Kickoff Jun 12. <a href="#" class="brand fw6" onclick="show('project-home')">View details →</a></div>
+        <p class="muted fs11">💡 AIPM project has 2× velocity of MOB. Consider rebalancing senior devs to accelerate MOB kickoff.</p>
+      </div>
+      <p class="muted fs12" style="border-top:1px solid hsl(var(--e-d));padding-top:8px;margin-top:12px">Generated at 9:00 AM · Claude Opus 4.8 · Refreshes every 6 hours</p>
+    </div></div>
+
+    <!-- ★ AI Health — personal -->
+    <div class="card"><div class="card-hd"><h3>My Health Score</h3></div><div class="card-bd" style="padding:12px 16px">
+      <div class="flex items-center gap4 mb4"><div style="width:64px;height:64px;border-radius:50%;border:4px solid hsl(var(--brand));display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:hsl(var(--brand))">78</div><div class="fs13" style="line-height:1.6"><p class="fw6">Your work health is <span class="brand">At Risk</span></p><p class="muted fs12">Task completion is solid, but work-life balance shows overload (5 active tasks vs recommended 3). Code review speed is excellent. Consider delegating or pushing low-priority items.</p></div></div>
+      <div class="mb4"><div class="flex justify-between fs12 mb4"><span>Task Completion</span><span class="fw6 brand">85% ↑</span></div><div class="progress"><div class="progress-bar brand" style="width:85%"></div></div></div>
+      <div class="mb4"><div class="flex justify-between fs12 mb4"><span>On-Time Delivery</span><span class="fw6 brand">80%</span></div><div class="progress"><div class="progress-bar brand" style="width:80%"></div></div></div>
+      <div class="mb4"><div class="flex justify-between fs12 mb4"><span>PR Review Speed</span><span class="fw6 success-text">95% ↑</span></div><div class="progress"><div class="progress-bar success" style="width:95%"></div></div></div>
+      <div class="mb4"><div class="flex justify-between fs12 mb4"><span>Work-Life Balance</span><span class="fw6 warn">45% ↓</span></div><div class="progress"><div class="progress-bar warn" style="width:45%"></div></div></div>
+    <!-- ★ Personal AI Feedback Row -->
+    <div style="margin-top:14px;padding:14px;background:hsl(var(--brand-s));border-radius:10px;border:1px solid hsl(var(--brand)/0.15)">
+      <div class="fw6 mb4" style="font-size:12px;color:hsl(var(--brand))">Was this assessment accurate?</div>
+      <div class="flex items-center gap3 mb3">
+        <span class="fs11 muted">Score:</span>
+        <button class="btn btn-s feedback-score-btn" style="font-size:11px;padding:3px 10px;border-radius:12px;background:rgba(255,255,255,0.7);color:hsl(var(--i-m));border:1px solid hsl(var(--e-d))">Too Low</button>
+        <button class="btn btn-s feedback-score-btn selected" style="font-size:11px;padding:3px 10px;border-radius:12px;background:hsl(var(--brand));color:#fff;border:1px solid hsl(var(--brand));font-weight:600">Just Right</button>
+        <button class="btn btn-s feedback-score-btn" style="font-size:11px;padding:3px 10px;border-radius:12px;background:rgba(255,255,255,0.7);color:hsl(var(--i-m));border:1px solid hsl(var(--e-d))">Too High</button>
+      </div>
+      <div class="flex items-center gap3">
+        <span class="fs11 muted">Level:</span>
+        <button class="btn btn-s feedback-level-btn selected" style="font-size:11px;padding:3px 10px;border-radius:12px;background:hsl(var(--brand));color:#fff;border:1px solid hsl(var(--brand));font-weight:600">Accurate</button>
+        <button class="btn btn-s feedback-level-btn" style="font-size:11px;padding:3px 10px;border-radius:12px;background:rgba(255,255,255,0.7);color:hsl(var(--i-m));border:1px solid hsl(var(--e-d))">Not Accurate</button>
+      </div>
+      <!-- expandable comment area (shown when Not Accurate or score != Just Right) -->
+      <div class="feedback-comment-area" style="display:none;margin-top:10px">
+        <textarea style="width:100%;padding:8px 10px;background:#fff;border:1px solid hsl(var(--brand)/0.3);border-radius:8px;font-size:11px;font-family:var(--f);resize:vertical;min-height:48px" placeholder="Why? (optional)"></textarea>
+        <div class="mt2" style="text-align:right"><button class="btn btn-b" style="font-size:11px;padding:5px 14px;border-radius:8px">Submit Feedback</button></div>
+      </div>
+    </div>
+    </div></div>
+
+    <!-- ★ Projects — clickable -->
+    <div class="card"><div class="card-hd"><h3>Projects</h3></div><div class="card-bd" style="padding:8px">
+      <div class="hover-row flex items-center gap3" style="border-radius:var(--r);cursor:pointer" onclick="show('project-home')">
+        <div class="av" style="width:32px;height:32px;font-size:13px">A</div><div class="flex-1"><div class="fs13 fw6">TomiHub Core Platform</div><div class="fs11 muted">AIPM · 12 members · Sprint 3 (60%)</div></div><span class="tag tag-b">Active</span>
+      </div>
+      <div class="hover-row flex items-center gap3" style="border-radius:var(--r);cursor:pointer" onclick="show('project-home-mob')">
+        <div class="av" style="width:32px;height:32px;font-size:13px;background:hsl(var(--w-s));color:hsl(var(--w))">M</div><div class="flex-1"><div class="fs13 fw6">Mobile App Redesign</div><div class="fs11 muted">MOB · 5 members · Planning</div></div><span class="tag tag-med">Planning</span>
+      </div>
+    </div></div>
+  </div>
+</div>
+</div></div>
+
+<!-- ─── PROJECT HOME ─── -->
+<div id="v-project-home" class="view-off">
+<div class="ch"><div class="flex items-center gap3"><a href="javascript:void(0)" onclick="show('dash')" class="btn btn-g">&larr; Home</a><h2>TomiHub Core Platform</h2><span class="fs13 muted">Key: AIPM · Started May 2026</span></div><div class="flex gap2"><button class="btn btn-b fs12" onclick="show('issue-create')">+ New Issue</button><button class="btn btn-s fs12" onclick="show('board')">Board</button><button class="btn btn-s fs12" onclick="show('issues')">Issues</button><button class="btn btn-s fs12" onclick="show('settings')">Settings</button></div></div>
+<div class="cb">
+
+<!-- ★ Stats Row — top of page -->
+<div class="stat-row">
+  <div class="sc"><div class="lbl">Total Issues</div><div class="val brand">23</div><div class="sub">8 open · 15 closed</div></div>
+  <div class="sc"><div class="lbl">Sprint Progress</div><div class="val warn">60%</div><div class="sub">Sprint 3 · 8 days left</div></div>
+  <div class="sc"><div class="lbl">Team Size</div><div class="val brand">12</div><div class="sub">3 PM · 6 Dev · 2 QA · 1 Design</div></div>
+  <div class="sc ai-glow"><div class="lbl"><span class="pulse"></span>Project Health</div><div class="val brand">78</div><div class="sub">At Risk · 2 warnings</div></div>
+</div>
+
+<!-- Background + Goals Row -->
+<div class="grid2 mb4">
+  <div class="card"><div class="card-hd"><h3>Project Background</h3></div><div class="card-bd fs13" style="line-height:1.7">
+    <p>TomiHub is an <strong>AI-powered project management system</strong> that combines traditional JIRA-style workflow with LLM-driven analysis. The system uses a hybrid architecture: Java (Spring Boot) for core business logic, Python (FastAPI + Celery) for AI computation, and Supabase (PostgreSQL) as the data backbone.</p>
+    <div class="mt4 flex gap2"><span class="tag tag-b">Internal Tool</span><span class="tag tag-med">Active Development</span><span class="tag tag-lo">SaaS-ready</span></div>
+  </div></div>
+  <div class="card"><div class="card-hd"><h3>Project Goals</h3></div><div class="card-bd fs13">
+    <div class="mb4"><div class="flex justify-between mb4"><span class="fw6">Sprint Velocity</span><span class="brand fw6">24 SP</span></div><div class="progress"><div class="progress-bar brand" style="width:80%"></div></div></div>
+    <div class="mb4"><div class="flex justify-between mb4"><span class="fw6">Bug Resolution Time</span><span class="warn fw6">2.3 days</span></div><div class="progress"><div class="progress-bar warn" style="width:65%"></div></div></div>
+    <div class="mb4"><div class="flex justify-between mb4"><span class="fw6">Test Coverage Target</span><span class="brand fw6">85%</span></div><div class="progress"><div class="progress-bar brand" style="width:72%"></div></div></div>
+    <div><div class="flex justify-between mb4"><span class="fw6">Customer Satisfaction</span><span class="success-text fw6">4.2/5</span></div><div class="progress"><div class="progress-bar success" style="width:84%"></div></div></div>
+  </div></div>
+</div>
+
+<!-- Team + Knowledge Row -->
+<div class="grid2 mb4">
+  <div class="card"><div class="card-hd"><h3>Team & Roles</h3></div><div class="card-bd" style="padding:12px 16px">
+    <div class="flex items-center gap3 mb4"><div class="av" style="width:32px;height:32px;font-size:13px">A</div><div><div class="fs13 fw6">Alice Chen</div><div class="fs11 muted">Project Manager · Owner</div></div></div>
+    <div class="flex items-center gap3 mb4"><div class="av" style="width:32px;height:32px;font-size:13px">B</div><div><div class="fs13 fw6">Bob Wang</div><div class="fs11 muted">Senior Developer · Admin</div></div></div>
+    <div class="flex items-center gap3 mb4"><div class="av" style="width:32px;height:32px;font-size:13px">C</div><div><div class="fs13 fw6">Charlie Li</div><div class="fs11 muted">Developer · Member</div></div></div>
+    <div class="flex items-center gap3 mb4"><div class="av" style="width:32px;height:32px;font-size:13px;background:hsl(var(--s-s));color:hsl(var(--s))">D</div><div><div class="fs13 fw6">Diana Wu</div><div class="fs11 muted">QA Engineer · Member</div></div></div>
+    <div class="flex items-center gap3"><div class="av" style="width:32px;height:32px;font-size:13px;background:hsl(var(--w-s));color:hsl(var(--w))">E</div><div><div class="fs13 fw6">Eva Zhang</div><div class="fs11 muted">UX Designer · Member</div></div></div>
+    <p class="fs11 muted mt4" style="border-top:1px solid hsl(var(--e-d));padding-top:8px">+ 7 more members · <a href="#" class="brand" onclick="show('members')">View all →</a></p>
+  </div></div>
+  <div class="card"><div class="card-hd"><div class="flex justify-between items-center mb-3"><h3>Knowledge Base</h3><button class="btn btn-b btn-xs" onclick="show('wiki-editor')">+ New Page</button></div>
+    <!-- AI Q&A Search -->
+    <div class="flex gap-2"><input class="form-input flex-1" style="padding:8px 12px;font-size:12px" placeholder="🔍 Ask AI about this project..."><button class="btn btn-b btn-xs">Ask</button></div></div><div class="card-bd" style="padding:12px 16px;display:flex;flex-direction:column;gap:6px">
+    <div class="hover-row flex items-center gap3" style="border-radius:var(--r);cursor:pointer" onclick="show('wiki-editor')"><span style="font-size:18px">📄</span><div class="flex-1"><div class="fs13 fw6">Architecture Decision Records</div><div class="fs11 muted">7 ADRs · Last updated Jun 1</div></div><span class="fs11 muted">→</span></div>
+    <div class="hover-row flex items-center gap3" style="border-radius:var(--r);cursor:pointer" onclick="show('wiki-editor')"><span style="font-size:18px">📘</span><div class="flex-1"><div class="fs13 fw6">API Documentation (OpenAPI)</div><div class="fs11 muted">Auto-generated · v1.0.0</div></div><span class="fs11 muted">→</span></div>
+    <div class="hover-row flex items-center gap3" style="border-radius:var(--r);cursor:pointer" onclick="show('wiki-editor')"><span style="font-size:18px">📋</span><div class="flex-1"><div class="fs13 fw6">Sprint Retrospectives</div><div class="fs11 muted">3 docs · Sprint 1-3</div></div><span class="fs11 muted">→</span></div>
+    <div class="hover-row flex items-center gap3" style="border-radius:var(--r);cursor:pointer" onclick="show('wiki-editor')"><span style="font-size:18px">🔧</span><div class="flex-1"><div class="fs13 fw6">On-Call Runbook</div><div class="fs11 muted">Incident response · Updated May 28</div></div><span class="fs11 muted">→</span></div>
+    <div class="hover-row flex items-center gap3" style="border-radius:var(--r);cursor:pointer" onclick="show('wiki-editor')"><span style="font-size:18px">🧪</span><div class="flex-1"><div class="fs13 fw6">Test Strategy & Coverage Reports</div><div class="fs11 muted">Updated weekly · Current: 72%</div></div><span class="fs11 muted">→</span></div>
+  </div></div>
+</div>
+
+<!-- AI Health + AI Risk -->
+<div class="grid2 mb4">
+  <div class="card ai-glow"><div class="card-hd"><div class="flex items-center gap2"><span class="pulse"></span><h3 class="brand">AI Health Monitor</h3></div></div><div class="card-bd" style="padding:12px 16px">
+    <div class="flex items-center gap4 mb4"><div style="width:56px;height:56px;border-radius:50%;border:4px solid hsl(var(--brand));display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:hsl(var(--brand))">78</div><div class="fs12"><p class="fw6 mb4">Project Health: <span class="warn">At Risk</span></p><p class="muted">2 P0 bugs unassigned for 48h. Sprint behind pace (60% at 80% timeline). Team velocity declining.</p></div></div>
+    <div class="mb4"><div class="flex justify-between fs12 mb4"><span>Sprint Progress</span><span class="fw6 brand">75%</span></div><div class="progress"><div class="progress-bar brand" style="width:75%"></div></div></div>
+    <div class="mb4"><div class="flex justify-between fs12 mb4"><span>Bug Resolution</span><span class="fw6 success-text">90%</span></div><div class="progress"><div class="progress-bar success" style="width:90%"></div></div></div>
+    <div><div class="flex justify-between fs12 mb4"><span>Team Velocity</span><span class="fw6 warn">-15%</span></div><div class="progress"><div class="progress-bar warn" style="width:55%"></div></div></div>
+    <!-- ★ AI Feedback Row -->
+    <div style="margin-top:14px;padding-top:12px;border-top:1px solid hsl(var(--e-d))">
+      <div class="fs11 muted mb4">Was this assessment accurate?</div>
+      <div class="flex items-center gap3 mb3">
+        <span class="fs11 muted">Score:</span>
+        <button class="btn btn-s feedback-score-btn" style="font-size:11px;padding:3px 10px;border-radius:12px;background:rgba(255,255,255,0.7);color:hsl(var(--i-m));border:1px solid hsl(var(--e-d))">Too Low</button>
+        <button class="btn btn-s feedback-score-btn selected" style="font-size:11px;padding:3px 10px;border-radius:12px;background:hsl(var(--brand));color:#fff;border:1px solid hsl(var(--brand));font-weight:600">Just Right</button>
+        <button class="btn btn-s feedback-score-btn" style="font-size:11px;padding:3px 10px;border-radius:12px;background:rgba(255,255,255,0.7);color:hsl(var(--i-m));border:1px solid hsl(var(--e-d))">Too High</button>
+      </div>
+      <div class="flex items-center gap3">
+        <span class="fs11 muted">Level:</span>
+        <button class="btn btn-s feedback-level-btn selected" style="font-size:11px;padding:3px 10px;border-radius:12px;background:hsl(var(--brand));color:#fff;border:1px solid hsl(var(--brand));font-weight:600">Accurate</button>
+        <button class="btn btn-s feedback-level-btn" style="font-size:11px;padding:3px 10px;border-radius:12px;background:rgba(255,255,255,0.7);color:hsl(var(--i-m));border:1px solid hsl(var(--e-d))">Not Accurate</button>
+      </div>
+      <!-- expandable comment area -->
+      <div class="feedback-comment-area" style="display:none;margin-top:10px">
+        <textarea style="width:100%;padding:8px 10px;background:#fff;border:1px solid hsl(var(--brand)/0.3);border-radius:8px;font-size:11px;font-family:var(--f);resize:vertical;min-height:48px" placeholder="Why? (optional)"></textarea>
+        <div class="mt2" style="text-align:right"><button class="btn btn-b" style="font-size:11px;padding:5px 14px;border-radius:8px">Submit Feedback</button></div>
+      </div>
+    </div>
+  </div></div>
+  <div class="card"><div class="card-hd"><h3>AI Risk Detection</h3></div><div class="card-bd" style="padding:12px 16px">
+    <div class="mb4" style="border-left:3px solid hsl(var(--d));padding-left:12px"><div class="fs13 fw6 danger mb4">RISK-01: Unassigned P0 Bugs</div><div class="fs12 muted">2 P0 bugs unassigned for 48h. <span class="fw6 warn">85% probability.</span></div><div class="fs11 brand mt4">💡 Assign within 24h; add to standup</div></div>
+    <div class="mb4" style="border-left:3px solid hsl(var(--w));padding-left:12px"><div class="fs13 fw6 warn mb4">RISK-02: Sprint Behind Schedule</div><div class="fs12 muted">60% complete at 80% timeline. <span class="fw6 warn">65% probability.</span></div><div class="fs11 brand mt4">💡 Consider descoping AIPM-45 to next sprint</div></div>
+    <div style="border-left:3px solid hsl(var(--brand));padding-left:12px"><div class="fs13 fw6 brand mb4">RISK-03: Velocity Decline</div><div class="fs12 muted">Team velocity -15% vs last sprint. <span class="fw6 brand">50% probability.</span></div><div class="fs11 brand mt4">💡 Retro on blockers; review estimation accuracy</div></div>
+  </div></div>
+</div>
+
+<div class="card"><div class="card-hd"><h3>Recent Activity</h3></div><div class="card-bd-nopad">
+  <div class="hover-row fs12 muted">Alice closed AIPM-40 · 2h ago</div>
+  <div class="hover-row fs12 muted">Bob commented on AIPM-38 · 3h ago</div>
+  <div class="hover-row fs12 muted">Charlie submitted PR for AIPM-29 · 5h ago</div>
+  <div class="hover-row fs12 muted">Alice created AIPM-45 · 1d ago</div>
+</div></div>
+</div></div>
+
+<!-- ─── WIKI EDITOR ─── -->
+<div id="v-wiki-editor" class="view-off">
+<div class="ch"><div class="flex items-center gap3"><a href="javascript:void(0)" onclick="show('project-home')" class="btn btn-g">&larr; Back to Overview</a><h2>Knowledge Base · Architecture Decision Records</h2></div><div class="flex gap2"><button class="btn btn-s btn-xs">🤖 Polish</button><button class="btn btn-b btn-xs">💾 Save</button><button class="btn btn-g btn-xs">🗑 Delete</button></div></div>
+<div class="cb"><div style="max-width:900px">
+  <div class="card"><div class="card-bd" style="padding:24px 28px">
+    <div class="form-grp mb4"><label class="form-label">Title</label><input class="form-input" value="Architecture Decision Records" style="padding:10px 14px;font-size:16px;font-weight:600"></div>
+    <div class="form-row mb4">
+      <div class="form-grp"><label class="form-label">Category</label><select class="form-select" style="width:100%"><option>Architecture</option><option>API Documentation</option><option>Runbook</option><option>Testing</option><option>Retrospective</option><option>General</option></select></div>
+      <div class="form-grp"><label class="form-label">Status</label><select class="form-select" style="width:100%"><option>Published</option><option>Draft</option><option>Archived</option></select></div>
+    </div>
+    <div class="form-grp mb4"><label class="form-label">Content <span class="fs11 muted">— Markdown supported</span></label><textarea class="form-input" style="min-height:400px;padding:14px 16px;font-size:13px;line-height:1.8;font-family:var(--f)" placeholder="Write your knowledge page content here..."># Architecture Decision Records
+
+## ADR-001: Hybrid Java + Python Architecture
+**Date:** 2026-05-01 · **Status:** Accepted
+
+### Context
+The system needs both traditional project management (CRUD, workflows, RBAC) and AI capabilities (LLM analysis, RAG indexing, risk prediction).
+
+### Decision
+- **Java (Spring Boot 3.3)** for core business logic
+- **Python (FastAPI + Celery)** for AI computation
+- **Supabase (PostgreSQL)** as unified data layer
+- **RabbitMQ** for async messaging between Java and Python
+
+### Rationale
+Java provides type safety and mature ecosystem for enterprise workflows. Python has the best LLM/NLP library support. Separating them allows independent scaling.
+
+### Consequences
+- Two deployment artifacts to manage
+- gRPC bridge needed for synchronous calls
+- All async communication via RabbitMQ
+
+---
+
+## ADR-002: UUID v7 for Primary Keys
+**Date:** 2026-05-03 · **Status:** Accepted
+
+### Context
+UUID v4 (random) causes B-tree page splits in PostgreSQL, degrading write performance.
+
+### Decision
+Use UUID v7 (time-ordered) for all primary keys, stored as PG's native UUID type (16 bytes).
+
+### Consequences
+- 7.6x write throughput improvement over UUID v4
+- Time-sortable keys enable efficient range queries
+- 75% index size reduction vs VARCHAR(64)
+</textarea></div>
+    <!-- AI Polish Suggestions -->
+    <div class="card ai-glow mb4" style="margin-top:16px">
+      <div class="card-hd"><div class="flex items-center justify-between"><div class="flex items-center gap2"><span class="pulse"></span><span class="fs12 fw6 brand">🤖 AI Suggestions (3)</span></div><button class="btn btn-b btn-xs">Accept All</button></div></div>
+      <div class="card-bd" style="padding:12px 16px">
+        <div class="fs12 mb4" style="padding:8px 12px;background:hsl(var(--brand-s));border-radius:var(--r);display:flex;justify-content:space-between;align-items:start">
+          <div class="flex-1"><span class="fw6 brand">✅ Add "Prerequisites" section</span><p class="muted mt4">Detected that ADR-001 references Java 21 setup but doesn't list prerequisites. Suggest adding a "Prerequisites" section before "Decision".</p></div>
+          <button class="btn btn-s btn-xs shrink-0">Accept</button>
+        </div>
+        <div class="fs12 mb4" style="padding:8px 12px;background:hsl(var(--brand-s));border-radius:var(--r);display:flex;justify-content:space-between;align-items:start">
+          <div class="flex-1"><span class="fw6 brand">✅ Link related Issue: AIPM-88</span><p class="muted mt4">Found related Issue "CI/CD build failing on iOS" which discusses build infrastructure relevant to ADR-001.</p></div>
+          <button class="btn btn-s btn-xs shrink-0">Accept</button>
+        </div>
+        <div class="fs12" style="padding:8px 12px;background:hsl(var(--sf-h));border-radius:var(--r);display:flex;justify-content:space-between;align-items:start">
+          <div class="flex-1"><span class="fw6">⬜ Expand "Consequences" with mitigation steps</span><p class="muted mt4">The consequences section lists risks but doesn't include mitigation plans. Consider expanding.</p></div>
+          <button class="btn btn-s btn-xs shrink-0">Accept</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex gap2 justify-between" style="padding-top:16px;border-top:1px solid hsl(var(--e-d));margin-top:0">
+      <div class="flex gap2"><button class="btn btn-s btn-xs">📎 Attach File</button><button class="btn btn-s btn-xs">🔗 Link Issue</button></div>
+      <div class="flex gap2"><button class="btn btn-b">💾 Save</button><button class="btn btn-s">Cancel</button></div>
+    </div>
+  </div></div>
+</div></div></div>
+
+<div id="v-project-home-mob" class="view-off">
+<div class="ch"><div class="flex items-center gap3"><a href="javascript:void(0)" onclick="show('dash')" class="btn btn-g">&larr; Dashboard</a><h2>Mobile App Redesign</h2><span class="fs13 muted">Key: MOB · 5 members · Planning</span></div><div class="flex gap2"><button class="btn btn-s fs12" onclick="show('board')">Board</button><button class="btn btn-s fs12" onclick="show('issues')">Issues</button></div></div>
+<div class="cb"><div class="card"><div class="card-bd text-c" style="padding:60px;color:hsl(var(--i-m))"><p style="font-size:32px;margin-bottom:8px">🚀</p><p class="fs14 fw6">Planning Phase</p><p class="fs12 muted mt4">Sprint kickoff scheduled for Jun 12. 5 members onboarded.</p></div></div></div></div>
+
+<!-- ─── BOARD ─── -->
+<div id="v-board" class="view-off">
+<div class="ch"><div class="flex items-center gap3"><h2>Board</h2><div class="flex" style="border:1px solid hsl(var(--e-d));border-radius:var(--r);overflow:hidden"><button class="btn btn-g fs12" style="border-radius:0;background:hsl(var(--brand-s));color:hsl(var(--brand));font-weight:600" onclick="document.getElementById('kanban-view').classList.remove('view-off');document.getElementById('scrum-view').classList.add('view-off');this.style.background='hsl(var(--brand-s))';this.style.color='hsl(var(--brand))';this.style.fontWeight='600';this.nextElementSibling.style.background='';this.nextElementSibling.style.color='';this.nextElementSibling.style.fontWeight=''">Kanban</button><button class="btn btn-g fs12" style="border-radius:0;border-left:1px solid hsl(var(--e-d))" onclick="document.getElementById('scrum-view').classList.remove('view-off');document.getElementById('kanban-view').classList.add('view-off');this.style.background='hsl(var(--brand-s))';this.style.color='hsl(var(--brand))';this.style.fontWeight='600';this.previousElementSibling.style.background='';this.previousElementSibling.style.color='';this.previousElementSibling.style.fontWeight=''">Scrum</button></div></div><div class="flex gap2"><button class="btn btn-b fs12" onclick="show('issue-create')">+ New Issue</button><button class="btn btn-s fs12">Filter</button></div></div>
+<div class="cb">
+
+<!-- Kanban view — columns by status -->
+<div id="kanban-view">
+<div class="board-scroll">
+  <div class="bcol"><div class="bcol-hd"><h4>To Do</h4><span class="bcol-cnt">3</span></div><div class="bcol-bd">
+    <div class="bcard" onclick="show('issue-detail')" style="cursor:pointer"><div class="k">AIPM-42</div><div class="t">Fix login page layout on mobile devices — sidebar collapse & responsive stacking</div><div class="m"><span class="tag tag-hi">High</span><span class="av av-sm">T</span><span class="fs11 muted">3d ago</span></div></div>
+    <div class="bcard" onclick="show('issue-detail')" style="cursor:pointer"><div class="k">AIPM-45</div><div class="t">Add Gantt chart timeline view with dependency lines</div><div class="m"><span class="tag tag-med">Med</span><span class="av av-sm">T</span><span class="fs11 muted">1d ago</span></div></div>
+    <div class="bcard" onclick="show('issue-detail')" style="cursor:pointer"><div class="k">AIPM-21</div><div class="t">Write unit tests for auth service</div><div class="m"><span class="tag tag-lo">Low</span><span class="av av-sm">B</span><span class="fs11 muted">5d ago</span></div></div>
+  </div></div>
+  <div class="bcol"><div class="bcol-hd"><h4>In Progress</h4><span class="bcol-cnt">2</span></div><div class="bcol-bd">
+    <div class="bcard" onclick="show('issue-detail')" style="cursor:pointer"><div class="k">AIPM-38</div><div class="t">Email verification code rate limiting — Redis sliding window</div><div class="m"><span class="tag tag-hi">High</span><span class="av av-sm">B</span><span class="fs11 muted">2d</span></div></div>
+    <div class="bcard" onclick="show('issue-detail')" style="cursor:pointer"><div class="k">AIPM-35</div><div class="t">Implement 3-tier permission authorization engine</div><div class="m"><span class="tag tag-med">Med</span><span class="av av-sm">T</span><span class="fs11 muted">8h</span></div></div>
+  </div></div>
+  <div class="bcol"><div class="bcol-hd"><h4>In Review</h4><span class="bcol-cnt">1</span></div><div class="bcol-bd">
+    <div class="bcard" onclick="show('issue-detail')" style="cursor:pointer"><div class="k">AIPM-29</div><div class="t">Design board drag-and-drop API endpoint with WIP limit checks</div><div class="m"><span class="tag tag-med">Med</span><span class="av av-sm">C</span><span class="fs11 muted">1d</span></div></div>
+  </div></div>
+  <div class="bcol"><div class="bcol-hd"><h4>Done</h4><span class="bcol-cnt">2</span></div><div class="bcol-bd">
+    <div class="bcard" onclick="show('issue-detail')" style="cursor:pointer"><div class="k">AIPM-40</div><div class="t">API Key anomaly detection engine — rate spike + geo jump</div><div class="m"><span class="tag tag-hi">High</span><span class="av av-sm">T</span></div></div>
+    <div class="bcard" onclick="show('issue-detail')" style="cursor:pointer"><div class="k">AIPM-33</div><div class="t">MCP HITL async confirmation protocol</div><div class="m"><span class="tag tag-lo">Low</span><span class="av av-sm">T</span></div></div>
+  </div></div>
+</div>
+</div>
+
+<!-- Scrum view — Sprint context + board + burndown -->
+<div id="scrum-view" class="view-off">
+<div style="display:grid;grid-template-columns:260px 1fr 220px;gap:0;height:calc(100vh - 140px)">
+  <!-- Backlog panel -->
+  <div style="border-right:1px solid hsl(var(--e-d));overflow-y:auto;padding:12px;background:hsl(var(--sf-c))">
+    <h4 class="fs11 fw6 muted mb4" style="text-transform:uppercase;letter-spacing:0.05em">Backlog</h4>
+    <div style="padding:8px 10px;border-radius:var(--r);font-size:12px;margin-bottom:3px;cursor:grab;border:1px solid transparent" onmouseenter="this.style.background='hsl(var(--sf-h))';this.style.borderColor='hsl(var(--e-d))'" onmouseleave="this.style.background='';this.style.borderColor='transparent'"><span class="mono muted">AIPM-50</span><div class="fs13">Setup CI/CD pipeline</div><div class="fs11 muted">5 SP</div></div>
+    <div style="padding:8px 10px;border-radius:var(--r);font-size:12px;margin-bottom:3px;cursor:grab;border:1px solid transparent" onmouseenter="this.style.background='hsl(var(--sf-h))';this.style.borderColor='hsl(var(--e-d))'" onmouseleave="this.style.background='';this.style.borderColor='transparent'"><span class="mono muted">AIPM-48</span><div class="fs13">Dark mode email templates</div><div class="fs11 muted">3 SP</div></div>
+    <div style="padding:8px 10px;border-radius:var(--r);font-size:12px;margin-bottom:3px;cursor:grab;border:1px solid transparent" onmouseenter="this.style.background='hsl(var(--sf-h))';this.style.borderColor='hsl(var(--e-d))'" onmouseleave="this.style.background='';this.style.borderColor='transparent'"><span class="mono muted">AIPM-46</span><div class="fs13">WebSocket reconnection</div><div class="fs11 muted">3 SP</div></div>
+    <div class="divider mb4"></div>
+    <div class="fs11 muted mb4" style="display:flex;justify-content:space-between"><span>Sprint 3</span><span>18/30 SP</span></div>
+    <div class="progress mb4"><div class="progress-bar brand" style="width:60%"></div></div>
+  </div>
+  <!-- Scrum board columns -->
+  <div class="board-scroll" style="padding:12px;overflow-x:auto">
+    <div class="bcol"><div class="bcol-hd"><h4>To Do</h4><span class="bcol-cnt">3</span></div><div class="bcol-bd">
+      <div class="bcard" onclick="show('issue-detail')" style="cursor:pointer"><div class="k">AIPM-42</div><div class="t">Fix login layout</div><div class="m"><span class="tag tag-hi">8 SP</span><span class="av av-sm">T</span></div></div>
+      <div class="bcard" onclick="show('issue-detail')" style="cursor:pointer"><div class="k">AIPM-21</div><div class="t">Auth unit tests</div><div class="m"><span class="tag tag-lo">3 SP</span><span class="av av-sm">B</span></div></div>
+      <div class="bcard" onclick="show('issue-detail')" style="cursor:pointer"><div class="k">AIPM-45</div><div class="t">Gantt timeline</div><div class="m"><span class="tag tag-med">5 SP</span><span class="av av-sm">T</span></div></div>
+    </div></div>
+    <div class="bcol"><div class="bcol-hd"><h4>In Progress</h4><span class="bcol-cnt">2</span></div><div class="bcol-bd">
+      <div class="bcard" onclick="show('issue-detail')" style="cursor:pointer"><div class="k">AIPM-38</div><div class="t">Email rate limit</div><div class="m"><span class="tag tag-hi">5 SP</span><span class="av av-sm">B</span></div></div>
+      <div class="bcard" onclick="show('issue-detail')" style="cursor:pointer"><div class="k">AIPM-35</div><div class="t">Permission system</div><div class="m"><span class="tag tag-med">8 SP</span><span class="av av-sm">T</span></div></div>
+    </div></div>
+    <div class="bcol"><div class="bcol-hd"><h4>Done</h4><span class="bcol-cnt">1</span></div><div class="bcol-bd">
+      <div class="bcard" onclick="show('issue-detail')" style="cursor:pointer"><div class="k">AIPM-29</div><div class="t">Board DnD API</div><div class="m"><span class="tag tag-med">5 SP</span><span class="av av-sm">C</span></div></div>
+    </div></div>
+  </div>
+  <!-- Sprint info -->
+  <div style="border-left:1px solid hsl(var(--e-d));padding:14px;overflow-y:auto;background:hsl(var(--sf-c))">
+    <h4 class="fs13 fw6 mb4">Sprint 3</h4><p class="fs12 muted mb4">Jun 1 – 15 · 8 days left</p>
+    <div class="mb4"><div class="fs11 muted mb4">Burndown</div><div class="burndown" style="height:100px"><svg viewBox="0 0 200 100"><polyline fill="none" stroke="hsl(var(--brand))" stroke-width="2" points="10,10 50,20 100,35 140,50 190,65"/><polyline fill="none" stroke="hsl(var(--e-d))" stroke-width="1" stroke-dasharray="4,4" points="10,10 190,90"/></svg></div></div>
+    <div class="mb4"><span class="fs11 muted">Velocity</span><div class="fs18 fw7 brand">24 SP</div></div>
+    <div><span class="fs11 muted">Team Capacity</span><div class="fs13 fw6">30 SP / sprint</div><div class="progress mt4"><div class="progress-bar brand" style="width:80%"></div></div></div>
+  </div>
+</div>
+</div>
+</div></div>
+
+<!-- ─── ISSUES (Backlog + List) ─── -->
+<div id="v-issues" class="view-off">
+<div class="ch"><h2>Issues</h2><span class="fs12 muted">TomiHub Dev (TOMAT)</span></div>
+<div class="ch" style="padding-top:0;border-top:0">
+  <div></div>
+  <div class="flex gap2">
+    <button class="btn btn-g fs12" style="padding:6px 10px" title="Refresh list">↻ Refresh</button>
+    <button class="btn btn-b fs12" onclick="show('issue-create')">+ New Issue</button>
+  </div>
+</div>
+<div style="display:grid;grid-template-columns:280px 1fr;height:calc(100vh - 53px);overflow:hidden">
+  <div style="border-right:1px solid hsl(var(--e-d));background:hsl(var(--sf-c));overflow-y:auto;padding:12px">
+    <h4 class="fs11 fw6 muted" style="text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px">Backlog (3 unplanned)</h4>
+    <div style="padding:8px 10px;border-radius:var(--r);font-size:12px;margin-bottom:3px;border:1px solid transparent;cursor:grab" onmouseenter="this.style.background='hsl(var(--sf-h))';this.style.borderColor='hsl(var(--e-d))'" onmouseleave="this.style.background='';this.style.borderColor='transparent'"><span class="mono muted">AIPM-50</span><div class="fs13">Setup CI/CD pipeline</div></div>
+    <div style="padding:8px 10px;border-radius:var(--r);font-size:12px;margin-bottom:3px;border:1px solid transparent" onmouseenter="this.style.background='hsl(var(--sf-h))';this.style.borderColor='hsl(var(--e-d))'" onmouseleave="this.style.background='';this.style.borderColor='transparent'"><span class="mono muted">AIPM-48</span><div class="fs13">Dark mode email templates</div></div>
+    <div style="padding:8px 10px;border-radius:var(--r);font-size:12px;margin-bottom:3px;border:1px solid transparent" onmouseenter="this.style.background='hsl(var(--sf-h))';this.style.borderColor='hsl(var(--e-d))'" onmouseleave="this.style.background='';this.style.borderColor='transparent'"><span class="mono muted">AIPM-46</span><div class="fs13">WebSocket reconnection logic</div></div>
+    <!-- Sprint 3 progress -->
+    <div style="border-top:1px solid hsl(var(--e-d));margin-top:12px;padding-top:12px">
+      <div class="flex justify-between fs12 muted" style="margin-bottom:8px"><span>Sprint 3</span><span>18/30 SP</span></div>
+      <div class="progress" style="margin-bottom:12px"><div class="progress-bar brand" style="width:60%"></div></div>
+    </div>
+    <h4 class="fs11 fw6 muted mt4" style="text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px">Sprint 3 — 6 issues</h4>
+    <div style="padding:8px 10px;border-radius:var(--r);font-size:12px;margin-bottom:3px;border:1px solid transparent" onmouseenter="this.style.background='hsl(var(--sf-h))';this.style.borderColor='hsl(var(--e-d))'" onmouseleave="this.style.background='';this.style.borderColor='transparent'"><span class="mono muted">AIPM-42</span><div class="fs13">Login mobile layout</div><div class="fs11 muted">8 SP</div></div>
+    <div style="padding:8px 10px;border-radius:var(--r);font-size:12px;margin-bottom:3px;border:1px solid transparent" onmouseenter="this.style.background='hsl(var(--sf-h))';this.style.borderColor='hsl(var(--e-d))'" onmouseleave="this.style.background='';this.style.borderColor='transparent'"><span class="mono muted">AIPM-38</span><div class="fs13">Email rate limit</div><div class="fs11 muted">5 SP</div></div>
+    <div style="padding:8px 10px;border-radius:var(--r);font-size:12px;margin-bottom:3px;border:1px solid transparent" onmouseenter="this.style.background='hsl(var(--sf-h))';this.style.borderColor='hsl(var(--e-d))'" onmouseleave="this.style.background='';this.style.borderColor='transparent'"><span class="mono muted">AIPM-35</span><div class="fs13">Permission system</div><div class="fs11 muted">8 SP</div></div>
+    <div style="padding:8px 10px;border-radius:var(--r);font-size:12px;margin-bottom:3px;border:1px solid transparent" onmouseenter="this.style.background='hsl(var(--sf-h))';this.style.borderColor='hsl(var(--e-d))'" onmouseleave="this.style.background='';this.style.borderColor='transparent'"><span class="mono muted">AIPM-29</span><div class="fs13">Board drag-and-drop</div><div class="fs11 muted">5 SP</div></div>
+    <div style="padding:8px 10px;border-radius:var(--r);font-size:12px;margin-bottom:3px;border:1px solid transparent" onmouseenter="this.style.background='hsl(var(--sf-h))';this.style.borderColor='hsl(var(--e-d))'" onmouseleave="this.style.background='';this.style.borderColor='transparent'"><span class="mono muted">AIPM-21</span><div class="fs13">Auth unit tests</div><div class="fs11 muted">3 SP</div></div>
+    <div style="padding:8px 10px;border-radius:var(--r);font-size:12px;margin-bottom:3px;border:1px solid transparent" onmouseenter="this.style.background='hsl(var(--sf-h))';this.style.borderColor='hsl(var(--e-d))'" onmouseleave="this.style.background='';this.style.borderColor='transparent'"><span class="mono muted">AIPM-40</span><div class="fs13">API Key anomaly</div><div class="fs11 muted">3 SP</div></div>
+  </div>
+  <div style="overflow-y:auto">
+    <!-- Filter toolbar -->
+    <div style="padding:10px 14px;border-bottom:1px solid hsl(var(--e-d));display:flex;gap:8px;align-items:center;background:hsl(var(--sf-c))">
+      <div style="flex:1;position:relative"><input placeholder="Search issues..." class="form-input" style="padding:6px 10px;width:100%"></div>
+      <div style="position:relative;width:140px">
+        <input placeholder="Creator..." class="form-input" style="padding:6px 10px;width:100%" onfocus="this.nextElementSibling.style.display='block'" onblur="setTimeout(function(){this.nextElementSibling.style.display='none'}.bind(this),150)">
+        <div style="display:none;position:absolute;left:0;top:100%;z-index:20;margin-top:2px;background:hsl(var(--sf-c));border:1px solid hsl(var(--e-d));border-radius:var(--r);width:100%;max-height:160px;overflow-y:auto;box-shadow:0 4px 12px rgba(0,0,0,.1);padding:4px">
+          <div style="padding:4px 8px;font-size:12px;cursor:pointer;border-radius:4px" onmouseenter="this.style.background='hsl(var(--sf-h))'" onmouseleave="this.style.background=''" onmousedown="this.parentElement.previousElementSibling.value=this.textContent.split(' ')[0];this.parentElement.style.display='none'">James <span style="font-size:11px;color:hsl(var(--i-m));margin-left:4px">wujian225@163.com</span></div>
+        </div>
+      </div>
+      <select class="form-select" style="padding:6px 10px;width:auto"><option>All Types</option><option>Bug</option><option>Task</option><option>Story</option><option>Epic</option></select>
+      <select class="form-select" style="padding:6px 10px;width:auto"><option>All Priority</option><option>Critical</option><option>High</option><option>Medium</option><option>Low</option></select>
+      <!-- Column picker -->
+      <div style="position:relative">
+        <button class="btn btn-g fs12" style="padding:6px 10px" onclick="var d=this.nextElementSibling;d.style.display=d.style.display==='block'?'none':'block'">☰ Columns</button>
+        <div style="display:none;position:absolute;right:0;top:100%;z-index:20;margin-top:2px;background:hsl(var(--sf-c));border:1px solid hsl(var(--e-d));border-radius:var(--r);min-width:150px;padding:4px;box-shadow:0 4px 12px rgba(0,0,0,.1)">
+          <div style="padding:4px 8px;font-size:10px;font-weight:600;color:hsl(var(--i-m));text-transform:uppercase;letter-spacing:0.04em">Columns</div>
+          <label style="display:flex;align-items:center;gap:6px;padding:4px 8px;font-size:12px;cursor:pointer;border-radius:4px"><input type="checkbox" checked style="accent-color:hsl(var(--badge))"> #</label>
+          <label style="display:flex;align-items:center;gap:6px;padding:4px 8px;font-size:12px;cursor:pointer;border-radius:4px"><input type="checkbox" checked style="accent-color:hsl(var(--badge))"> Title</label>
+          <label style="display:flex;align-items:center;gap:6px;padding:4px 8px;font-size:12px;cursor:pointer;border-radius:4px"><input type="checkbox" checked style="accent-color:hsl(var(--badge))"> Type</label>
+          <label style="display:flex;align-items:center;gap:6px;padding:4px 8px;font-size:12px;cursor:pointer;border-radius:4px"><input type="checkbox" checked style="accent-color:hsl(var(--badge))"> Priority</label>
+          <label style="display:flex;align-items:center;gap:6px;padding:4px 8px;font-size:12px;cursor:pointer;border-radius:4px"><input type="checkbox" checked style="accent-color:hsl(var(--badge))"> Status</label>
+          <label style="display:flex;align-items:center;gap:6px;padding:4px 8px;font-size:12px;cursor:pointer;border-radius:4px"><input type="checkbox" checked style="accent-color:hsl(var(--badge))"> Assignee</label>
+          <label style="display:flex;align-items:center;gap:6px;padding:4px 8px;font-size:12px;cursor:pointer;border-radius:4px"><input type="checkbox" style="accent-color:hsl(var(--badge))"> Creator</label>
+          <label style="display:flex;align-items:center;gap:6px;padding:4px 8px;font-size:12px;cursor:pointer;border-radius:4px"><input type="checkbox" style="accent-color:hsl(var(--badge))"> Created</label>
+          <label style="display:flex;align-items:center;gap:6px;padding:4px 8px;font-size:12px;cursor:pointer;border-radius:4px"><input type="checkbox" style="accent-color:hsl(var(--badge))"> SP</label>
+        </div>
+      </div>
+    </div>
+    <!-- Count bar -->
+    <div style="padding:8px 14px;font-size:11px;color:hsl(var(--i-m));border-bottom:1px solid hsl(var(--e-d));display:flex;align-items:center;gap:8px">
+      <span>6 issues</span>
+      <span style="opacity:0.6">| Sorted by # (asc)</span>
+    </div>
+    <!-- Column headers -->
+    <div style="display:flex;align-items:center;gap:12px;padding:6px 14px;border-bottom:1px solid hsl(var(--e-d));background:hsl(var(--sf-h));font-size:11px;font-weight:600;color:hsl(var(--i-m));text-transform:uppercase;letter-spacing:0.05em">
+      <span style="cursor:pointer;display:flex;align-items:center;gap:2px;width:60px"># <span style="font-size:10px;color:hsl(var(--badge))">▲</span></span>
+      <span style="cursor:pointer;display:flex;align-items:center;gap:2px;flex:1">Title <span style="font-size:10px;opacity:0.4">⇅</span></span>
+      <span style="cursor:pointer;display:flex;align-items:center;gap:2px;width:60px">Type <span style="font-size:10px;opacity:0.4">⇅</span></span>
+      <span style="cursor:pointer;display:flex;align-items:center;gap:2px;width:70px">Priority <span style="font-size:10px;opacity:0.4">⇅</span></span>
+      <span style="cursor:pointer;display:flex;align-items:center;gap:2px;width:70px">Status <span style="font-size:10px;opacity:0.4">⇅</span></span>
+      <span style="cursor:pointer;display:flex;align-items:center;gap:2px;width:80px">Assignee <span style="font-size:10px;opacity:0.4">⇅</span></span>
+    </div>
+    <!-- Issue rows -->
+    <div class="hover-row flex items-center gap3" onclick="show('issue-detail')" style="cursor:pointer">
+      <span class="mono fs12 muted" style="width:60px;flex-shrink:0">TOMAT-1</span>
+      <span class="fs13 fw5 flex-1" style="min-width:0">Refine the AI review function on 'Create issue' page</span>
+      <span class="tag tag-b" style="flex-shrink:0;width:60px">Story</span>
+      <span class="tag tag-hi" style="flex-shrink:0;width:70px">High</span>
+      <span class="fs11 muted" style="flex-shrink:0;width:70px">done</span>
+      <span class="fs12" style="flex-shrink:0;width:80px;color:hsl(var(--i-s))">James</span>
+    </div>
+    <div class="hover-row flex items-center gap3" onclick="show('issue-detail')" style="cursor:pointer">
+      <span class="mono fs12 muted" style="width:60px;flex-shrink:0">TOMAT-2</span>
+      <span class="fs13 fw5 flex-1" style="min-width:0">Add related issue info on the create issue page and issue detail page</span>
+      <span class="tag tag-b" style="flex-shrink:0;width:60px">Task</span>
+      <span class="tag tag-med" style="flex-shrink:0;width:70px">Medium</span>
+      <span class="fs11 muted" style="flex-shrink:0;width:70px">in_progress</span>
+      <span class="fs12" style="flex-shrink:0;width:80px;color:hsl(var(--i-s))">James</span>
+    </div>
+    <div class="hover-row flex items-center gap3" onclick="show('issue-detail')" style="cursor:pointer">
+      <span class="mono fs12 muted" style="width:60px;flex-shrink:0">TOMAT-3</span>
+      <span class="fs13 fw5 flex-1" style="min-width:0">HITL 模式功能开发</span>
+      <span class="tag tag-b" style="flex-shrink:0;width:60px">Task</span>
+      <span class="tag tag-hi" style="flex-shrink:0;width:70px">High</span>
+      <span class="fs11 muted" style="flex-shrink:0;width:70px">open</span>
+      <span class="fs12" style="flex-shrink:0;width:80px;color:hsl(var(--i-s))">James</span>
+    </div>
+    <div class="hover-row flex items-center gap3" onclick="show('issue-detail')" style="cursor:pointer">
+      <span class="mono fs12 muted" style="width:60px;flex-shrink:0">TOMAT-4</span>
+      <span class="fs13 fw5 flex-1" style="min-width:0">UI 上显示的数据库时间不对</span>
+      <span class="tag tag-hi" style="flex-shrink:0;width:60px">Bug</span>
+      <span class="tag tag-hi" style="flex-shrink:0;width:70px">High</span>
+      <span class="fs11 muted" style="flex-shrink:0;width:70px">done</span>
+      <span class="fs12" style="flex-shrink:0;width:80px;color:hsl(var(--i-s))">James</span>
+    </div>
+    <div class="hover-row flex items-center gap3" onclick="show('issue-detail')" style="cursor:pointer">
+      <span class="mono fs12 muted" style="width:60px;flex-shrink:0">TOMAT-5</span>
+      <span class="fs13 fw5 flex-1" style="min-width:0">Refine MCP Audit page</span>
+      <span class="tag tag-b" style="flex-shrink:0;width:60px">Task</span>
+      <span class="tag tag-med" style="flex-shrink:0;width:70px">Medium</span>
+      <span class="fs11 muted" style="flex-shrink:0;width:70px">done</span>
+      <span class="fs12" style="flex-shrink:0;width:80px;color:hsl(var(--i-s))">James</span>
+    </div>
+    <div class="hover-row flex items-center gap3" onclick="show('issue-detail')" style="cursor:pointer">
+      <span class="mono fs12 muted" style="width:60px;flex-shrink:0">TOMAT-6</span>
+      <span class="fs13 fw5 flex-1" style="min-width:0">Refine issues page</span>
+      <span class="tag tag-b" style="flex-shrink:0;width:60px">Task</span>
+      <span class="tag tag-med" style="flex-shrink:0;width:70px">Medium</span>
+      <span class="fs11 muted" style="flex-shrink:0;width:70px">done</span>
+      <span class="fs12" style="flex-shrink:0;width:80px;color:hsl(var(--i-s))">James</span>
+    </div>
+  </div>
+</div></div>
+
+<!-- ─── ISSUE DETAIL ─── -->
+<div id="v-issue-detail" class="view-off">
+<div class="ch"><div class="flex items-center gap3"><a href="javascript:void(0)" onclick="show('issues')" class="btn btn-g">&larr; Back</a><h2>AIPM-42</h2><span class="fs13 muted">Fix login page layout on mobile devices</span></div><div class="flex gap2"><button class="btn btn-b fs12" onclick="show('issue-create')">+ New Issue</button><button class="btn btn-s fs12" onclick="show('issue-create');document.getElementById('copy-from').value='AIPM-42'" title="Copy fields from this issue as a template">📋 Copy</button><button class="btn btn-s fs12" onclick="document.getElementById('edit-panel').classList.toggle('view-off')" title="Edit title, description, status, priority, assignee, labels, sprint, story points">✏ Edit</button><button class="btn btn-s fs12 danger">🗑 Delete</button></div></div>
+<!-- Inline edit panel -->
+<div id="edit-panel" class="view-off card mb4" style="margin:0 24px"><div class="card-bd" style="padding:16px">
+<div class="grid2 mb4"><div class="form-grp"><label class="form-label">Title</label><input class="form-input" value="Fix login page layout on mobile devices"></div><div class="form-grp"><label class="form-label">Priority</label><select class="form-select" style="width:100%"><option>High</option><option>Critical</option><option>Medium</option><option>Low</option></select></div></div>
+<div class="grid2 mb4"><div class="form-grp"><label class="form-label">Priority</label><select class="form-select" style="width:100%"><option>High</option><option>Critical</option><option>Medium</option><option>Low</option></select></div><div class="form-grp"><label class="form-label">Assignee</label><div style="position:relative"><input class="form-input" style="width:100%;padding:6px 10px" placeholder="Search members..." value="Alice" onfocus="this.nextElementSibling.style.display='block'" onblur="setTimeout(function(){this.nextElementSibling.style.display='none'}.bind(this),150)"><div style="display:none;position:absolute;left:0;top:100%;z-index:20;margin-top:2px;background:hsl(var(--sf-c));border:1px solid hsl(var(--e-d));border-radius:var(--r);width:100%;max-height:160px;overflow-y:auto;box-shadow:0 4px 12px rgba(0,0,0,.1);padding:4px"><div style="padding:4px 8px;font-size:12px;cursor:pointer;border-radius:4px;color:hsl(var(--i-m))" onmouseenter="this.style.background='hsl(var(--sf-h))'" onmouseleave="this.style.background=''" onmousedown="this.parentElement.previousElementSibling.value='Unassigned';this.parentElement.style.display='none'">Unassigned</div><div style="padding:4px 8px;font-size:12px;cursor:pointer;border-radius:4px" onmouseenter="this.style.background='hsl(var(--sf-h))'" onmouseleave="this.style.background=''" onmousedown="this.parentElement.previousElementSibling.value=this.textContent.split(' ')[0];this.parentElement.style.display='none'">James <span style="font-size:11px;color:hsl(var(--i-m));margin-left:4px">wujian225@163.com</span></div><div style="padding:4px 8px;font-size:12px;cursor:pointer;border-radius:4px" onmouseenter="this.style.background='hsl(var(--sf-h))'" onmouseleave="this.style.background=''" onmousedown="this.parentElement.previousElementSibling.value=this.textContent.split(' ')[0];this.parentElement.style.display='none'">Alice <span style="font-size:11px;color:hsl(var(--i-m));margin-left:4px">alice@example.com</span></div><div style="padding:4px 8px;font-size:12px;cursor:pointer;border-radius:4px" onmouseenter="this.style.background='hsl(var(--sf-h))'" onmouseleave="this.style.background=''" onmousedown="this.parentElement.previousElementSibling.value=this.textContent.split(' ')[0];this.parentElement.style.display='none'">Bob <span style="font-size:11px;color:hsl(var(--i-m));margin-left:4px">bob@example.com</span></div></div></div></div></div>
+<div class="grid2 mb4"><div class="form-grp"><label class="form-label">Sprint</label><select class="form-select" style="width:100%"><option>Sprint 3</option><option>Backlog</option><option>Sprint 4</option></select></div><div class="form-grp"><label class="form-label">Story Points</label><input class="form-input" value="8" type="number"></div></div>
+<div class="form-grp"><label class="form-label">Labels</label><input class="form-input" value="bug, mobile, ui"></div>
+<div class="flex gap2 mt4"><button class="btn btn-b" onclick="document.getElementById('edit-panel').classList.add('view-off')">Save Changes</button><button class="btn btn-s" onclick="document.getElementById('edit-panel').classList.add('view-off')">Cancel</button></div>
+</div></div>
+<div class="cb"><div style="display:flex;gap:8px;flex-wrap:wrap;padding:12px 24px;border-bottom:1px solid hsl(var(--e-d))">
+  <button class="status-btn" data-status="open" style="padding:6px 18px;border:1px solid hsl(var(--e-d));border-radius:6px;font-size:13px;cursor:pointer;background:transparent;color:hsl(var(--i-m))" onclick="selectStatus('open',this)">Open</button>
+  <button class="status-btn active" data-status="in_progress" style="padding:6px 18px;border:2px solid hsl(var(--brand));border-radius:6px;font-size:13px;cursor:pointer;background:hsl(var(--brand)/0.1);color:hsl(var(--brand));font-weight:600" onclick="selectStatus('in_progress',this)">In Progress</button>
+  <button class="status-btn" data-status="in_review" style="padding:6px 18px;border:1px solid hsl(var(--e-d));border-radius:6px;font-size:13px;cursor:pointer;background:transparent;color:hsl(var(--i-m))" onclick="selectStatus('in_review',this)">In Review</button>
+  <button class="status-btn" data-status="done" style="padding:6px 18px;border:1px solid hsl(var(--e-d));border-radius:6px;font-size:13px;cursor:pointer;background:transparent;color:hsl(var(--i-m))" onclick="selectStatus('done',this)">Done</button>
+  <button class="status-btn" data-status="cancelled" style="padding:6px 18px;border:1px solid hsl(var(--e-d));border-radius:6px;font-size:13px;cursor:pointer;background:transparent;color:hsl(var(--i-m))" onclick="selectStatus('cancelled',this)">Cancelled</button>
+</div><div class="detail-layout">
+<div class="detail-hd">
+  <div class="detail-id">AIPM-42</div>
+  <div class="detail-title">Fix login page layout on mobile devices — sidebar collapse & responsive stacking</div>
+  <div class="detail-meta">
+    <span class="tag tag-hi">Bug</span><span class="tag tag-hi">High</span>
+    <span class="muted">Created by Alice · Jun 3</span>
+    <span class="muted">Updated 3 hours ago</span>
+  </div>
+</div>
+<div class="detail-body">
+  <div>
+    <div class="card mb4"><div class="card-hd"><h3>Description</h3></div><div class="card-bd detail-desc">
+      <p>The login page layout breaks on mobile viewports (&lt; 768px):</p>
+      <ol style="padding-left:20px;margin:8px 0">
+        <li>Sidebar is hidden but left panel still takes space</li>
+        <li>Form inputs overflow the card width</li>
+        <li>Brand panel should stack above the form, not beside it</li>
+      </ol>
+      <p class="mt4">Expected: Full-width centered card with brand logo above. Sidebar hidden. Form inputs constrained to card width.</p>
+    </div></div>
+
+    <div class="card mb4"><div class="card-hd"><h3>Comments</h3></div><div class="card-bd nopad">
+      <div class="hover-row"><div class="flex items-center gap2 mb4"><div class="av">A</div><div><span class="fw6 fs13">Alice</span><span class="fs11 muted ml-2">2 days ago</span></div></div><p class="fs13" style="line-height:1.6">I can reproduce on Chrome 125, iPhone SE viewport. The flex layout is causing the sidebar's hidden width to still affect the content area.</p></div>
+      <div class="hover-row"><div class="flex items-center gap2 mb4"><div class="av">B</div><div><span class="fw6 fs13">Bob</span><span class="fs11 muted ml-2">1 day ago</span></div></div><p class="fs13" style="line-height:1.6">Suggested fix: use <code class="mono fs12" style="background:hsl(var(--sf-h));padding:1px 4px;border-radius:3px">@media (max-width: 768px)</code> to hide sidebar and make content full-width. I can pair on this.</p></div>
+    </div></div>
+
+    <div class="card"><div class="card-hd"><h3>Activity</h3></div><div class="card-bd nopad">
+      <div class="hover-row fs12 muted">Alice changed status from <strong>To Do</strong> → <strong>In Progress</strong> · Jun 4</div>
+      <div class="hover-row fs12 muted">Bob added a comment · Jun 4</div>
+      <div class="hover-row fs12 muted">Alice created this issue · Jun 3</div>
+    </div></div>
+  </div>
+
+  <div class="detail-sidebar">
+    <div class="card mb4"><div class="card-hd"><h3>Details</h3></div><div class="card-bd" style="padding:12px 14px">
+      <div class="side-item"><div class="side-label">Assignee</div><div class="flex items-center gap2"><div class="av">A</div><span class="fs13">Alice</span></div></div>
+      <div class="side-item"><div class="side-label">Status</div><span class="tag tag-b">In Progress</span></div>
+      <div class="side-item"><div class="side-label">Priority</div><span class="tag tag-hi">High</span></div>
+      <div class="side-item"><div class="side-label">Story Points</div><span class="fs13 fw6">8</span></div>
+      <div class="side-item"><div class="side-label">Sprint</div><span class="fs13">Sprint 3</span></div>
+      <div class="side-item"><div class="side-label">Created</div><span class="fs12 muted">Jun 3, 2026</span></div>
+    </div></div>
+
+    <!-- ★ AI Issue Analysis Inline ★ -->
+    <div class="card ai-glow mb4"><div class="card-hd"><div class="flex items-center gap2"><span class="pulse"></span><h3 class="brand">AI Analysis</h3></div></div><div class="card-bd fs12" style="line-height:1.6">
+      <p class="mb4"><strong class="pri">Risk Score:</strong> <span class="fw6 brand" style="font-size:18px">32/100</span> <span class="tag tag-lo">Low</span></p>
+      <p class="mb4"><strong class="pri">Root Cause:</strong> This bug stems from the split-panel flex layout approach chosen for v2.3 auth pages. The sidebar's <code class="mono" style="background:hsl(var(--sf-h));padding:1px 3px;border-radius:2px">w-[440px]</code> is not responsive.</p>
+      <p class="mb4"><strong class="pri">Suggested Fix:</strong> Replace the split-panel with a centered card layout on mobile via <code class="mono" style="background:hsl(var(--sf-h));padding:1px 3px;border-radius:2px">@media</code> query. Remove hardcoded widths.</p>
+      <p class="muted fs11" style="border-top:1px solid hsl(var(--e-d));padding-top:8px;margin-top:12px">Analyzed by Claude · Confidence: 92%</p>
+    </div></div>
+  </div>
+</div>
+</div></div></div>
+
+<!-- ─── CREATE ISSUE ─── -->
+<div id="v-issue-create" class="view-off">
+<div class="ch"><div class="flex items-center gap3"><a href="javascript:void(0)" onclick="show('issues')" class="btn btn-g">&larr; Back to Issues</a><h2>Create Issue</h2></div><div class="flex gap2"><button class="btn btn-b">Create Issue</button><button class="btn btn-s">Cancel</button></div></div>
+<div class="cb">
+<input type="hidden" id="copy-from" value="">
+<div style="max-width:900px">
+
+  <!-- ═══ MAIN FORM — dominant, large input areas ═══ -->
+  <div class="card mb4">
+    <div class="card-bd" style="padding:28px 32px">
+
+      <!-- Row 1: Project + Type -->
+      <div class="form-row mb4">
+        <div class="form-grp"><label class="form-label">Project</label><select class="form-select" style="width:100%;padding:10px 14px;font-size:14px"><option>TomiHub Core Platform (AIPM)</option></select></div>
+        <div class="form-grp"><label class="form-label">Issue Type</label><select class="form-select" style="width:100%;padding:10px 14px;font-size:14px"><option>Bug</option><option>Task</option><option>Story</option><option>Epic</option></select></div>
+      </div>
+
+      <!-- ★ Title — large, prominent -->
+      <div class="form-grp mb4">
+        <label class="form-label">Title</label>
+        <input class="form-input" placeholder="What needs to be done?" style="padding:14px 16px;font-size:16px;font-weight:500">
+      </div>
+
+      <!-- ★ Description — large textarea -->
+      <div class="form-grp mb4">
+        <label class="form-label">Description</label>
+        <textarea class="form-input" placeholder="Describe the issue in detail. Include steps to reproduce, expected behavior, and any relevant context.&#10;&#10;Markdown supported." style="min-height:220px;padding:14px 16px;font-size:14px;line-height:1.7;resize:vertical;font-family:var(--f)"></textarea>
+      </div>
+
+      <!-- Row 2: Priority + Assignee + SP -->
+      <div class="form-row mb4">
+        <div class="form-grp"><label class="form-label">Priority</label><select class="form-select" style="width:100%;padding:10px 14px;font-size:14px"><option>Medium</option><option>Critical</option><option>High</option><option>Low</option></select></div>
+        <div class="form-grp"><label class="form-label">Assignee</label><div style="position:relative"><input class="form-input" style="width:100%;padding:10px 14px;font-size:14px" placeholder="Search members..." onfocus="this.nextElementSibling.style.display='block'" onblur="setTimeout(function(){this.nextElementSibling.style.display='none'}.bind(this),150)"><div style="display:none;position:absolute;left:0;top:100%;z-index:20;margin-top:2px;background:hsl(var(--sf-c));border:1px solid hsl(var(--e-d));border-radius:var(--r);width:100%;max-height:160px;overflow-y:auto;box-shadow:0 4px 12px rgba(0,0,0,.1);padding:4px"><div style="padding:4px 8px;font-size:12px;cursor:pointer;border-radius:4px;color:hsl(var(--i-m))" onmouseenter="this.style.background='hsl(var(--sf-h))'" onmouseleave="this.style.background=''" onmousedown="this.parentElement.previousElementSibling.value='Unassigned';this.parentElement.style.display='none'">Unassigned</div><div style="padding:4px 8px;font-size:12px;cursor:pointer;border-radius:4px" onmouseenter="this.style.background='hsl(var(--sf-h))'" onmouseleave="this.style.background=''" onmousedown="this.parentElement.previousElementSibling.value=this.textContent.split(' ')[0];this.parentElement.style.display='none'">James <span style="font-size:11px;color:hsl(var(--i-m));margin-left:4px">wujian225@163.com</span></div><div style="padding:4px 8px;font-size:12px;cursor:pointer;border-radius:4px" onmouseenter="this.style.background='hsl(var(--sf-h))'" onmouseleave="this.style.background=''" onmousedown="this.parentElement.previousElementSibling.value=this.textContent.split(' ')[0];this.parentElement.style.display='none'">Alice <span style="font-size:11px;color:hsl(var(--i-m));margin-left:4px">alice@example.com</span></div><div style="padding:4px 8px;font-size:12px;cursor:pointer;border-radius:4px" onmouseenter="this.style.background='hsl(var(--sf-h))'" onmouseleave="this.style.background=''" onmousedown="this.parentElement.previousElementSibling.value=this.textContent.split(' ')[0];this.parentElement.style.display='none'">Bob <span style="font-size:11px;color:hsl(var(--i-m));margin-left:4px">bob@example.com</span></div></div></div></div>
+        <div class="form-grp"><label class="form-label">Story Points</label><input class="form-input" type="number" min="1" max="100" placeholder="Estimate" style="width:100%;padding:10px 14px;font-size:14px"></div>
+      </div>
+
+      <!-- Row 3: Sprint + Parent + Security -->
+      <div class="form-row mb4">
+        <div class="form-grp"><label class="form-label">Sprint</label><select class="form-select" style="width:100%;padding:10px 14px;font-size:14px"><option>Sprint 3 (current)</option><option>Backlog</option><option>Sprint 4 (next)</option></select></div>
+        <div class="form-grp"><label class="form-label">Parent Issue</label><input class="form-input" placeholder="e.g. AIPM-10" style="padding:10px 14px;font-size:14px"></div>
+        <div class="form-grp"><label class="form-label">Security Level</label><select class="form-select" style="width:100%;padding:10px 14px;font-size:14px"><option>None (public)</option><option>Internal</option><option>Confidential</option></select></div>
+      </div>
+
+      <div class="form-grp"><label class="form-label">Labels</label><input class="form-input" placeholder="Press Enter to add labels" style="padding:10px 14px;font-size:14px"></div>
+
+      <div class="flex gap2 justify-between mt4" style="padding-top:16px;border-top:1px solid hsl(var(--e-d))">
+        <button class="btn btn-s fs13" onclick="document.getElementById('ai-review-panel').classList.toggle('view-off')">🤖 AI Review</button>
+        <div class="flex gap2"><button class="btn btn-b fs13" style="padding:10px 24px">Create Issue</button><button class="btn btn-s fs13">Cancel</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ AI REVIEW PANEL — supporting, appears below form ═══ -->
+  <div id="ai-review-panel" class="view-off card ai-glow">
+    <div class="card-hd"><div class="flex items-center justify-between"><div class="flex items-center gap2"><span class="pulse"></span><span class="fs13 fw6 brand">🤖 AI Review Results</span></div><span class="fs11 muted">Analyzed just now · Claude Opus 4.8</span></div></div>
+    <div class="card-bd" style="padding:20px 24px">
+
+      <!-- ★ Optimized Title — one-click replace -->
+      <div style="background:hsl(var(--brand-s));padding:14px 16px;border-radius:var(--r);margin-bottom:16px">
+        <div class="flex justify-between items-center mb4"><span class="fs12 fw6 brand">✨ Optimized Title</span><button class="btn btn-b btn-xs" title="Replace current title with this optimized version">Replace</button></div>
+        <p class="fs14 fw6" style="line-height:1.5">Fix login page responsive layout — mobile viewport causes form overflow due to hidden sidebar residual width</p>
+      </div>
+
+      <!-- ★ Optimized Description — one-click replace -->
+      <div style="background:hsl(var(--brand-s));padding:14px 16px;border-radius:var(--r);margin-bottom:16px">
+        <div class="flex justify-between items-center mb4"><span class="fs12 fw6 brand">✨ Optimized Description</span><button class="btn btn-b btn-xs">Replace</button></div>
+        <div class="fs13" style="line-height:1.7">
+          <p class="mb4"><strong>Summary:</strong> The login page layout breaks on mobile viewports (&lt;768px). The split-panel flex layout leaves the hidden sidebar still occupying layout space, causing the form card to overflow horizontally.</p>
+          <p class="mb4"><strong>Steps to Reproduce:</strong></p><ol style="padding-left:20px;margin-bottom:8px"><li>Open login page on Chrome 125, iPhone SE viewport</li><li>Observe sidebar space still visible in layout</li><li>Note form inputs overflowing card boundary</li></ol>
+          <p><strong>Expected Behavior:</strong> Full-width centered card. Brand logo above form. Sidebar fully hidden. Form inputs constrained within card width.</p>
+        </div>
+      </div>
+
+      <!-- ★ Duplicate Check — merged into AI Review -->
+      <div style="margin-bottom:16px">
+        <div class="fs12 fw6 mb4">🔍 Duplicate Check — Found 2 similar issues</div>
+        <div class="grid2">
+          <div style="padding:10px 12px;border:1px solid hsl(var(--e-d));border-radius:var(--r);cursor:pointer" onclick="show('issue-detail')">
+            <div class="flex justify-between mb4"><span class="mono fs12 fw6 brand">AIPM-18</span><span class="tag tag-hi">78% match</span></div>
+            <p class="fs12 mb4">Responsive layout breaks on auth pages — similar root cause (flex layout). Same developer (Alice).</p>
+            <p class="fs11 muted">⚠ Consider merging or linking instead of creating duplicate</p>
+          </div>
+          <div style="padding:10px 12px;border:1px solid hsl(var(--e-d));border-radius:var(--r);cursor:pointer" onclick="show('issue-detail')">
+            <div class="flex justify-between mb4"><span class="mono fs12 fw6 brand">AIPM-22</span><span class="tag tag-med">62% match</span></div>
+            <p class="fs12 mb4">Mobile navigation menu overflow — related component (sidebar). Partial overlap in scope.</p>
+            <p class="fs11 muted">Partial overlap · Consider linking as related</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ★ Field-level suggestions -->
+      <div>
+        <div class="fs12 fw6 mb4">💡 Field Suggestions</div>
+        <div class="grid2 fs12" style="line-height:1.6">
+          <div style="padding:8px 10px;background:hsl(var(--sf-h));border-radius:var(--r)">✅ <strong>Title:</strong> Clear and specific — good</div>
+          <div style="padding:8px 10px;background:hsl(var(--sf-h));border-radius:var(--r)">💡 <strong>Priority:</strong> Suggest <span class="tag tag-hi">High</span> — user-facing bug</div>
+          <div style="padding:8px 10px;background:hsl(var(--sf-h));border-radius:var(--r)">💡 <strong>Assignee:</strong> Alice already on AIPM-18 (related). Suggest <strong>Bob</strong></div>
+          <div style="padding:8px 10px;background:hsl(var(--sf-h));border-radius:var(--r)">💡 <strong>SP:</strong> Suggest <strong>5 SP</strong> (similar issues avg 4-6)</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</div></div>
+
+<!-- ─── SPRINTS ─── -->
+<div id="v-sprints" class="view-off">
+<div class="ch"><h2>Sprints</h2><button class="btn btn-b">+ New Sprint</button></div>
+<div class="cb">
+<div class="card mb4"><div class="card-hd flex justify-between items-center"><h3>Sprint 3 (Active) · Jun 1 – Jun 15</h3><span class="fs12 brand fw6">8 days remaining</span></div><div class="card-bd">
+  <div class="grid3 mb4">
+    <div><div class="fs11 muted fw6 mb4" style="text-transform:uppercase;letter-spacing:0.04em">Progress</div><div class="fs28 fw7 brand">60%</div><div class="fs12 muted">12 / 20 issues complete</div></div>
+    <div><div class="fs11 muted fw6 mb4" style="text-transform:uppercase;letter-spacing:0.04em">Story Points</div><div class="fs28 fw7 brand">18 / 30</div><div class="fs12 muted">Completed / Total SP</div></div>
+    <div><div class="fs11 muted fw6 mb4" style="text-transform:uppercase;letter-spacing:0.04em">Velocity</div><div class="fs28 fw7 warn">24</div><div class="fs12 muted">SP per sprint (avg)</div></div>
+  </div>
+  <div class="fs12 muted fw6 mb4">Burndown Chart</div>
+  <div class="burndown"><svg viewBox="0 0 800 200"><polyline fill="none" stroke="hsl(var(--brand))" stroke-width="2" points="20,20 120,45 220,60 320,55 420,70 520,85 620,80 720,95"/><polyline fill="none" stroke="hsl(var(--e-d))" stroke-width="1" stroke-dasharray="5,5" points="20,20 780,180"/></svg></div>
+</div></div>
+<div class="card"><div class="card-hd"><h3>All Sprints</h3></div><div class="card-bd-nopad">
+  <div class="hover-row flex items-center gap4"><span class="fs14 fw6 flex-1">Sprint 3</span><span class="fs12 muted">Jun 1 – Jun 15 · 12/20 issues</span><div class="progress flex-1" style="max-width:200px"><div class="progress-bar brand" style="width:60%"></div></div><span class="tag tag-b">Active</span></div>
+  <div class="hover-row flex items-center gap4"><span class="fs14 fw6 flex-1">Sprint 2</span><span class="fs12 muted">May 15 – May 31 · 18/18 issues</span><div class="progress flex-1" style="max-width:200px"><div class="progress-bar success" style="width:100%"></div></div><span class="tag tag-lo">Completed</span></div>
+  <div class="hover-row flex items-center gap4"><span class="fs14 fw6 flex-1">Sprint 1</span><span class="fs12 muted">May 1 – May 14 · 15/15 issues</span><div class="progress flex-1" style="max-width:200px"><div class="progress-bar success" style="width:100%"></div></div><span class="tag tag-lo">Completed</span></div>
+</div></div>
+</div></div>
+
+<!-- ─── GANTT ─── -->
+<div id="v-gantt" class="view-off">
+<div class="ch"><h2>Gantt Chart</h2><span class="bc">AIPM / Gantt</span></div>
+<div class="cb"><div class="card"><div class="card-bd" style="padding:0;overflow-x:auto">
+  <div class="gantt-row" style="background:hsl(var(--sf-h))"><div class="gantt-label fw6 fs11">Issue</div><div class="gantt-timeline flex items-center"><span class="fs10 muted" style="position:absolute;left:0%">May</span><span class="fs10 muted" style="position:absolute;left:33%">Jun</span><span class="fs10 muted" style="position:absolute;left:67%">Jul</span></div></div>
+  <div class="gantt-row"><div class="gantt-label"><span class="mono fs11 muted">AIPM-29</span><span class="fs12">Board DnD API</span></div><div class="gantt-timeline"><div class="gantt-bar" style="left:20%;width:25%;background:hsl(var(--brand))">AIPM-29</div></div></div>
+  <div class="gantt-row"><div class="gantt-label"><span class="mono fs11 muted">AIPM-35</span><span class="fs12">Permission system</span></div><div class="gantt-timeline"><div class="gantt-bar" style="left:15%;width:35%;background:hsl(var(--s))">AIPM-35</div></div></div>
+  <div class="gantt-row"><div class="gantt-label"><span class="mono fs11 muted">AIPM-42</span><span class="fs12">Mobile login fix</span></div><div class="gantt-timeline"><div class="gantt-bar" style="left:40%;width:15%;background:hsl(var(--w))">AIPM-42</div></div></div>
+  <div class="gantt-row"><div class="gantt-label"><span class="mono fs11 muted">AIPM-50</span><span class="fs12">CI/CD pipeline</span></div><div class="gantt-timeline"><div class="gantt-bar" style="left:55%;width:20%;background:hsl(var(--brand))">AIPM-50</div></div></div>
+  <div class="gantt-row" style="position:relative"><div class="gantt-label"><span class="mono fs11 muted fw6">🚩</span><span class="fs12 fw6">Sprint 3 Deadline</span></div><div class="gantt-timeline"><div class="gantt-marker" style="left:60%"></div></div></div>
+</div></div></div></div>
+
+<!-- ─── AI HEALTH ─── -->
+<div id="v-ai-health" class="view-off">
+<div class="ch"><h2>AI Analysis — Health Monitor</h2><span class="bc">AIPM / AI / Health</span></div>
+<div class="cb">
+<div class="stat-row"><div class="sc"><div class="lbl">Health Score</div><div class="val brand">78</div><div class="sub"><span class="warn">At Risk</span></div></div><div class="sc"><div class="lbl">Open Risks</div><div class="val brand">3</div><div class="sub">2 high severity</div></div><div class="sc"><div class="lbl">Sprint Velocity</div><div class="val warn">24</div><div class="sub">SP/sprint (avg)</div></div><div class="sc"><div class="lbl">Bug Resolution</div><div class="val brand">2.3d</div><div class="sub">Avg time to close</div></div></div>
+<div class="grid2 mb4">
+  <div class="card"><div class="card-hd"><h3>Health Dimensions</h3></div><div class="card-bd" style="padding:12px 16px">
+    <div class="mb4"><div class="flex justify-between fs12 mb4"><span class="fw5">Sprint Progress</span><span class="fw6 brand">75%</span></div><div class="progress"><div class="progress-bar brand" style="width:75%"></div></div></div>
+    <div class="mb4"><div class="flex justify-between fs12 mb4"><span class="fw5">Bug Resolution Rate</span><span class="fw6 success-text">90%</span></div><div class="progress"><div class="progress-bar success" style="width:90%"></div></div></div>
+    <div class="mb4"><div class="flex justify-between fs12 mb4"><span class="fw5">Code Review Throughput</span><span class="fw6 brand">65%</span></div><div class="progress"><div class="progress-bar brand" style="width:65%"></div></div></div>
+    <div class="mb4"><div class="flex justify-between fs12 mb4"><span class="fw5">Team Velocity Trend</span><span class="fw6 warn">-15%</span></div><div class="progress"><div class="progress-bar warn" style="width:55%"></div></div></div>
+    <div><div class="flex justify-between fs12 mb4"><span class="fw5">Unassigned P0 Bugs</span><span class="fw6 danger">4</span></div><div class="progress"><div class="progress-bar" style="width:20%;background:hsl(var(--d))"></div></div></div>
+  </div></div>
+  <!-- ★ AI Feedback Section — Health Detail Page -->
+  <div class="card mb4"><div class="card-hd"><h3>Feedback</h3></div><div class="card-bd" style="padding:12px 16px">
+    <div class="fs12 muted mb4">Was this health assessment accurate?</div>
+    <div class="flex items-center gap3 mb4">
+      <span class="fs11 muted" style="width:50px">Score:</span>
+      <button class="btn btn-s" style="font-size:11px;padding:3px 10px;border-radius:12px;background:hsl(var(--sf-h));color:hsl(var(--i-s));border:1px solid hsl(var(--e-d))">Too Low</button>
+      <button class="btn btn-s" style="font-size:11px;padding:3px 10px;border-radius:12px;background:hsl(var(--brand-s));color:hsl(var(--brand));border:1px solid hsl(var(--brand)/0.3);font-weight:600">Just Right</button>
+      <button class="btn btn-s" style="font-size:11px;padding:3px 10px;border-radius:12px;background:hsl(var(--sf-h));color:hsl(var(--i-s));border:1px solid hsl(var(--e-d))">Too High</button>
+    </div>
+    <div class="flex items-center gap3 mb4">
+      <span class="fs11 muted" style="width:50px">Level:</span>
+      <button class="btn btn-s" style="font-size:11px;padding:3px 10px;border-radius:12px;background:hsl(var(--brand));color:#fff;border:1px solid hsl(var(--brand));font-weight:600">Accurate</button>
+      <button class="btn btn-s" style="font-size:11px;padding:3px 10px;border-radius:12px;background:rgba(255,255,255,0.7);color:hsl(var(--i-m));border:1px solid hsl(var(--e-d))">Not Accurate</button>
+    </div>
+    <div style="margin-top:8px">
+      <label class="fs11 muted" style="display:block;margin-bottom:4px">Correct level (if not accurate):</label>
+      <div class="flex gap2">
+        <button class="btn btn-s" style="font-size:11px;padding:3px 10px;border-radius:12px;background:hsl(var(--sf-h));color:hsl(var(--i-s));border:1px solid hsl(var(--e-d))">Healthy</button>
+        <button class="btn btn-s" style="font-size:11px;padding:3px 10px;border-radius:12px;background:hsl(var(--sf-h));color:hsl(var(--i-s));border:1px solid hsl(var(--e-d))">At Risk</button>
+        <button class="btn btn-s" style="font-size:11px;padding:3px 10px;border-radius:12px;background:hsl(var(--sf-h));color:hsl(var(--i-s));border:1px solid hsl(var(--e-d))">Critical</button>
+      </div>
+    </div>
+    <div class="mt4">
+      <label class="fs11 muted" style="display:block;margin-bottom:4px">Why? (optional)</label>
+      <textarea style="width:100%;padding:8px 10px;border:1px solid hsl(var(--e-d));border-radius:6px;font-size:12px;font-family:var(--f);resize:vertical;min-height:60px" placeholder="Explain what's wrong with this assessment..."></textarea>
+    </div>
+    <div class="mt3" style="text-align:right">
+      <button class="btn btn-b" style="font-size:12px;padding:6px 16px">Submit Feedback</button>
+    </div>
+  </div></div>
+  <div class="card"><div class="card-hd"><h3>Recommendations</h3></div><div class="card-bd fs13" style="line-height:1.7">
+    <p class="mb4"><span class="tag tag-hi risk-l">P0</span> <strong>Reassign 2 unassigned P0 bugs</strong> — both AIPM-40 and AIPM-38 need owners within 24h.</p>
+    <p class="mb4"><span class="tag tag-med risk-l">P1</span> <strong>Reduce Alice's workload</strong> — 5 tasks vs team avg of 3. Risk of burnout and delivery delay.</p>
+    <p class="mb4"><span class="tag tag-lo risk-l">P2</span> <strong>Increase code review speed</strong> — average review time is 1.8 days. Consider auto-assigning reviewers.</p>
+    <p class="muted fs11" style="border-top:1px solid hsl(var(--e-d));padding-top:8px;margin-top:12px">Last updated: 2 hours ago · Model: Claude Opus 4.8</p>
+  </div></div>
+</div>
+</div></div>
+
+<!-- ─── AI RISKS ─── -->
+<div id="v-ai-risks" class="view-off">
+<div class="ch"><h2>AI Analysis — Risk Detection</h2><span class="bc">AIPM / AI / Risks</span></div>
+<div class="cb">
+<div class="card mb4"><div class="card-hd"><h3>Risk Matrix</h3></div><div class="card-bd" style="overflow-x:auto">
+  <table style="width:100%;border-collapse:collapse;font-size:13px">
+    <thead><tr style="background:hsl(var(--sf-h));text-align:left">
+      <th class="p3 fs11 muted fw6">Risk</th><th class="p3 fs11 muted fw6">Description</th><th class="p3 fs11 muted fw6">Severity</th><th class="p3 fs11 muted fw6">Probability</th><th class="p3 fs11 muted fw6">Impact</th><th class="p3 fs11 muted fw6">Mitigation</th>
+    </tr></thead>
+    <tbody>
+      <tr class="hover-row"><td class="p3 fw6 mono fs12 danger">RISK-01</td><td class="p3">2 P0 bugs unassigned for 48h — potential Sprint 3 delay</td><td class="p3"><span class="tag tag-hi">Critical</span></td><td class="p3 fw6 warn">85%</td><td class="p3 fw6 danger">High</td><td class="p3 fs12">Immediate triage; reassign within 24h; add to daily standup</td></tr>
+      <tr class="hover-row"><td class="p3 fw6 mono fs12 warn">RISK-02</td><td class="p3">Sprint 3 progress at 60% with 8 days remaining — behind pace</td><td class="p3"><span class="tag tag-med">High</span></td><td class="p3 fw6 warn">65%</td><td class="p3 fw6 warn">Medium</td><td class="p3 fs12">Consider descoping AIPM-45 (Gantt) to next sprint; add capacity</td></tr>
+      <tr class="hover-row"><td class="p3 fw6 mono fs12 brand">RISK-03</td><td class="p3">Team velocity decreasing: -15% vs last sprint</td><td class="p3"><span class="tag tag-lo">Medium</span></td><td class="p3 fw6 brand">50%</td><td class="p3 fw6 warn">Medium</td><td class="p3 fs12">Retrospective on Sprint 2 blockers; review story point estimation accuracy</td></tr>
+    </tbody>
+  </table>
+</div></div>
+</div></div>
+
+
+<!-- ─── REPORTS ─── -->
+<div id="v-reports" class="view-off">
+<div class="ch"><h2>Reports</h2><span class="fs12 muted">AI-generated reports — share with your team via email or in-app</span></div>
+<div class="cb"><div style="max-width:900px">
+
+  <!-- ═══ Generate Section ═══ -->
+  <div class="card ai-glow mb4">
+    <div class="card-bd" style="padding:20px 24px">
+
+      <!-- ★ BEFORE generation — empty state -->
+      <div id="gen-empty">
+        <!-- Project + Type selectors above the input -->
+        <div class="flex items-center gap4 mb3" style="flex-wrap:wrap">
+          <div class="flex items-center gap2">
+            <span class="fs12 fw6 muted">Project</span>
+            <select class="form-input" style="width:180px;padding:6px 10px;font-size:13px">
+              <option>TomiHub Dev</option>
+              <option>All Projects</option>
+              <option>Mobile App</option>
+              <option>Infrastructure</option>
+            </select>
+          </div>
+          <div class="flex items-center gap2">
+            <span class="fs12 fw6 muted">Type</span>
+            <div class="flex gap1" id="type-pills">
+              <button class="btn btn-s fs12" style="background:hsl(var(--brand-s));color:hsl(var(--brand));font-weight:600" onclick="document.querySelectorAll('#type-pills .btn').forEach(b=>b.style.cssText='');this.style.background='hsl(var(--brand-s))';this.style.color='hsl(var(--brand))';this.style.fontWeight='600'">📅 Daily</button>
+              <button class="btn btn-s fs12" onclick="document.querySelectorAll('#type-pills .btn').forEach(b=>b.style.cssText='');this.style.background='hsl(var(--brand-s))';this.style.color='hsl(var(--brand))';this.style.fontWeight='600'">📊 Weekly</button>
+              <button class="btn btn-s fs12" onclick="document.querySelectorAll('#type-pills .btn').forEach(b=>b.style.cssText='');this.style.background='hsl(var(--brand-s))';this.style.color='hsl(var(--brand))';this.style.fontWeight='600'">🔄 Sprint</button>
+              <button class="btn btn-s fs12" onclick="document.querySelectorAll('#type-pills .btn').forEach(b=>b.style.cssText='');this.style.background='hsl(var(--brand-s))';this.style.color='hsl(var(--brand))';this.style.fontWeight='600'">📈 Monthly</button>
+              <button class="btn btn-s fs12" onclick="document.querySelectorAll('#type-pills .btn').forEach(b=>b.style.cssText='');this.style.background='hsl(var(--brand-s))';this.style.color='hsl(var(--brand))';this.style.fontWeight='600'">📝 Custom</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero: auto-grow textarea -->
+        <div class="mb3" style="max-width:100%">
+          <textarea class="form-input" style="min-height:200px;max-height:360px;padding:12px 14px;font-size:13px;width:100%;line-height:1.5;resize:vertical;overflow-y:auto" placeholder="What do you want to report on? e.g. Summarize this sprint's API gateway progress, highlight blockers, and suggest next steps. Leave blank for a standard report." oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,360)+'px'"></textarea>
+        </div>
+
+        <!-- + Attach + Generate — aligned right -->
+        <div class="flex items-center gap2 justify-end">
+          <label style="cursor:pointer;display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:6px;border:1px dashed hsl(var(--e-d));color:hsl(var(--i-m));font-size:20px;font-weight:300;line-height:1;flex-shrink:0;transition:all 0.15s" title="Attach files (text, Excel, Word, PPT, images)">
+            +
+            <input type="file" multiple accept=".txt,.csv,.md,.xlsx,.xls,.docx,.doc,.pptx,.ppt,.png,.jpg,.jpeg,.gif,.webp,.svg,.pdf" style="display:none">
+          </label>
+          <button class="btn btn-b" style="padding:8px 20px;font-size:13px" onclick="document.getElementById('gen-empty').classList.add('view-off');document.getElementById('gen-done').classList.remove('view-off')">✨ Generate Report</button>
+        </div>
+      </div>
+
+      <!-- ★ AFTER generation — report content -->
+      <div id="gen-done" class="view-off">
+        <div class="flex items-center justify-between mb4">
+          <div class="flex items-center gap3">
+            <h3 style="font-size:16px">Daily Report — Alice</h3>
+            <span class="tag tag-lo">Daily</span>
+          </div>
+          <div class="flex gap2">
+            <button class="btn btn-s btn-xs" onclick="document.getElementById('prompt-modal').classList.remove('view-off')">🤖 Regenerate</button>
+            <button class="btn btn-s btn-xs">💾 Save</button>
+            <button class="btn btn-s btn-xs" onclick="document.getElementById('share-modal').classList.remove('view-off')">↗ Share</button>
+            <button class="btn btn-b btn-xs" onclick="document.getElementById('emod2').classList.remove('view-off')">📧 Email</button>
+          </div>
+        </div>
+        <p class="fs11 muted mb4">Generated at 5:30 PM, June 7, 2026</p>
+        <div class="mb4"><label class="fs12 fw6 muted" style="display:block;margin-bottom:4px">📋 Today</label><textarea class="form-input" style="min-height:60px;padding:10px 14px;font-size:13px;line-height:1.6;width:100%">Fixed login page layout (AIPM-42). Implemented email rate limiting (AIPM-38). Code reviewed PR for board API.</textarea></div>
+        <div class="mb4"><label class="fs12 fw6 muted" style="display:block;margin-bottom:4px">🚧 Blockers</label><textarea class="form-input" style="min-height:45px;padding:10px 14px;font-size:13px;line-height:1.6;width:100%">AIPM-21 blocked by AIPM-18 (waiting on DB migration).</textarea></div>
+        <div class="mb4"><label class="fs12 fw6 muted" style="display:block;margin-bottom:4px">📅 Tomorrow</label><textarea class="form-input" style="min-height:45px;padding:10px 14px;font-size:13px;line-height:1.6;width:100%">Start 3-tier permission system (AIPM-35). Pair with Charlie on CI/CD setup.</textarea></div>
+        <div class="divider mb4"></div>
+        <h3 style="font-size:16px;margin-bottom:10px">Team Summary</h3>
+        <textarea class="form-input" style="min-height:60px;padding:10px 14px;font-size:13px;line-height:1.6;width:100%">Team completed 4 issues today (12 SP). 2 PRs merged. Sprint 3: 60% complete. ⚠ 2 P0 bugs unassigned.</textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- Prompt modal -->
+  <div id="prompt-modal" class="view-off" style="position:fixed;inset:0;z-index:999;display:flex;align-items:center;justify-content:center"><div style="position:absolute;inset:0;background:rgba(0,0,0,0.4)" onclick="document.getElementById('prompt-modal').classList.add('view-off')"></div><div class="card" style="position:relative;width:500px;box-shadow:var(--sh-d)"><div class="card-hd flex justify-between items-center"><h3>🤖 Generate Report</h3><button class="btn btn-g btn-xs" onclick="document.getElementById('prompt-modal').classList.add('view-off')">✕</button></div><div class="card-bd" style="padding:20px"><p class="fs12 muted mb4">Describe what you want the AI to focus on. Be specific about project, scope, or tone.</p><textarea class="form-input" style="min-height:80px;padding:10px 14px;font-size:13px;width:100%;margin-bottom:12px" placeholder="e.g. Focus on AIPM project only. Highlight P0 bugs. Keep it brief for daily standup.">Focus on TomiHub Core Platform. Include Sprint 3 status and highlight blocked tasks.</textarea><div class="flex gap2 justify-between"><button class="btn btn-s" onclick="document.getElementById('prompt-modal').classList.add('view-off')">Cancel</button><button class="btn btn-b" onclick="document.getElementById('prompt-modal').classList.add('view-off')">🤖 Generate</button></div></div></div></div>
+
+  <!-- Share modal — select system users -->
+  <div id="share-modal" class="view-off" style="position:fixed;inset:0;z-index:999;display:flex;align-items:center;justify-content:center"><div style="position:absolute;inset:0;background:rgba(0,0,0,0.4)" onclick="document.getElementById('share-modal').classList.add('view-off')"></div><div class="card" style="position:relative;width:480px;box-shadow:var(--sh-d)"><div class="card-hd flex justify-between items-center"><h3>↗ Share Report</h3><button class="btn btn-g btn-xs" onclick="document.getElementById('share-modal').classList.add('view-off')">✕</button></div><div class="card-bd" style="padding:20px"><p class="fs12 muted mb4">Share this report with team members. They will receive a notification.</p><div class="form-grp mb4"><label class="form-label">Search users</label><input class="form-input" placeholder="Type a name..."></div>
+    <div class="mb4" style="max-height:160px;overflow-y:auto;border:1px solid hsl(var(--e-d));border-radius:var(--r)">
+      <label class="hover-row flex items-center gap3" style="cursor:pointer;display:flex;padding:8px 12px"><input type="checkbox" checked style="accent-color:hsl(var(--brand))"><div class="av av-sm">B</div><span class="fs13">Bob Wang</span><span class="fs11 muted">Developer</span></label>
+      <label class="hover-row flex items-center gap3" style="cursor:pointer;display:flex;padding:8px 12px"><input type="checkbox" checked style="accent-color:hsl(var(--brand))"><div class="av av-sm">C</div><span class="fs13">Charlie Li</span><span class="fs11 muted">Developer</span></label>
+      <label class="hover-row flex items-center gap3" style="cursor:pointer;display:flex;padding:8px 12px"><input type="checkbox" style="accent-color:hsl(var(--brand))"><div class="av av-sm" style="background:hsl(var(--s-s));color:hsl(var(--s))">D</div><span class="fs13">Diana Wu</span><span class="fs11 muted">QA Engineer</span></label>
+      <label class="hover-row flex items-center gap3" style="cursor:pointer;display:flex;padding:8px 12px"><input type="checkbox" style="accent-color:hsl(var(--brand))"><div class="av av-sm" style="background:hsl(var(--w-s));color:hsl(var(--w))">E</div><span class="fs13">Eva Zhang</span><span class="fs11 muted">Designer</span></label>
+    </div>
+    <p class="fs11 muted mb4">Selected: <strong>Bob Wang, Charlie Li</strong> — they will be notified</p>
+    <div class="flex gap2 justify-between"><button class="btn btn-s" onclick="document.getElementById('share-modal').classList.add('view-off')">Cancel</button><button class="btn btn-b" onclick="document.getElementById('share-modal').classList.add('view-off')">↗ Share</button></div>
+  </div></div></div>
+
+  <!-- Email modal -->
+  <div id="emod2" class="view-off" style="position:fixed;inset:0;z-index:999;display:flex;align-items:center;justify-content:center"><div style="position:absolute;inset:0;background:rgba(0,0,0,0.4)" onclick="document.getElementById('emod2').classList.add('view-off')"></div><div class="card" style="position:relative;width:560px;max-height:90vh;overflow-y:auto;box-shadow:var(--sh-d)"><div class="card-hd flex justify-between items-center"><h3>📧 Send Email</h3><button class="btn btn-g btn-xs" onclick="document.getElementById('emod2').classList.add('view-off')">✕</button></div><div class="card-bd" style="padding:20px">
+    <div class="form-grp mb4"><label class="form-label">To</label><input class="form-input" value="team@ai-pm.dev"></div>
+    <div class="form-grp mb4"><label class="form-label">CC</label><input class="form-input" placeholder="manager@example.com"></div>
+    <div class="form-grp mb4"><label class="form-label">Subject</label><input class="form-input" value="Daily Report — Alice · June 7, 2026"></div>
+    <div class="form-grp mb4"><label class="form-label">Message <span class="fs11 muted">— editable</span></label><textarea class="form-input" style="min-height:180px;padding:12px 14px;font-size:13px;line-height:1.7;width:100%">Hi team,
+
+Here is my daily standup for June 7:
+
+📋 Today
+- Fixed login page layout (AIPM-42)
+- Implemented email rate limiting (AIPM-38)
+
+🚧 Blockers
+- AIPM-21 blocked by AIPM-18
+
+📅 Tomorrow
+- Start permission system (AIPM-35)
+
+— Alice</textarea></div>
+    <div class="flex gap2 justify-between"><button class="btn btn-s" onclick="document.getElementById('emod2').classList.add('view-off')">Cancel</button><button class="btn btn-b" onclick="document.getElementById('emod2').classList.add('view-off')">📧 Send</button></div>
+  </div></div></div>
+
+  <!-- ═══ Archive Section ═══ -->
+  <div class="card"><div class="card-hd"><div class="flex items-center gap4"><h3>Archive</h3><div class="flex gap1"><button class="btn btn-s btn-xs" style="background:hsl(var(--brand-s));color:hsl(var(--brand));font-weight:600">My Reports</button><button class="btn btn-s btn-xs">Shared With Me</button></div></div></div><div class="card-bd-nopad">
+    <div class="flex gap2 px3 py2"><button class="btn btn-s btn-xs" style="background:hsl(var(--brand-s));color:hsl(var(--brand));font-weight:600">All</button><button class="btn btn-s btn-xs">Daily</button><button class="btn btn-s btn-xs">Weekly</button><button class="btn btn-s btn-xs">Monthly</button><button class="btn btn-s btn-xs">Sprint</button></div>
+    <div class="hover-row flex items-center gap4" style="cursor:pointer"><div class="av" style="width:32px;height:32px;font-size:12px;background:hsl(var(--brand-s));color:hsl(var(--brand))">D</div><div class="flex-1"><div class="fs13 fw6">Daily Report — Alice · June 7</div><div class="fs11 muted">Shared with Bob, Charlie · 5:45 PM</div></div><span class="tag tag-lo">Daily</span><button class="btn btn-s btn-xs">View</button><button class="btn btn-g btn-xs">Export</button></div>
+    <div class="hover-row flex items-center gap4" style="cursor:pointer"><div class="av" style="width:32px;height:32px;font-size:12px;background:hsl(var(--w-s));color:hsl(var(--w))">W2</div><div class="flex-1"><div class="fs13 fw6">Weekly Report — Bob · Week 23</div><div class="fs11 muted">Shared with you · Jun 1 <span style="color:hsl(var(--brand));font-weight:600">🆕 New</span></div></div><span class="tag tag-med">Weekly</span><button class="btn btn-s btn-xs">View</button></div>
+    <div class="hover-row flex items-center gap4" style="cursor:pointer"><div class="av" style="width:32px;height:32px;font-size:12px;background:hsl(var(--s-s));color:hsl(var(--s))">S3</div><div class="flex-1"><div class="fs13 fw6">Sprint 2 Review — Alice</div><div class="fs11 muted">Shared with team · Jun 1</div></div><span class="tag tag-b">Sprint</span><button class="btn btn-s btn-xs">View</button><button class="btn btn-g btn-xs">Export</button></div>
+  </div></div>
+
+</div></div></div>
+
+<!-- ─── SETUP WIZARD ─── -->
+<div id="v-setup" class="view-off">
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:hsl(var(--sf-a))">
+<div style="width:100%;max-width:560px">
+
+<div class="text-c mb4">
+  <div class="av" style="width:48px;height:48px;font-size:20px;margin:0 auto 12px;background:hsl(var(--brand-s));color:hsl(var(--brand))">🚀</div>
+  <h2 style="font-size:20px;font-weight:700" class="text-ink-primary">Welcome to TomiHub</h2>
+  <p class="fs13 muted mt4">Let's set up your workspace in 3 steps</p>
+</div>
+
+<!-- Step indicators -->
+<div class="flex justify-center gap2 mb5">
+  <div class="flex items-center gap1">
+    <span id="s-dot-1" style="width:24px;height:24px;border-radius:50%;background:hsl(var(--brand));color:hsl(var(--brand-t));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600">1</span>
+    <span class="fs12 fw6 brand">Role</span>
+  </div>
+  <span class="muted" style="margin-top:10px">─────</span>
+  <div class="flex items-center gap1">
+    <span id="s-dot-2" style="width:24px;height:24px;border-radius:50%;background:hsl(var(--e-d));color:hsl(var(--i-m));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600">2</span>
+    <span class="fs12 fw6 muted">AI Model</span>
+  </div>
+  <span class="muted" style="margin-top:10px">─────</span>
+  <div class="flex items-center gap1">
+    <span id="s-dot-3" style="width:24px;height:24px;border-radius:50%;background:hsl(var(--e-d));color:hsl(var(--i-m));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600">3</span>
+    <span class="fs12 fw6 muted">Email</span>
+  </div>
+</div>
+
+<!-- ═══ STEP 1: Job Title ═══ -->
+<div id="step-1" class="card">
+  <div class="card-bd" style="padding:28px 32px">
+    <h3 class="fs16 fw6 mb1">What's your role?</h3>
+    <p class="fs12 muted mb4">This helps AI understand your perspective when generating reports and summaries.</p>
+
+    <div class="flex flex-col gap2 mb4">
+      <button class="hover-row flex items-center gap3 p3 rounded-card" style="cursor:pointer;border:1px solid hsl(var(--e-d));text-align:left;background:transparent;font-family:var(--f);width:100%"
+        onclick="this.style.borderColor='hsl(var(--brand))';this.style.background='hsl(var(--brand-s))'">
+        <span style="font-size:24px">📋</span>
+        <div><div class="fs13 fw6">Project Manager</div><div class="fs11 muted">Team leadership, sprint planning, stakeholder communication</div></div>
+      </button>
+      <button class="hover-row flex items-center gap3 p3 rounded-card" style="cursor:pointer;border:1px solid hsl(var(--e-d));text-align:left;background:transparent;font-family:var(--f);width:100%"
+        onclick="this.style.borderColor='hsl(var(--brand))';this.style.background='hsl(var(--brand-s))'">
+        <span style="font-size:24px">💻</span>
+        <div><div class="fs13 fw6">Developer / Engineer</div><div class="fs11 muted">Writing code, fixing bugs, building features</div></div>
+      </button>
+      <button class="hover-row flex items-center gap3 p3 rounded-card" style="cursor:pointer;border:1px solid hsl(var(--e-d));text-align:left;background:transparent;font-family:var(--f);width:100%"
+        onclick="this.style.borderColor='hsl(var(--brand))';this.style.background='hsl(var(--brand-s))'">
+        <span style="font-size:24px">🧪</span>
+        <div><div class="fs13 fw6">QA / Test Engineer</div><div class="fs11 muted">Testing, quality assurance, bug reporting</div></div>
+      </button>
+      <button class="hover-row flex items-center gap3 p3 rounded-card" style="cursor:pointer;border:1px solid hsl(var(--e-d));text-align:left;background:transparent;font-family:var(--f);width:100%"
+        onclick="this.style.borderColor='hsl(var(--brand))';this.style.background='hsl(var(--brand-s))'">
+        <span style="font-size:24px">🎨</span>
+        <div><div class="fs13 fw6">Designer</div><div class="fs11 muted">UI/UX design, prototyping, design systems</div></div>
+      </button>
+      <button class="hover-row flex items-center gap3 p3 rounded-card" style="cursor:pointer;border:1px solid hsl(var(--e-d));text-align:left;background:transparent;font-family:var(--f);width:100%"
+        onclick="this.style.borderColor='hsl(var(--brand))';this.style.background='hsl(var(--brand-s))'">
+        <span style="font-size:24px">🖥</span>
+        <div><div class="fs13 fw6">IT Manager</div><div class="fs11 muted">Infrastructure, DevOps, security, tooling</div></div>
+      </button>
+    </div>
+
+    <div class="flex items-center gap2 mb4">
+      <span class="fs12 muted">or custom:</span>
+      <input class="form-input" style="flex:1;padding:8px 12px;font-size:13px" placeholder="e.g. Technical Lead, Scrum Master, DevOps...">
+    </div>
+
+    <div class="flex justify-end gap2">
+      <button class="btn btn-s" onclick="document.getElementById('step-1').classList.add('view-off');document.getElementById('step-2').classList.remove('view-off');document.getElementById('s-dot-2').style.background='hsl(var(--brand))';document.getElementById('s-dot-2').style.color='white'">Skip →</button>
+      <button class="btn btn-b" onclick="document.getElementById('step-1').classList.add('view-off');document.getElementById('step-2').classList.remove('view-off');document.getElementById('s-dot-2').style.background='hsl(var(--brand))';document.getElementById('s-dot-2').style.color='white';this.innerText='✓ Saved'">Save & Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ STEP 2: LLM (Required, cannot skip) ═══ -->
+<div id="step-2" class="view-off card">
+  <div class="card-bd" style="padding:28px 32px">
+    <div class="flex items-center gap2 mb1">
+      <h3 class="fs16 fw6">Configure AI Model</h3>
+      <span class="tag tag-hi fs10">Required</span>
+    </div>
+    <p class="fs12 muted mb4">TomiHub's AI features need an LLM backend. You can change this later in Admin Settings.</p>
+
+    <!-- Cloud API -->
+    <div class="mb4 p3 rounded-card" style="border:1px solid hsl(var(--brand));background:hsl(var(--brand-s))">
+      <div class="flex items-center gap2 mb3">
+        <input type="radio" name="llm-mode" checked style="accent-color:hsl(var(--brand))">
+        <span class="fw6 fs13">☁️ Cloud API (Recommended)</span>
+      </div>
+      <div class="form-grp mb3"><label class="form-label">Provider</label><select class="form-select"><option>DeepSeek</option><option>OpenAI</option><option>Anthropic</option></select></div>
+      <div class="form-grp mb3"><label class="form-label">API Key</label><input class="form-input" type="password" placeholder="sk-..." style="width:100%"></div>
+      <div class="grid col2 gap3">
+        <div class="form-grp"><label class="form-label">Quick Model</label><input class="form-input" value="deepseek-v3-flash" style="width:100%"></div>
+        <div class="form-grp"><label class="form-label">Pro Model</label><input class="form-input" value="deepseek-v4-pro" style="width:100%"></div>
+      </div>
+    </div>
+
+    <!-- Local Ollama -->
+    <div class="mb4 p3 rounded-card" style="border:1px solid hsl(var(--e-d))">
+      <div class="flex items-center gap2 mb3">
+        <input type="radio" name="llm-mode" style="accent-color:hsl(var(--brand))">
+        <span class="fw6 fs13">🖥 Local Ollama</span>
+      </div>
+      <div class="form-grp mb3"><label class="form-label">Server Address</label><input class="form-input" value="http://localhost:11434" style="width:100%"></div>
+      <div class="grid col2 gap3">
+        <div class="form-grp"><label class="form-label">Quick Model</label><input class="form-input" value="deepseek-r1:1.5b" style="width:100%"></div>
+        <div class="form-grp"><label class="form-label">Pro Model</label><input class="form-input" value="deepseek-r1:1.5b" style="width:100%"></div>
+      </div>
+    </div>
+
+    <button class="btn btn-s w-full mb4">🔌 Test Connection</button>
+
+    <p class="fs11 muted mb3">ℹ️ Cloud API needs internet access. Local Ollama runs entirely on your server — no data leaves your network.</p>
+
+    <div class="flex justify-between gap2">
+      <button class="btn btn-s" onclick="document.getElementById('step-2').classList.add('view-off');document.getElementById('step-1').classList.remove('view-off')">← Back</button>
+      <button class="btn btn-b" onclick="document.getElementById('step-2').classList.add('view-off');document.getElementById('step-3').classList.remove('view-off');document.getElementById('s-dot-3').style.background='hsl(var(--brand))';document.getElementById('s-dot-3').style.color='white'">Save & Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ STEP 3: SMTP (optional, can skip) ═══ -->
+<div id="step-3" class="view-off card">
+  <div class="card-bd" style="padding:28px 32px">
+    <h3 class="fs16 fw6 mb1">Configure Email Server</h3>
+    <p class="fs12 muted mb4">Used for sending invites, notifications, and sharing reports. You can set this up later in Admin Settings.</p>
+
+    <div class="flex gap2 mb4">
+      <button class="btn btn-s btn-xs">Gmail</button>
+      <button class="btn btn-s btn-xs">Outlook</button>
+      <button class="btn btn-s btn-xs">QQ Mail</button>
+      <button class="btn btn-s btn-xs">163 Mail</button>
+    </div>
+
+    <div class="grid col2 gap3 mb4">
+      <div class="form-grp"><label class="form-label">SMTP Host</label><input class="form-input" placeholder="smtp.gmail.com" style="width:100%"></div>
+      <div class="form-grp"><label class="form-label">Port</label><input class="form-input" value="587" style="width:100%"></div>
+      <div class="form-grp"><label class="form-label">Username</label><input class="form-input" placeholder="you@gmail.com" style="width:100%"></div>
+      <div class="form-grp"><label class="form-label">Password / App Password</label><input class="form-input" type="password" style="width:100%"></div>
+    </div>
+
+    <div class="flex items-center gap2 mb4">
+      <input type="checkbox" checked style="accent-color:hsl(var(--brand))">
+      <span class="fs12">Use STARTTLS</span>
+    </div>
+
+    <button class="btn btn-s w-full mb4">📧 Test Connection</button>
+
+    <div class="flex justify-between gap2">
+      <button class="btn btn-s" onclick="document.getElementById('step-3').classList.add('view-off');document.getElementById('step-2').classList.remove('view-off')">← Back</button>
+      <div class="flex gap2">
+        <button class="btn btn-s">Skip →</button>
+        <button class="btn btn-b">Finish 🎉</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div></div></div>
+
+<!-- ─── SETTINGS ─── -->
+<div id="v-settings" class="view-off">
+<div class="ch"><h2>Project Settings</h2><span class="fs12 muted">TomiHub Core Platform (AIPM)</span></div>
+<div class="ch" style="padding-top:0;border-top:0">
+  <div></div>
+  <div class="flex gap2"><button class="btn btn-b">Save Changes</button></div>
+</div>
+<div class="cb"><div style="max-width:800px">
+<div class="tabs mb4">
+  <div class="tab act">General</div><div class="tab">Members</div><div class="tab">Issues Display</div><div class="tab">Workflow</div><div class="tab">Roles & Permissions</div>
+</div>
+
+<!-- Tab: General -->
+<div class="card"><div class="card-bd" style="padding:24px">
+  <div class="form-grp"><label class="form-label">Project Name</label><input class="form-input" value="TomiHub Core Platform"></div>
+  <div class="form-grp"><label class="form-label">Project Key</label><input class="form-input" value="AIPM" disabled style="opacity:0.6"></div>
+  <div class="form-grp"><label class="form-label">Description</label><textarea class="form-input form-textarea" style="min-height:80px">AI-powered project management system — internal build</textarea></div>
+  <div class="form-grp"><label class="form-label">Methodology</label><select class="form-select"><option>Scrum</option><option>Kanban</option><option>Waterfall</option></select></div>
+</div></div>
+</div></div></div>
+
+<!-- ─── MEMBERS ─── -->
+<div id="v-members" class="view-off">
+<div class="ch"><h2>Members</h2><button class="btn btn-b">+ Invite</button></div>
+<div class="cb"><div class="card"><div class="card-bd-nopad">
+  <div class="hover-row flex items-center gap4"><div class="av" style="width:32px;height:32px;font-size:13px">A</div><div class="flex-1"><div class="fs13 fw6">Alice Chen</div><div class="fs11 muted">alice@example.com</div></div><span class="tag tag-b">Owner</span><span class="fs11 muted">Joined May 2026</span></div>
+  <div class="hover-row flex items-center gap4"><div class="av" style="width:32px;height:32px;font-size:13px">B</div><div class="flex-1"><div class="fs13 fw6">Bob Wang</div><div class="fs11 muted">bob@example.com</div></div><span class="tag tag-b">Admin</span><span class="fs11 muted">Joined May 2026</span></div>
+  <div class="hover-row flex items-center gap4"><div class="av" style="width:32px;height:32px;font-size:13px">C</div><div class="flex-1"><div class="fs13 fw6">Charlie Li</div><div class="fs11 muted">charlie@example.com</div></div><span class="tag tag-med">Member</span><span class="fs11 muted">Joined Jun 2026</span></div>
+</div></div></div></div>
+
+<!-- ─── ROLES ─── -->
+<div id="v-roles" class="view-off">
+<div class="ch"><h2>Roles & Permissions</h2><button class="btn btn-b">+ New Role</button></div>
+<div class="cb"><div class="card"><div class="card-bd-nopad">
+  <div class="hover-row flex items-center gap4"><div class="flex-1"><div class="fs14 fw6">Tenant Owner</div><div class="fs11 muted">Full system access · System role</div></div><span class="tag tag-b">Global</span></div>
+  <div class="hover-row flex items-center gap4"><div class="flex-1"><div class="fs14 fw6">Tenant Admin</div><div class="fs11 muted">Manage members, API keys, workflow templates · System role</div></div><span class="tag tag-b">Global</span></div>
+  <div class="hover-row flex items-center gap4"><div class="flex-1"><div class="fs14 fw6">Project Lead</div><div class="fs11 muted">Full project control: issues, sprints, board, settings · System role</div></div><span class="tag tag-med">Project</span></div>
+  <div class="hover-row flex items-center gap4"><div class="flex-1"><div class="fs14 fw6">Developer</div><div class="fs11 muted">Create/edit issues, comment, assign, resolve · System role</div></div><span class="tag tag-med">Project</span></div>
+  <div class="hover-row flex items-center gap4"><div class="flex-1"><div class="fs14 fw6">Viewer</div><div class="fs11 muted">Read-only: browse issues, view board · System role</div></div><span class="tag tag-med">Project</span></div>
+</div></div></div></div>
+
+<!-- ─── API KEYS ─── -->
+<div id="v-apikeys" class="view-off">
+<div class="ch"><h2>API Keys</h2><button class="btn btn-b">+ Generate Key</button></div>
+<div class="cb"><div class="card"><div class="card-bd-nopad">
+  <div class="hover-row flex items-center gap4"><div class="flex-1"><div class="fs13 fw6 mono">ai_pm_****a3f2</div><div class="fs11 muted">VSCode on MacBook Pro · Created Jun 1 · Expires Aug 30</div></div><span class="tag tag-b">Active</span><span class="fs11 muted">Used 47 min ago</span><button class="btn btn-g btn-xs danger">Revoke</button></div>
+  <div class="hover-row flex items-center gap4"><div class="flex-1"><div class="fs13 fw6 mono">ai_pm_****c8e1</div><div class="fs11 muted">CI/CD Pipeline · Created May 15 · Expires Aug 13</div></div><span class="tag tag-b">Active</span><span class="fs11 muted">Used 2h ago</span><button class="btn btn-g btn-xs danger">Revoke</button></div>
+  <div class="hover-row flex items-center gap4"><div class="flex-1"><div class="fs13 fw6 mono">ai_pm_****d7b9</div><div class="fs11 muted">CLI tool · Created Apr 20</div></div><span class="tag tag-lo">Revoked</span><span class="fs11 muted">Jun 1</span></div>
+</div></div></div></div>
+
+<!-- ─── CHAT OPS ─── -->
+<div id="v-integrations" class="view-off">
+<div class="ch"><h2>ChatOps</h2><span class="fs12 muted">Bot setup — connect chat platforms so members can manage issues from Feishu / WeCom</span></div>
+<div class="cb"><div style="max-width:800px">
+
+  <div class="card mb4">
+    <div class="card-hd"><h3>Platform Connections</h3></div>
+    <div class="card-bd" style="padding:16px 20px">
+
+      <p class="fs12 mb4" style="padding:10px 14px;background:hsl(var(--brand-s));border-radius:var(--r);line-height:1.6">
+        <strong>How it works:</strong> Admin connects the Bot once per platform. Members then <strong>bind their own chat account</strong> in Profile settings. Once bound, members can assign issues, check status, and view project health directly from chat — <strong>no approval needed</strong>. Only AI Agent autonomous writes require HITL confirmation.
+      </p>
+
+      <!-- Feishu -->
+      <div class="mb4" style="border:1px solid hsl(var(--e-d));border-radius:var(--r);padding:14px 16px">
+        <div class="flex justify-between items-center mb4">
+          <div class="flex items-center gap3"><span style="font-size:24px">🟦</span><div><div class="fs14 fw6">Feishu (Lark)</div><span class="fs11 muted">Bot connected · 8 members bound</span></div></div>
+          <span class="tag tag-lo">Active</span>
+        </div>
+        <div class="grid2 mb4">
+          <div class="form-grp"><label class="form-label">App ID <span class="fs11 muted">— from open.feishu.cn → App Credentials</span></label><input class="form-input" value="cli_a7b3c9d1"></div>
+          <div class="form-grp"><label class="form-label">App Secret</label><input class="form-input" type="password" value="••••••••••••••••"></div>
+        </div>
+        <div class="form-grp mb4"><label class="form-label">Webhook URL <span class="fs11 muted">— paste into Feishu App → Event Subscriptions</span></label><input class="form-input mono" value="https://api.ai-pm.app/webhooks/feishu/events" readonly style="opacity:0.7"></div>
+        <div class="flex gap2"><button class="btn btn-s btn-xs">Test</button><button class="btn btn-g btn-xs danger">Disconnect</button></div>
+      </div>
+
+      <!-- WeCom -->
+      <div style="border:1px solid hsl(var(--e-d));border-radius:var(--r);padding:14px 16px">
+        <div class="flex justify-between items-center mb4">
+          <div class="flex items-center gap3"><span style="font-size:24px">🟢</span><div><div class="fs14 fw6">WeCom (Enterprise WeChat)</div><span class="fs11 muted">Not configured</span></div></div>
+          <span class="tag tag-med">Inactive</span>
+        </div>
+        <div class="grid2 mb4">
+          <div class="form-grp"><label class="form-label">Corp ID <span class="fs11 muted">— from WeCom Admin Console</span></label><input class="form-input" placeholder="ww_xxxxxxxxxxxxx"></div>
+          <div class="form-grp"><label class="form-label">Agent ID</label><input class="form-input" placeholder="1000001"></div>
+        </div>
+        <div class="form-grp mb4"><label class="form-label">App Secret</label><input class="form-input" type="password" placeholder="From WeCom App settings"></div>
+        <button class="btn btn-b btn-xs">Connect</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Push Events -->
+  <div class="card mb4">
+    <div class="card-hd"><h3>Push Events to Chat</h3></div>
+    <div class="card-bd" style="padding:16px 20px">
+      <p class="fs12 muted mb4">When these events happen, the Bot sends a message to the relevant member in their bound chat app.</p>
+      <div class="grid2 fs12" style="gap:6px">
+        <label class="flex items-center gap2"><input type="checkbox" checked style="accent-color:hsl(var(--brand))">Issue assigned to me</label>
+        <label class="flex items-center gap2"><input type="checkbox" checked style="accent-color:hsl(var(--brand))">@mentioned in a comment</label>
+        <label class="flex items-center gap2"><input type="checkbox" checked style="accent-color:hsl(var(--brand))">Report shared with me</label>
+        <label class="flex items-center gap2"><input type="checkbox" checked style="accent-color:hsl(var(--brand))">AI risk / health alert</label>
+        <label class="flex items-center gap2"><input type="checkbox" style="accent-color:hsl(var(--brand))">Sprint deadline approaching</label>
+        <label class="flex items-center gap2"><input type="checkbox" checked style="accent-color:hsl(var(--brand))">AI Agent HITL confirmation needed</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- SMTP Config -->
+  <div class="card mb4">
+    <div class="card-hd"><h3>Email (SMTP)</h3></div>
+    <div class="card-bd" style="padding:16px 20px">
+      <p class="fs12 muted mb4">Configure the email server for sending verification codes and notifications. Changes take effect immediately — no restart needed.</p>
+      <div class="flex gap2 mb4">
+        <button class="btn btn-s btn-xs" style="background:hsl(var(--brand-s));color:hsl(var(--brand));font-weight:600">Custom</button>
+        <button class="btn btn-s btn-xs">Microsoft 365</button>
+        <button class="btn btn-s btn-xs">Google Workspace</button>
+        <button class="btn btn-s btn-xs">Tencent Exmail</button>
+        <button class="btn btn-s btn-xs">NetEase Exmail</button>
+        <button class="btn btn-s btn-xs">Ali Mail</button>
+      </div>
+      <div class="grid2 mb4">
+        <div class="form-grp"><label class="form-label">SMTP Host</label><input class="form-input" value="smtp.example.com" placeholder="smtp.office365.com"></div>
+        <div class="form-grp"><label class="form-label">Port</label><input class="form-input" value="587" type="number"></div>
+      </div>
+      <div class="grid2 mb4">
+        <div class="form-grp"><label class="form-label">Username / Email</label><input class="form-input" value="noreply@tomi-hub.com" placeholder="noreply@your-company.com"></div>
+        <div class="form-grp"><label class="form-label">Password / App Password</label><input class="form-input" type="password" value="••••••••"></div>
+      </div>
+      <div class="grid2 mb4">
+        <div class="form-grp"><label class="form-label">Sender Name</label><input class="form-input" value="TomiHub"></div>
+        <div class="form-grp"><label class="form-label flex items-center gap-2 pt-5"><input type="checkbox" checked style="accent-color:hsl(var(--brand))"> Enable STARTTLS</label></div>
+      </div>
+      <div class="flex gap2"><button class="btn btn-b btn-xs">Save</button><button class="btn btn-s btn-xs">Test Connection</button></div>
+    </div>
+  </div>
+
+  <!-- HITL channels -->
+  <div class="card">
+    <div class="card-hd"><h3>Human-in-the-Loop Confirmation Channels</h3></div>
+    <div class="card-bd" style="padding:16px 20px">
+      <p class="fs12 muted mb4">When an <strong>AI Agent</strong> (Claude/Cursor) requests a write operation, the confirmation request is sent to:</p>
+      <select class="form-select" style="width:100%"><option>Web + Chat (Feishu/WeCom) + VSCode</option><option>Web only</option><option>Web + Chat</option></select>
+    </div>
+  </div>
+
+</div></div></div>
+
+<!-- ─── PROFILE ─── -->
+<div id="v-profile" class="view-off">
+<div class="ch"><h2>Profile</h2></div>
+<div class="cb"><div style="max-width:600px">
+  <div class="card mb4"><div class="card-bd" style="padding:24px">
+    <div class="flex items-center gap4 mb4"><div class="av" style="width:56px;height:56px;font-size:22px">A</div><div><div class="fs16 fw6">Alice Chen</div><div class="fs12 muted">alice@example.com</div><button class="btn btn-s btn-xs mt4">Change Avatar</button></div></div>
+    <div class="form-grp"><label class="form-label">Display Name</label><input class="form-input" value="Alice Chen"></div>
+    <div class="form-grp"><label class="form-label">Email</label><input class="form-input" value="alice@example.com" disabled style="opacity:0.6"><span class="fs11 muted">Email verified ✅</span></div>
+    <div class="form-grp"><label class="form-label">New Password</label><input class="form-input" type="password" placeholder="Leave blank to keep current"></div>
+    <div style="display:flex;gap:12px"><button class="btn btn-b">Save</button></div>
+  </div></div>
+
+  <!-- Linked Accounts -->
+  <div class="card"><div class="card-hd"><h3>Linked Accounts</h3></div><div class="card-bd" style="padding:16px 20px">
+    <p class="fs12 muted mb4">Bind your chat accounts to manage issues directly from Feishu or WeCom.</p>
+    <div class="flex items-center gap4 mb4" style="padding:10px 14px;border:1px solid hsl(var(--e-d));border-radius:var(--r)">
+      <span style="font-size:24px">🟦</span>
+      <div class="flex-1"><div class="fs13 fw6">Feishu</div><div class="fs11 muted">Bound as <strong>Alice Chen</strong> · alice@feishu.cn</div></div>
+      <span class="tag tag-lo">Connected</span>
+      <button class="btn btn-g btn-xs danger">Unbind</button>
+    </div>
+    <div class="flex items-center gap4" style="padding:10px 14px;border:1px solid hsl(var(--e-d));border-radius:var(--r)">
+      <span style="font-size:24px">🟢</span>
+      <div class="flex-1"><div class="fs13 fw6">WeCom</div><div class="fs11 muted">Not bound. <a href="#" style="color:hsl(var(--brand))">Bind now</a> — we'll send a verification code to your WeCom.</div></div>
+      <button class="btn btn-s btn-xs">Bind</button>
+    </div>
+  </div></div>
+</div></div></div>
+
+<!-- ─── MCP AUDIT ─── -->
+
+<!-- ══════════════ PERSONAL API KEYS ══════════════ -->
+<div id="v-api-keys" class="view-off">
+<div class="ch"><h2>API Keys</h2></div>
+<div class="cb"><div style="max-width:800px">
+
+  <!-- HITL Global -->
+  <div class="card mb4">
+    <div class="card-hd"><h3>Human-in-the-Loop Confirmation — Global</h3></div>
+    <div class="card-bd" style="padding:12px 18px">
+      <div class="flex items-center justify-between">
+        <div><p class="fs13 fw6">All Agents (Global)</p><p class="fs11 muted">When ON, all API Keys use this setting regardless of individual config.</p></div>
+        <div class="flex items-center gap2">
+          <div class="flex gap1"><button class="btn btn-s btn-xs bg-warning-soft text-warning fw6">🔔 Manual</button><button class="btn btn-g btn-xs">⚡ Auto</button></div>
+          <button class="btn btn-s btn-xs bg-brand-soft text-brand-main fw6">ON</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Your API Keys -->
+  <div class="card">
+    <div class="card-hd flex items-center justify-between"><h3>Your API Keys</h3><button class="btn btn-b btn-xs">+ Generate New Key</button></div>
+    <div class="card-bd" style="padding:12px 18px">
+      <p class="fs12 muted mb4">Personal API keys for CLI tools, CI/CD pipelines, and AI agents. Click ✏ Edit to modify name, permissions, or confirmation mode.</p>
+
+      <!-- Key in view mode -->
+      <div class="flex items-center gap3 mb3" style="padding:10px 14px;border:1px solid hsl(var(--e-d));border-radius:var(--r)">
+        <span style="font-size:20px">🔑</span>
+        <div class="flex-1">
+          <div class="fs13 fw6">VS Code Claude Code</div>
+          <div class="fs11 muted"><code style="background:hsl(var(--sf-h));padding:1px 6px;border-radius:3px">ai_pm_****abcd</code> · Created Jun 9 · Last used 2h ago</div>
+        </div>
+        <span class="fs11 muted">Read & Write</span>
+        <div class="flex gap1"><button class="btn btn-s btn-xs bg-warning-soft text-warning fw6">🔔 Manual</button><button class="btn btn-g btn-xs">⚡ Auto</button></div>
+        <span class="badge" style="background:hsl(var(--s-s));color:hsl(var(--s))">Active</span>
+        <button class="btn btn-g btn-xs">✏ Edit</button>
+        <button class="btn btn-g btn-xs danger">🗑 Delete</button>
+      </div>
+
+      <!-- Key in edit mode -->
+      <div class="flex items-center gap3 mb3" style="padding:10px 14px;border:2px solid hsl(var(--brand));border-radius:var(--r);background:hsl(var(--brand-s))">
+        <span style="font-size:20px">🔑</span>
+        <div class="flex-1">
+          <input class="form-input" value="CI/CD Pipeline" style="padding:4px 8px;font-size:12px;font-weight:600;width:180px">
+          <div class="fs11 muted mt4"><code style="background:hsl(var(--sf-h));padding:1px 6px;border-radius:3px">ai_pm_****wxyz</code> · Created May 15</div>
+        </div>
+        <select class="form-select" style="padding:3px 6px;font-size:11px;width:130px"><option>Read & Write</option><option>Read only</option><option>Read, Write & Delete</option></select>
+        <div class="flex gap1"><button class="btn btn-s btn-xs bg-success-soft text-success fw6">⚡ Auto</button><button class="btn btn-g btn-xs">🔔 Manual</button></div>
+        <button class="btn btn-b btn-xs">✅ Save</button>
+        <button class="btn btn-s btn-xs">✕ Cancel</button>
+      </div>
+
+      <!-- Revoked key -->
+      <div class="flex items-center gap3" style="padding:10px 14px;border:1px solid hsl(var(--e-d));border-radius:var(--r);opacity:0.5">
+        <span style="font-size:20px">🔑</span>
+        <div class="flex-1">
+          <div class="fs13 fw6">CLI Tool</div>
+          <div class="fs11 muted"><code style="background:hsl(var(--sf-h));padding:1px 6px;border-radius:3px">ai_pm_****d7b9</code> · Created Apr 20</div>
+        </div>
+        <span class="fs11 muted">Read only</span>
+        <span class="badge" style="background:hsl(var(--sf-h));color:hsl(var(--i-m))">Revoked</span>
+        <button class="btn btn-g btn-xs">Remove</button>
+      </div>
+    </div></div>
+</div></div></div>
+
+<div id="v-mcp-audit" class="view-off">
+<div class="ch"><h2>MCP Audit Log</h2><span class="fs12 muted">AI Agent operation history — approved, denied, and expired requests</span></div>
+<div class="cb"><div style="max-width:900px">
+
+  <div class="flex gap2 mb4 items-center" style="overflow:hidden"><input class="form-input" placeholder="Search by issue key, agent, or operation..." style="min-width:0;flex-shrink:1;max-width:280px"><select class="form-select" style="flex-shrink:0"><option>All Status</option><option>Approved</option><option>Auto</option><option>Denied</option><option>Expired</option></select><select class="form-select" style="flex-shrink:0"><option>All Agents</option><option>Claude Code</option><option>Cursor</option><option>Copilot</option></select><select class="form-select" style="flex-shrink:0"><option>Last 7 days</option><option>Last 30 days</option><option>All time</option></select><span class="fs12 muted" style="white-space:nowrap;flex-shrink:0;min-width:90px">Showing 5 of 12</span><span style="flex:1;min-width:0;flex-shrink:1"></span><button class="btn btn-s" style="white-space:nowrap;flex-shrink:0">↻ Refresh</button></div>
+
+  <div class="card"><div class="card-bd-nopad">
+    <div class="hover-row flex items-center gap4">
+      <div style="width:32px;height:32px;border-radius:50%;background:hsl(var(--s-s));color:hsl(var(--s));display:flex;align-items:center;justify-content:center;font-size:14px">✓</div>
+      <div class="flex-1"><div class="fs13 fw6">Approved: update_issue("AIPM-42", status="in_review", assignee="Bob")</div><div class="fs11 muted">Claude Code · Alice confirmed · Jun 8, 11:05 AM</div></div>
+      <span class="tag tag-lo">Approved</span>
+    </div>
+    <div class="hover-row flex items-center gap4">
+      <div style="width:32px;height:32px;border-radius:50%;background:hsl(var(--brand-s));color:hsl(var(--brand));display:flex;align-items:center;justify-content:center;font-size:14px">⚡</div>
+      <div class="flex-1"><div class="fs13 fw6">Auto: search_issues(project="AIPM", query="CI/CD pipeline bugs")</div><div class="fs11 muted">Claude Code · Auto-executed (read-only) · Jun 8, 09:30 AM</div></div>
+      <span class="tag tag-b">Auto</span>
+    </div>
+    <div class="hover-row flex items-center gap4">
+      <div style="width:32px;height:32px;border-radius:50%;background:hsl(var(--d-s));color:hsl(var(--d));display:flex;align-items:center;justify-content:center;font-size:14px">✗</div>
+      <div class="flex-1"><div class="fs13 fw6">Denied: bulk_update_issues(ids=["AIPM-45","AIPM-48"], sprint_id="S4")</div><div class="fs11 muted">Claude Code · Bob denied · Jun 7, 3:20 PM · Reason: "Keep these in Sprint 3"</div></div>
+      <span class="tag tag-hi">Denied</span>
+    </div>
+    <div class="hover-row flex items-center gap4">
+      <div style="width:32px;height:32px;border-radius:50%;background:hsl(var(--sf-h));color:hsl(var(--i-m));display:flex;align-items:center;justify-content:center;font-size:14px">⏰</div>
+      <div class="flex-1"><div class="fs13 fw6">Expired: delete_issue("AIPM-55")</div><div class="fs11 muted">Cursor · No response within 5 min · Jun 6, 2:15 PM</div></div>
+      <span class="tag tag-med">Expired</span>
+    </div>
+    <div class="hover-row flex items-center gap4">
+      <div style="width:32px;height:32px;border-radius:50%;background:hsl(var(--s-s));color:hsl(var(--s));display:flex;align-items:center;justify-content:center;font-size:14px">✓</div>
+      <div class="flex-1"><div class="fs13 fw6">Approved: comment_issue("AIPM-38", "Rate limit implemented, please review")</div><div class="fs11 muted">Claude Code · Auto-approved (low risk) · Jun 6, 10:00 AM</div></div>
+      <span class="tag tag-lo">Approved</span>
+    </div>
+  </div></div>
+
+</div></div></div>
+
+<!-- ─── ADMIN SETTINGS ─── -->
+<div id="v-admin-settings" class="view-off">
+<div class="ch"><h2>Admin Settings</h2><p class="fs12 muted mt4">System-wide AI configuration</p></div>
+<div class="ch" style="padding-top:0;border-top:0"><div></div><div class="flex gap2"><button class="btn btn-b">Save Changes</button></div></div>
+<div class="cb"><div style="max-width:800px">
+
+<div class="card mb4 p-4">
+  <h3 class="fs14 fw6 mb2">AI Model Deployment</h3>
+  <p class="fs12 muted mb4">Choose where AI models run. Changes take effect immediately without restart.</p>
+  <div class="flex gap2 mb4">
+    <button class="btn btn-s fs12 fw6" style="background:hsl(var(--brand-soft));color:hsl(var(--brand));border-color:hsl(var(--brand))">🖥 Local (Ollama)</button>
+    <button class="btn btn-g btn-xs">☁️ Cloud API</button>
+    <button class="btn btn-g btn-xs">⚡ vLLM</button>
+  </div>
+
+  <div class="form-grp"><label class="form-label">Server Address</label><input class="form-input" value="http://localhost:11434"></div>
+  <div class="grid2 mt4">
+    <div class="form-grp">
+      <label class="form-label">Quick Tasks Model</label>
+      <select class="form-select" style="width:100%"><option>deepseek-r1:1.5b</option><option>minicpm-v:latest</option><option>bge-m3:latest</option></select>
+      <div class="flex items-center gap2 mt4"><span class="fs11 muted">Timeout(s):</span><input class="form-input" type="number" value="120" style="width:64px;padding:4px 6px;font-size:12px"></div>
+    </div>
+    <div class="form-grp">
+      <label class="form-label">Heavy Tasks Model</label>
+      <select class="form-select" style="width:100%"><option>deepseek-r1:1.5b</option><option>minicpm-v:latest</option></select>
+      <div class="flex items-center gap2 mt4"><span class="fs11 muted">Timeout(s):</span><input class="form-input" type="number" value="300" style="width:64px;padding:4px 6px;font-size:12px"></div>
+    </div>
+  </div>
+  <div class="form-grp mt4"><label class="form-label">Search Model (Embedding)</label><select class="form-select" style="width:100%"><option>bge-m3:latest</option></select></div>
+</div>
+
+</div></div></div>
+
+<!-- ─── AUTH MOCKUP ─── -->
+<div id="v-auth" class="view-off">
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="auth-logo"><div class="auth-logo-icon">A</div><div class="auth-logo-text">AI-Powered Project Manager</div></div>
+    <div class="card"><div class="card-hd"><h3 style="font-size:18px;text-align:center">Sign in to TomiHub</h3></div><div class="card-bd" style="padding:20px">
+      <div class="auth-form-item"><label class="auth-form-label">Email</label><input class="auth-form-input" type="email" placeholder="you@example.com"></div>
+      <div class="auth-form-item"><label class="auth-form-label">Password</label><input class="auth-form-input" type="password" placeholder="········"></div>
+      <div class="flex justify-between items-center mb4"><label class="fs12 sec"><input type="checkbox" style="margin-right:4px">Remember me</label><a href="#" class="fs12 auth-link">Forgot password?</a></div>
+      <button class="btn btn-b" style="width:100%;padding:10px">Sign in</button>
+      <p class="text-c fs12 sec mt4">Don't have an account? <a href="#" class="auth-link">Sign up</a></p>
+    </div></div>
+  </div>
+</div></div>
+
+</main></div>
+
+<script>
+/* ═══ View Switching ═══ */
+function show(name) {
+  document.querySelectorAll('[id^="v-"]').forEach(el => el.classList.add('view-off'));
+  const target = document.getElementById('v-' + name);
+  if (target) target.classList.remove('view-off');
+  document.querySelectorAll('.nav').forEach(n => n.classList.remove('act'));
+  const link = document.querySelector(`.nav[data-v="${name}"]`);
+  if (link) link.classList.add('act');
+}
+
+/* ═══ Theme ═══ */
+function setT(name) {
+  document.documentElement.setAttribute('data-theme', name);
+  document.querySelectorAll('.tdot').forEach(d => d.classList.remove('act'));
+  document.querySelector(`.tdot[data-theme="${name}"]`).classList.add('act');
+}
+
+/* ═══ Language ═══ */
+let lang = 'en';
+function toggleLang() {
+  lang = lang === 'en' ? 'zh' : 'en';
+  document.getElementById('langLabel').textContent = lang.toUpperCase();
+}
+</script>
+<!-- ═══ Search Engine ═══ -->
+<script>
+var MOCK_DATA = {
+  issues: [
+    {key:'AIPM-88',title:'CI/CD build failing on iOS',project:'TomiHub Core Platform',status:'Open',priority:'High',url:'javascript:void(0)'},
+    {key:'MOB-15',title:'Set up CI/CD for mobile app',project:'Mobile App Redesign',status:'In Progress',priority:'Medium',url:'javascript:void(0)'},
+    {key:'AIPM-52',title:'CI/CD pipeline monitoring alert',project:'TomiHub Core Platform',status:'Open',priority:'Low',url:'javascript:void(0)'},
+    {key:'AIPM-42',title:'Fix login page layout on mobile',project:'TomiHub Core Platform',status:'In Progress',priority:'High',url:'javascript:void(0)'},
+    {key:'AIPM-38',title:'Email verification rate limiting',project:'TomiHub Core Platform',status:'In Review',priority:'High',url:'javascript:void(0)'},
+    {key:'AIPM-35',title:'3-tier permission system',project:'TomiHub Core Platform',status:'In Progress',priority:'Medium',url:'javascript:void(0)'},
+    {key:'MOB-22',title:'Login screen UI redesign',project:'Mobile App Redesign',status:'Open',priority:'Medium',url:'javascript:void(0)'},
+    {key:'AIPM-40',title:'API Key anomaly detection engine',project:'TomiHub Core Platform',status:'Done',priority:'High',url:'javascript:void(0)'},
+    {key:'AIPM-29',title:'Board drag-and-drop API',project:'TomiHub Core Platform',status:'In Review',priority:'Medium',url:'javascript:void(0)'},
+    {key:'AIPM-50',title:'Setup CI/CD pipeline',project:'TomiHub Core Platform',status:'Backlog',priority:'High',url:'javascript:void(0)'},
+  ],
+  wiki: [
+    {title:'CI/CD Pipeline Setup Guide',project:'TomiHub Core Platform',category:'Architecture',url:'javascript:void(0)'},
+    {title:'Build & Deploy Runbook',project:'TomiHub Core Platform',category:'Runbook',url:'javascript:void(0)'},
+    {title:'Architecture Decision Records',project:'TomiHub Core Platform',category:'Architecture',url:'javascript:void(0)'},
+    {title:'API Authentication Guide',project:'TomiHub Core Platform',category:'API Documentation',url:'javascript:void(0)'},
+    {title:'Login Module Design',project:'TomiHub Core Platform',category:'Architecture',url:'javascript:void(0)'},
+    {title:'Permission System Overview',project:'Mobile App Redesign',category:'Architecture',url:'javascript:void(0)'},
+    {title:'Mobile App Testing Strategy',project:'Mobile App Redesign',category:'Testing',url:'javascript:void(0)'},
+  ],
+  sprints: [
+    {name:'Sprint 3',project:'TomiHub Core Platform',status:'Active',progress:60,url:'javascript:void(0)'},
+    {name:'Sprint 2',project:'TomiHub Core Platform',status:'Completed',progress:100,url:'javascript:void(0)'},
+  ]
+};
+
+var AI_ANSWERS = {
+  'ci/cd': {
+    answer: '<h3 style="margin-bottom:8px">CI/CD Pipeline Setup</h3><p style="line-height:1.7;margin-bottom:12px">The project uses <strong>GitHub Actions</strong> for CI/CD. Two active pipelines exist:</p><p style="line-height:1.7;margin-bottom:6px"><strong>📱 Mobile App (React Native):</strong><br>Trigger: Push to main or PR. Status: Normal (AIPM-88 fixed iOS cert issue). Reference: <a href="#" style="color:hsl(var(--brand))">CI/CD Pipeline Setup Guide</a></p><p style="line-height:1.7;margin-bottom:6px"><strong>🖥 Backend (Java + Python):</strong><br>Trigger: Push to main. Status: Normal. Reference: <a href="#" style="color:hsl(var(--brand))">Build & Deploy Runbook</a></p><p style="line-height:1.7;margin-top:12px"><strong>⚠ Known Issues:</strong><br>· AIPM-52: CI/CD monitoring alerts pending<br>· MOB-15: Mobile CI/CD needs performance test step</p>',
+    sources: [
+      {type:'wiki',title:'CI/CD Pipeline Setup Guide'},
+      {type:'wiki',title:'Build & Deploy Runbook'},
+      {type:'issue',key:'AIPM-88',title:'CI/CD build failing on iOS'},
+      {type:'issue',key:'MOB-15',title:'Set up CI/CD for mobile app'},
+      {type:'issue',key:'AIPM-52',title:'CI/CD pipeline monitoring'},
+    ],
+    related: ['How to add iOS code signing?','CI/CD build failure troubleshooting','How to add performance tests to mobile CI?']
+  },
+  'login': {
+    answer: '<h3 style="margin-bottom:8px">Login System Overview</h3><p style="line-height:1.7;margin-bottom:12px">The login system uses <strong>JWT RS256</strong> asymmetric tokens with a <strong>two-stage token model</strong> for multi-tenant support.</p><p style="line-height:1.7;margin-bottom:6px"><strong>🔐 Authentication Flow:</strong><br>1. User enters email+password → Pre-Tenant Token (scope=tenant_selection)<br>2. User selects workspace → Full-Scope Token (scope=business)</p><p style="line-height:1.7;margin-bottom:6px"><strong>📱 Current Issues:</strong><br>· AIPM-42: Login page layout broken on mobile<br>· AIPM-38: Email verification rate limiting needed</p><p style="line-height:1.7;margin-top:12px"><strong>📚 Documentation:</strong><br>· <a href="#" style="color:hsl(var(--brand))">Login Module Design</a><br>· <a href="#" style="color:hsl(var(--brand))">API Authentication Guide</a></p>',
+    sources: [
+      {type:'wiki',title:'Login Module Design'},
+      {type:'wiki',title:'API Authentication Guide'},
+      {type:'issue',key:'AIPM-42',title:'Fix login page layout on mobile'},
+      {type:'issue',key:'AIPM-38',title:'Email verification rate limiting'},
+    ],
+    related: ['How to reset password?','JWT token expiration handling','Multi-tenant workspace switching flow']
+  },
+  'permission': {
+    answer: '<h3 style="margin-bottom:8px">Permission System</h3><p style="line-height:1.7;margin-bottom:12px">TomiHub uses a <strong>three-tier permission model</strong>: Global → Project → Issue Security Level.</p><p style="line-height:1.7;margin-bottom:6px"><strong>👑 Roles:</strong> Tenant Owner (full access), Tenant Admin, Project Lead, Developer, Reviewer, Viewer.</p><p style="line-height:1.7;margin-bottom:6px"><strong>📋 Key Permission Codes:</strong> 25 codes across GLOBAL (7) and PROJECT (18) categories.</p><p style="line-height:1.7;margin-top:12px"><strong>📚 Documentation:</strong><br>· <a href="#" style="color:hsl(var(--brand))">Permission System Overview</a> (Mobile App Redesign project)<br>· <a href="#" style="color:hsl(var(--brand))">Architecture Decision Records</a></p>',
+    sources: [
+      {type:'wiki',title:'Permission System Overview'},
+      {type:'wiki',title:'Architecture Decision Records'},
+      {type:'issue',key:'AIPM-35',title:'3-tier permission system'},
+    ],
+    related: ['How to create custom roles?','Project-level vs Global permissions','Issue Security Level setup']
+  }
+};
+
+function closeSearch() {
+  document.getElementById('search-input').value = '';
+  document.getElementById('search-results').classList.add('view-off');
+  document.getElementById('search-default').classList.remove('view-off');
+  document.getElementById('search-quick-results').classList.add('view-off');
+  document.getElementById('search-ai-results').classList.add('view-off');
+  document.getElementById('search-empty').classList.add('view-off');
+  document.getElementById('search-loading').classList.add('view-off');
+}
+
+function handleSearchInput(query) {
+  if (!query || query.trim().length === 0) {
+    closeSearch();
+    return;
+  }
+  document.getElementById('search-results').classList.remove('view-off');
+  document.getElementById('search-default').classList.add('view-off');
+  showQuickResults(query);
+}
+
+function handleSearch(query, isAI) {
+  if (!query || query.trim().length === 0) return;
+  document.getElementById('search-results').classList.remove('view-off');
+  document.getElementById('search-default').classList.add('view-off');
+  if (isAI) {
+    showAIResults(query);
+  } else {
+    showQuickResults(query);
+  }
+}
+
+function showQuickResults(query) {
+  var q = query.toLowerCase().trim();
+  document.getElementById('search-ai-results').classList.add('view-off');
+  document.getElementById('search-loading').classList.add('view-off');
+
+  // Filter results
+  var matchedIssues = MOCK_DATA.issues.filter(function(i){return i.title.toLowerCase().indexOf(q)>-1||i.key.toLowerCase().indexOf(q)>-1});
+  var matchedWiki = MOCK_DATA.wiki.filter(function(w){return w.title.toLowerCase().indexOf(q)>-1||w.category.toLowerCase().indexOf(q)>-1});
+  var matchedSprints = MOCK_DATA.sprints.filter(function(s){return s.name.toLowerCase().indexOf(q)>-1});
+
+  if (matchedIssues.length===0 && matchedWiki.length===0 && matchedSprints.length===0) {
+    document.getElementById('search-quick-results').classList.add('view-off');
+    document.getElementById('search-empty').classList.remove('view-off');
+    document.getElementById('search-empty-query').textContent = query;
+    return;
+  }
+
+  document.getElementById('search-empty').classList.add('view-off');
+  var panel = document.getElementById('search-quick-results');
+  panel.classList.remove('view-off');
+
+  var html = '';
+  if (matchedIssues.length > 0) {
+    html += '<div style="padding:10px 16px 4px;font-size:11px;font-weight:600;color:hsl(var(--ink-muted));text-transform:uppercase;letter-spacing:0.04em">Issues ('+matchedIssues.length+')</div>';
+    matchedIssues.slice(0,5).forEach(function(i){
+      var priClass = i.priority==='High'?'tag-hi':(i.priority==='Medium'?'tag-med':'tag-lo');
+      html += '<div class="hover-row flex items-center gap-3" style="cursor:pointer;padding:10px 16px" onclick="show(\'issue-detail\')"><span class="mono fs12" style="color:hsl(var(--ink-muted))">'+i.key+'</span><span class="flex-1 fs13 fw5">'+highlightMatch(i.title,q)+'</span><span class="tag '+priClass+'">'+i.priority+'</span><span class="fs11" style="color:hsl(var(--ink-muted))">'+i.project+'</span></div>';
+    });
+    if (matchedIssues.length > 5) html += '<div style="padding:6px 16px;font-size:11px;color:hsl(var(--ink-muted))">+ '+(matchedIssues.length-5)+' more issues</div>';
+  }
+  if (matchedWiki.length > 0) {
+    html += '<div style="padding:10px 16px 4px;font-size:11px;font-weight:600;color:hsl(var(--ink-muted));text-transform:uppercase;letter-spacing:0.04em;border-top:1px solid hsl(var(--edge-default))">Knowledge ('+matchedWiki.length+')</div>';
+    matchedWiki.slice(0,3).forEach(function(w){
+      html += '<div class="hover-row flex items-center gap-3" style="cursor:pointer;padding:10px 16px" onclick="show(\'wiki-editor\')"><span style="font-size:16px">📄</span><span class="flex-1 fs13 fw5">'+highlightMatch(w.title,q)+'</span><span class="fs11" style="color:hsl(var(--ink-muted))">'+w.project+' · '+w.category+'</span></div>';
+    });
+  }
+  if (matchedSprints.length > 0) {
+    html += '<div style="padding:10px 16px 4px;font-size:11px;font-weight:600;color:hsl(var(--ink-muted));text-transform:uppercase;letter-spacing:0.04em;border-top:1px solid hsl(var(--edge-default))">Sprints ('+matchedSprints.length+')</div>';
+    matchedSprints.forEach(function(s){
+      html += '<div class="hover-row flex items-center gap-3" style="cursor:pointer;padding:10px 16px" onclick="show(\'sprints\')"><span style="font-size:16px">🔄</span><span class="flex-1 fs13 fw5">'+highlightMatch(s.name,q)+'</span><div class="progress" style="width:80px"><div class="progress-bar brand" style="width:'+s.progress+'%"></div></div><span class="fs11" style="color:hsl(var(--ink-muted))">'+s.status+'</span></div>';
+    });
+  }
+  panel.innerHTML = html;
+}
+
+function showAIResults(query) {
+  var q = query.toLowerCase().trim();
+  document.getElementById('search-quick-results').classList.add('view-off');
+  document.getElementById('search-empty').classList.add('view-off');
+  document.getElementById('search-ai-results').classList.add('view-off');
+  document.getElementById('search-loading').classList.remove('view-off');
+
+  // Simulate AI progress
+  var bar = document.getElementById('ai-progress-bar');
+  bar.style.width = '0%';
+  setTimeout(function(){bar.style.width='30%'},300);
+  setTimeout(function(){bar.style.width='60%'},800);
+  setTimeout(function(){bar.style.width='90%'},1500);
+
+  setTimeout(function(){
+    document.getElementById('search-loading').classList.add('view-off');
+    var panel = document.getElementById('search-ai-results');
+    panel.classList.remove('view-off');
+
+    // Find best match
+    var aiData = null;
+    if (q.indexOf('ci/cd')>-1||q.indexOf('ci')>-1||q.indexOf('cd')>-1||q.indexOf('pipeline')>-1) aiData = AI_ANSWERS['ci/cd'];
+    else if (q.indexOf('login')>-1||q.indexOf('登')>-1) aiData = AI_ANSWERS['login'];
+    else if (q.indexOf('permission')>-1||q.indexOf('权限')>-1) aiData = AI_ANSWERS['permission'];
+    else aiData = AI_ANSWERS['ci/cd']; // default
+
+    var html = '';
+    html += '<div style="margin-bottom:16px">'+aiData.answer+'</div>';
+    if (aiData.sources && aiData.sources.length>0) {
+      html += '<div style="border-top:1px solid hsl(var(--edge-default));padding-top:12px;margin-bottom:12px"><span class="fs11 muted fw6">📎 Sources:</span></div>';
+      aiData.sources.forEach(function(s){
+        html += '<div class="fs12" style="margin-bottom:4px">· ['+(s.type==='wiki'?'Wiki':'Issue')+'] <a href="#" style="color:hsl(var(--brand))">'+s.title+(s.key?' ('+s.key+')':'')+'</a></div>';
+      });
+    }
+    if (aiData.related && aiData.related.length>0) {
+      html += '<div style="border-top:1px solid hsl(var(--edge-default));padding-top:12px;margin-top:12px"><span class="fs11 muted fw6">💡 Related Questions:</span></div>';
+      aiData.related.forEach(function(r){
+        html += '<div class="fs12" style="margin:4px 0;cursor:pointer;color:hsl(var(--brand))" onclick="document.getElementById(\'search-input\').value=\''+r+'\';handleSearch(\''+r+'\',true)">· '+r+'</div>';
+      });
+    }
+    html += '<div style="border-top:1px solid hsl(var(--edge-default));padding-top:12px;margin-top:16px"><span class="fs11 muted">Not finding what you need? </span><a href="#" class="fs12 brand fw6">🔍 Search the web</a></div>';
+    panel.innerHTML = html;
+  }, 2000);
+}
+
+function highlightMatch(text, query) {
+  var idx = text.toLowerCase().indexOf(query.toLowerCase());
+  if (idx === -1) return text;
+  return text.substring(0,idx)+'<strong style="color:hsl(var(--brand))">'+text.substring(idx,idx+query.length)+'</strong>'+text.substring(idx+query.length);
+}
+</script>
+
+
+<!-- ═══ AI GLOBAL ASSISTANT ═══ -->
+<!-- FAB Button -->
+<button id="ai-fab" class="ai-fab" onclick="toggleAI()" title="AI Assistant (⌘K)">🔍</button>
+<!-- Sliding Panel -->
+<div id="ai-panel" class="ai-panel">
+  <div class="ai-panel-hd">
+    <span>🤖 AI Assistant</span>
+    <div class="flex gap-2 items-center">
+      <button id="ai-web-btn" class="ai-web-btn" onclick="toggleWeb()">🌐 Web</button>
+      <button class="btn-g" onclick="toggleAI()">✕</button>
+    </div>
+  </div>
+  <div class="ai-panel-input">
+    <input id="ai-query" class="form-input" placeholder="Ask anything about this project..." oninput="aiDebounce()" onkeydown="if(event.key==='Enter')aiSearch()">
+  </div>
+  <div id="ai-results" class="ai-panel-body">
+    <div class="ai-empty">
+      <p style="font-size:32px;margin-bottom:8px">🔍</p>
+      <p class="fs14">Type to search project wiki, issues, and more.</p>
+      <p class="fs12 muted mt4">Enable 🌐 Web for internet results.</p>
+    </div>
+  </div>
+</div>
+<style>
+.ai-fab{position:fixed;bottom:24px;right:24px;z-index:1000;width:56px;height:56px;border-radius:50%;background:hsl(var(--brand));color:#fff;border:none;font-size:22px;cursor:pointer;box-shadow:0 4px 24px rgba(0,0,0,.15);transition:transform .15s;display:flex;align-items:center;justify-content:center}
+.ai-fab:hover{transform:scale(1.08)}
+.ai-panel{position:fixed;top:0;right:0;bottom:0;z-index:1001;width:480px;background:hsl(var(--sf-c));border-left:1px solid hsl(var(--e-d));box-shadow:-4px 0 24px rgba(0,0,0,.1);display:none;flex-direction:column}
+.ai-panel-hd{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid hsl(var(--e-d));font-size:14px;font-weight:600}
+.ai-web-btn{padding:4px 10px;border-radius:6px;font-size:12px;border:none;cursor:pointer;background:transparent;color:hsl(var(--i-m))}
+.ai-web-btn.active{background:hsl(var(--brand));color:#fff}
+.ai-panel-input{padding:12px 16px;border-bottom:1px solid hsl(var(--e-d))}
+.ai-panel-body{flex:1;overflow-y:auto;padding:16px}
+.ai-empty{text-align:center;padding:40px 0;color:hsl(var(--i-m))}
+</style>
+<script>
+let aiWeb=false,aiTimer=null;
+function toggleAI(){var p=document.getElementById('ai-panel');var f=document.getElementById('ai-fab');if(p.style.display==='flex'){p.style.display='none';f.style.display='flex'}else{p.style.display='flex';f.style.display='none';setTimeout(function(){document.getElementById('ai-query').focus()},200)}}
+function toggleWeb(){aiWeb=!aiWeb;var b=document.getElementById('ai-web-btn');if(aiWeb){b.className='ai-web-btn active'}else{b.className='ai-web-btn'}}
+function aiDebounce(){if(aiTimer)clearTimeout(aiTimer);aiTimer=setTimeout(aiSearch,500)}
+function aiSearch(){var q=document.getElementById('ai-query').value;if(!q.trim())return;var r=document.getElementById('ai-results');r.innerHTML='<div class="ai-empty"><p>⏳ Searching...</p></div>'}
+function switchSidebar(pos){
+  var sb=document.querySelector('.sb');
+  var layout=document.querySelector('.layout');
+  var tn=document.getElementById('top-nav-row');
+  var br=document.getElementById('top-breadcrumb');
+
+  document.querySelectorAll('.sdot').forEach(function(b){
+    b.className=(b.getAttribute('data-pos')===pos)?'sdot act':'sdot';
+  });
+
+  if(pos==='top'){
+    sb.className='sb sb-top';
+    layout.className='layout layout-top-mode';
+    if(tn)tn.style.display='flex';
+    if(br)br.style.display='flex';
+    document.querySelectorAll('.sb-nav>*,.sb-label,.sb-sep').forEach(function(el){el.style.display='none'});
+  }else if(pos==='right'){
+    sb.className='sb';sb.style.cssText='width:224px;flex-shrink:0;flex-direction:column;overflow-y:auto;border-left:1px solid hsl(var(--e-s));border-right:none';
+    layout.className='layout';layout.style.flexDirection='row-reverse';
+    if(tn)tn.style.display='none';
+    if(br)br.style.display='none';
+    document.querySelectorAll('.sb-nav>*,.sb-label,.sb-sep').forEach(function(el){el.style.display=''});
+  }else{
+    sb.className='sb';sb.style.cssText='width:224px;flex-shrink:0;flex-direction:column;overflow-y:auto;border-right:1px solid hsl(var(--e-s));border-left:none';
+    layout.className='layout';layout.style.flexDirection='row';
+    if(tn)tn.style.display='none';
+    if(br)br.style.display='none';
+    document.querySelectorAll('.sb-nav>*,.sb-label,.sb-sep').forEach(function(el){el.style.display=''});
+  }}
+function selectStatus(status,btn){document.querySelectorAll('.status-btn').forEach(function(b){b.classList.remove('active');b.style.background='transparent';b.style.border='1px solid hsl(var(--e-d))';b.style.color='hsl(var(--i-m))';b.style.fontWeight='normal'});btn.classList.add('active');btn.style.background='hsl(var(--brand)/0.1)';btn.style.border='2px solid hsl(var(--brand))';btn.style.color='hsl(var(--brand))';btn.style.fontWeight='600';var sideStatus=document.querySelector('.side-item .tag');if(sideStatus)sideStatus.textContent=status.replace(/_/g,' ').replace(/\b\w/g,function(c){return c.toUpperCase()})}
+document.addEventListener('keydown',function(e){if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();toggleAI()}});
+// ── AI Feedback Button Interaction ──
+document.querySelectorAll('.feedback-score-btn').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var parent=this.parentElement.parentElement;
+    var btns=parent.querySelectorAll('.feedback-score-btn');
+    btns.forEach(function(b){b.classList.remove('selected');b.style.background='rgba(255,255,255,0.7)';b.style.color='hsl(var(--i-m))';b.style.border='1px solid hsl(var(--e-d))';b.style.fontWeight='normal'});
+    this.classList.add('selected');this.style.background='hsl(var(--brand))';this.style.color='#fff';this.style.border='1px solid hsl(var(--brand))';this.style.fontWeight='600';
+    showCommentIfNeeded(parent);
+  })
+});
+document.querySelectorAll('.feedback-level-btn').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var parent=this.parentElement.parentElement;
+    var btns=parent.querySelectorAll('.feedback-level-btn');
+    btns.forEach(function(b){b.classList.remove('selected');b.style.background='rgba(255,255,255,0.7)';b.style.color='hsl(var(--i-m))';b.style.border='1px solid hsl(var(--e-d))';b.style.fontWeight='normal'});
+    this.classList.add('selected');this.style.background='hsl(var(--brand))';this.style.color='#fff';this.style.border='1px solid hsl(var(--brand))';this.style.fontWeight='600';
+    showCommentIfNeeded(parent);
+  })
+});
+function showCommentIfNeeded(parent){
+  var scoreBtn=parent.querySelectorAll('.feedback-score-btn.selected')[0];
+  var levelBtn=parent.querySelectorAll('.feedback-level-btn.selected')[0];
+  var area=parent.querySelector('.feedback-comment-area');
+  if(!area)return;
+  var isAccurate=levelBtn&&levelBtn.textContent.trim()==='Accurate';
+  var isJustRight=scoreBtn&&scoreBtn.textContent.trim()==='Just Right';
+  area.style.display=(isAccurate&&isJustRight)?'none':'block';
+}
+</script>
+
+</body>
+</html>

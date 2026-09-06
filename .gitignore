@@ -1,0 +1,49 @@
+# ─── Secrets (never commit) ───
+.env
+.env.local
+.env.*.local
+.env.production
+.env.demo
+!.env.example
+*.lic
+*.pem
+*.key
+*.p12
+*.jks
+*.keystore
+application-local.yml
+*-local.properties
+maven-settings.xml
+
+# ─── Build artifacts ───
+node_modules/
+target/
+dist/
+build/
+*.class
+*.jar
+*.war
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+*.egg
+.pytest_cache/
+coverage/
+
+# ─── IDE / OS ───
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ─── Local / runtime ───
+*.log
+logs/
+data/
+frontend/public/
