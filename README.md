@@ -93,6 +93,41 @@ Contact us to request the ai-brain + license, or for: migration from
 Redmine / Jira / ZenTao, industry templates, enterprise integration
 (Feishu / WeCom / SSO), AI tuning, and ops retainers.
 
+## MCP: connect clients (TomiLite as an MCP client)
+
+TomiHub exposes an MCP server at:
+
+```
+https://<your-tomihub>/api/v1/mcp
+```
+
+Any MCP-compatible client can connect — **TomiLite works as an MCP client**.
+In *TomiLite → Settings → MCP Servers* add a server with:
+
+- **URL**: `https://<your-tomihub>/api/v1/mcp`
+- **Auth**: an API key from *TomiHub → Settings → API Keys*, sent as header `X-Api-Key`
+
+Example for Claude Code / Cursor (`.claude/mcp.json`):
+
+```json
+{
+  "mcpServers": {
+    "tomiHub": {
+      "type": "http",
+      "url": "https://<your-tomihub>/api/v1/mcp",
+      "headers": { "X-Api-Key": "<your-api-key>" }
+    }
+  }
+}
+```
+
+TomiHub's MCP tools (project health, risk, reports, …) then become available
+to the connected client; write tools go through the HITL approval queue.
+
+> **Availability**: the MCP AI tools are served by `ai-brain` and require the
+> licensed AI edition (`docker-compose.enterprise.yml`). The open no-AI
+> compose returns an `ai_unavailable` notice on `/api/v1/mcp`.
+
 ## License
 
 AGPL-3.0 — see [LICENSE](LICENSE). Commercial licensing is available for
