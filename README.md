@@ -39,7 +39,7 @@ Project Overview — AI health radar & risk monitoring (AI edition):
 | `docker/` | Compose + Dockerfiles (core / frontend / infra) |
 | `docs/` | Architecture / UI / deployment / permission design (non-AI) |
 
-**Not included (closed until batch-2):** the `ai-brain/` analysis engine and
+**Not included:** the closed `ai-brain/` analysis engine and
 its AI design docs.
 
 ## Quick start (self-hosted, no-AI mode)
