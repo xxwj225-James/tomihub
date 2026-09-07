@@ -137,4 +137,4 @@ services, not sold separately.
 
 The Redmine connector under `connectors/redmine/` is also AGPL-3.0 (an open
 acquisition asset; the analysis engine that consumes mirrored data stays
-closed until batch-2).
+distributed under a per-deployment license).
