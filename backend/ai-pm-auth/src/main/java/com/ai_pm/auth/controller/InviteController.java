@@ -35,6 +35,30 @@ public class InviteController {
     private final AuthService authService;
     private final TenantMemberRepository tenantMemberRepo;
 
+    @org.springframework.beans.factory.annotation.Value("${app.base-url:http://localhost}")
+    private String configuredBaseUrl;
+
+    /**
+     * Build the public base URL for invite links. Prefer an explicitly
+     * configured APP_BASE_URL; otherwise derive it from the current request
+     * (Host / X-Forwarded-*) so links always point at the host the inviter
+     * actually used — no more "http://localhost" mails when APP_BASE_URL unset.
+     */
+    private String resolveLinkBase(jakarta.servlet.http.HttpServletRequest req) {
+        String cfg = configuredBaseUrl;
+        if (cfg != null && !cfg.isBlank()
+                && !"http://localhost".equalsIgnoreCase(cfg)
+                && !"https://localhost".equalsIgnoreCase(cfg)) {
+            return cfg;
+        }
+        String scheme = req.getHeader("X-Forwarded-Proto");
+        if (scheme == null || scheme.isBlank()) scheme = req.getScheme();
+        String host = req.getHeader("X-Forwarded-Host");
+        if (host == null || host.isBlank()) host = req.getHeader("Host");
+        if (host != null && !host.isBlank()) return scheme + "://" + host;
+        return cfg;
+    }
+
     /**
      * Invites write tenant data — read-only users (viewer role / demo workspace)
      * are rejected, mirroring the ai-brain read-only guard.
@@ -60,7 +84,8 @@ public class InviteController {
     }
 
     @PostMapping
-    public ApiResponse<InviteVO> create(@RequestBody Map<String, String> body) {
+    public ApiResponse<InviteVO> create(@RequestBody Map<String, String> body,
+                                        jakarta.servlet.http.HttpServletRequest request) {
         String tenantId = TenantContextHolder.getTenantId();
         verifyCanInvite(tenantId);
         String userId = TenantContextHolder.getUserId();
@@ -79,7 +104,7 @@ public class InviteController {
         }
 
         // Send invite email
-        boolean emailSent = inviteService.sendInviteEmail(invite, tenantId);
+        boolean emailSent = inviteService.sendInviteEmail(invite, tenantId, resolveLinkBase(request));
         if (!emailSent) {
             inviteRepo.deleteById(invite.getId());
         }
@@ -91,7 +116,8 @@ public class InviteController {
     }
 
     @PostMapping("/batch")
-    public ApiResponse<Map<String, Object>> createBatch(@RequestBody Map<String, Object> body) {
+    public ApiResponse<Map<String, Object>> createBatch(@RequestBody Map<String, Object> body,
+                                                        jakarta.servlet.http.HttpServletRequest request) {
         String tenantId = TenantContextHolder.getTenantId();
         verifyCanInvite(tenantId);
         @SuppressWarnings("unchecked")
@@ -118,14 +144,10 @@ public class InviteController {
                 results.add(Map.of("email", e, "status", "skipped", "reason", "Already in workspace"));
                 skipped++; continue;
             }
-            if (inviteRepo.existsPendingByEmailAndTenant(e, tenantId)) {
-                results.add(Map.of("email", e, "status", "skipped", "reason", "Already invited"));
-                skipped++; continue;
-            }
 
             try {
                 Invite invite = inviteService.create(tenantId, TenantContextHolder.getUserId(), e, role);
-                boolean ok = inviteService.sendInviteEmail(invite, tenantId);
+                boolean ok = inviteService.sendInviteEmail(invite, tenantId, resolveLinkBase(request));
                 if (ok) {
                     results.add(Map.of("email", e, "status", "sent"));
                     sent++;

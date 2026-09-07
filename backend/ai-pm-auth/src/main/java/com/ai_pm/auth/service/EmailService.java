@@ -21,8 +21,11 @@ public class EmailService {
 
     /** Send an invite email with registration link. Throws if SMTP fails — caller handles it. */
     public void sendInviteEmail(String to, String workspaceName, String role,
-                                 String inviteCode) throws MessagingException {
-        String link = baseUrl + "/join?code=" + inviteCode;
+                                 String inviteCode, String linkBase) throws MessagingException {
+        // Prefer the request-derived base (correct even when APP_BASE_URL unset);
+        // fall back to the configured app.base-url.
+        String base = (linkBase != null && !linkBase.isBlank()) ? linkBase : baseUrl;
+        String link = base + "/join?code=" + inviteCode;
         String html = "<div style=\"max-width:480px;margin:0 auto;font-family:-apple-system,sans-serif\">"
             + "<div style=\"padding:24px 0;text-align:center\">"
             + "<h2 style=\"color:#4F46E5;margin:0\">TomiHub</h2></div>"

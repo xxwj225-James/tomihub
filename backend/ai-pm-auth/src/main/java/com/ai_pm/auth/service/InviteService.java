@@ -41,9 +41,9 @@ public class InviteService {
         if (userRepo.isMemberOfTenant(email, tenantId)) {
             throw new BusinessException(40000, "This email is already in this workspace");
         }
-        if (inviteRepo.existsPendingByEmailAndTenant(email, tenantId)) {
-            throw new BusinessException(40000, "An active invite already exists for this email");
-        }
+        // Re-invite is allowed: sending a new invite revokes any previous
+        // pending invite for the same email+workspace (old link stops working).
+        inviteRepo.revokePendingByEmailAndTenant(email.trim().toLowerCase(), tenantId);
 
         Invite invite = new Invite();
         invite.setTenantId(tenantId);
@@ -61,11 +61,11 @@ public class InviteService {
      * Attempt to send invite email. Returns true if sent successfully, false otherwise.
      * Does NOT delete the invite on failure — caller handles that.
      */
-    public boolean sendInviteEmail(Invite invite, String tenantId) {
+    public boolean sendInviteEmail(Invite invite, String tenantId, String linkBase) {
         Tenant tenant = tenantRepo.findById(tenantId).orElse(null);
         String workspaceName = tenant != null ? tenant.getName() : "TomiHub";
         try {
-            emailService.sendInviteEmail(invite.getEmail(), workspaceName, invite.getRole(), invite.getCode());
+            emailService.sendInviteEmail(invite.getEmail(), workspaceName, invite.getRole(), invite.getCode(), linkBase);
             return true;
         } catch (Exception e) {
             log.warn("Failed to send invite email: {}", e.getMessage());
