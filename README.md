@@ -101,7 +101,7 @@ TomiHub exposes an MCP server at:
 https://<your-tomihub>/api/v1/mcp
 ```
 
-Any MCP-compatible client can connect — **TomiLite works as an MCP client**.
+Any MCP-compatible client can connect — **TomiLite works as an MCP client** ([TomiLite on GitHub](https://github.com/xxwj225-James/tomilite)).
 In *TomiLite → Settings → MCP Servers* add a server with:
 
 - **URL**: `https://<your-tomihub>/api/v1/mcp`
