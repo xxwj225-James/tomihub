@@ -4,12 +4,13 @@ AI-powered project management platform — **open-source core, closed AI engine*
 
 > TomiHub = project management (Issues / Board / Gantt / Wiki / Sprint /
 > Permissions / Multi-tenant) + AI assistance (6-dimension health analysis,
-> risk prediction, AI reports). This repository is the **batch-1 open-source
-> portion** (AGPL-3.0): a fully usable project-management stack plus the
-> Redmine connector.
+> risk prediction, AI reports). This repository is the **open-source base**
+> (AGPL-3.0): a fully usable project-management stack plus the Redmine
+> connector.
 >
-> The AI analysis engine (ai-brain) is a separate closed component — licensed
-> per deployment, to be open-sourced in a later batch.
+> The AI analysis engine (ai-brain) is a separate closed component —
+> distributed under a per-deployment commercial license, not part of this
+> repository.
 >
 > **AI features are gated:** they are NOT part of this open-source download.
 > They run on the closed `ai-brain` engine, which requires an **ai-brain
@@ -27,7 +28,7 @@ Project Overview — AI health radar & risk monitoring (AI edition):
 > Screenshots show the AI edition. Without an ai-brain + license the same
 > screens render the no-AI edition (no health/risk/knowledge-map entries).
 
-## What's in this repo (batch-1)
+## What's in this repository
 
 | Module | Description |
 |--------|-------------|
