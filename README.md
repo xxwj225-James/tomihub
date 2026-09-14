@@ -8,14 +8,14 @@ AI-powered project management platform — **open-source core, closed AI engine*
 > (AGPL-3.0): a fully usable project-management stack plus the Redmine
 > connector.
 >
-> The AI analysis engine (ai-brain) is a separate closed component —
-> distributed under a per-deployment commercial license, not part of this
-> repository.
+> The AI analysis engine (ai-brain) is a separate closed component: the images
+> are freely pullable from ghcr.io, but running them requires a **license file
+> (`ai-brain.lic`)** issued per deployment. The engine is not part of this
+> repository's source and is **not** covered by AGPL-3.0.
 >
-> **AI features are gated:** they are NOT part of this open-source download.
-> They run on the closed `ai-brain` engine, which requires an **ai-brain
-> release** plus a **per-deployment license file (`ai-brain.lic`)** — see
-> [Enterprise / AI](#enterprise--ai).
+> **AI features are gated by the license, not by the download:** the open core
+> runs fine without any license, and with the ai-brain images + a valid license
+> you get the full AI edition — see [Enterprise / AI](#enterprise--ai).
 
 ## Screenshots
 
@@ -39,8 +39,9 @@ Project Overview — AI health radar & risk monitoring (AI edition):
 | `docker/` | Compose + Dockerfiles (core / frontend / infra) |
 | `docs/` | Architecture / UI / deployment / permission design (non-AI) |
 
-**Not included:** the closed `ai-brain/` analysis engine and
-its AI design docs.
+**Not included in this repository's source:** the closed `ai-brain/` analysis
+engine and its AI design docs. (Its prebuilt images are downloadable from
+ghcr.io and require a license to run — see [Enterprise / AI](#enterprise--ai).)
 
 ## Quick start (self-hosted, no-AI mode)
 
@@ -81,18 +82,37 @@ See `docs/redmine-connector-design.md` and `docs/redmine-experiment.md`.
 
 ## Enterprise / AI
 
-AI features (health / risk / reports) run on the closed `ai-brain` service.
-To obtain them you need:
+AI features (health / risk / reports / assistant / knowledge map) run on the
+`ai-brain` service. The images are **freely pullable** — the open core plus
+these images give you the complete AI edition:
 
-1. an **ai-brain release** (prebuilt images, delivered against your machine),
-2. a **per-deployment license file** (`ai-brain.lic`) issued for your
-   machine — the runtime enforces it: without a valid license the AI
-   services will not run (the enterprise compose sets
-   `AIPM_LICENSE_ENFORCE=true`).
+```bash
+docker pull ghcr.io/xxwj225-james/tomihub-brain-api:latest
+docker pull ghcr.io/xxwj225-james/tomihub-brain-worker:latest
+docker pull ghcr.io/xxwj225-james/tomihub-brain-beat:latest
+```
 
-Contact us to request the ai-brain + license, or for: migration from
-Redmine / Jira / ZenTao, industry templates, enterprise integration
-(Feishu / WeCom / SSO), AI tuning, and ops retainers.
+Then run `docker/ docker-compose.enterprise.yml` and drop your license file
+into `docker/ai-brain.lic`.
+
+**The license is what gates AI features**, not the download: without a valid
+`ai-brain.lic` the AI endpoints answer `403 license_required` and the AI
+services refuse to start. Licensing is enforced in code (there is no
+configuration switch to disable it).
+
+Request a **free 14-day trial license** or a paid license at
+<https://tomatovector.com/hub-preview> — issued per deployment and bound to
+your machine on first start. Quotas: 1 tenant / 10 seats / 3 projects for the
+trial; paid tiers scale to 200+ seats.
+
+> **Proprietary component notice**: the `ai-brain` images are **proprietary
+> software distributed under a commercial license — they are NOT covered by
+> this repository's AGPL-3.0 license**. The AGPL-3.0 terms apply to the
+> open-source code in this repository only. Redistribution of the `ai-brain`
+> images outside your licensed deployment is not permitted.
+
+Contact us for migration from Redmine / Jira / ZenTao, industry templates,
+enterprise integration (Feishu / WeCom / SSO), AI tuning, and ops retainers.
 
 ## MCP: connect clients (TomiLite as an MCP client)
 
@@ -131,9 +151,13 @@ to the connected client; write tools go through the HITL approval queue.
 
 ## License
 
-AGPL-3.0 — see [LICENSE](LICENSE). Commercial licensing is available for
-deployments that cannot comply with AGPL; it is bundled with enterprise
-services, not sold separately.
+AGPL-3.0 — see [LICENSE](LICENSE), covering the source code in this
+repository. Commercial licensing is available for deployments that cannot
+comply with AGPL; it is bundled with enterprise services, not sold separately.
+
+**Scope note:** the `ai-brain` container images (pulled from ghcr.io) are
+**proprietary software under a separate commercial license and are not covered
+by AGPL-3.0**. They are provided for use within your licensed deployment only.
 
 The Redmine connector under `connectors/redmine/` is also AGPL-3.0 (an open
 acquisition asset; the analysis engine that consumes mirrored data stays
