@@ -210,7 +210,10 @@ services:
     networks:
     - ai-pm-net
     restart: unless-stopped
-    pull_policy: always
+    # missing (not always): use a locally loaded image when present, only pull
+    # when absent. Air-gapped customers load the offline bundle with
+    # `docker load` — pull_policy: always would try ghcr anyway and fail.
+    pull_policy: missing
   ai-brain-worker:
     image: ghcr.io/xxwj225-james/tomihub-brain-worker:latest
     container_name: ai-pm-brain-worker
@@ -247,7 +250,7 @@ services:
     networks:
     - ai-pm-net
     restart: unless-stopped
-    pull_policy: always
+    pull_policy: missing
   ai-brain-beat:
     image: ghcr.io/xxwj225-james/tomihub-brain-beat:latest
     container_name: ai-pm-brain-beat
@@ -291,7 +294,7 @@ services:
       timeout: 5s
       retries: 3
       start_period: 15s
-    pull_policy: always
+    pull_policy: missing
   frontend:
     build:
       context: ..
