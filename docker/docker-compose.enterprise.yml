@@ -174,7 +174,7 @@ services:
         mac_address: 02:42:ac:16:00:10
     restart: unless-stopped
   ai-brain-api:
-    image: ghcr.io/xxwj225-james/tomihub-brain-api:latest
+    image: ghcr.io/xxwj225-james/tomihub-brain-api:v1.2.2
     container_name: ai-pm-brain-api
     command:
     - api
@@ -215,7 +215,7 @@ services:
     # `docker load` — pull_policy: always would try ghcr anyway and fail.
     pull_policy: missing
   ai-brain-worker:
-    image: ghcr.io/xxwj225-james/tomihub-brain-worker:latest
+    image: ghcr.io/xxwj225-james/tomihub-brain-worker:v1.2.2
     container_name: ai-pm-brain-worker
     command:
     - worker
@@ -252,7 +252,7 @@ services:
     restart: unless-stopped
     pull_policy: missing
   ai-brain-beat:
-    image: ghcr.io/xxwj225-james/tomihub-brain-beat:latest
+    image: ghcr.io/xxwj225-james/tomihub-brain-beat:v1.2.2
     container_name: ai-pm-brain-beat
     command:
     - beat

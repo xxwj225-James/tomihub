@@ -87,13 +87,18 @@ AI features (health / risk / reports / assistant / knowledge map) run on the
 these images give you the complete AI edition:
 
 ```bash
-docker pull ghcr.io/xxwj225-james/tomihub-brain-api:latest
-docker pull ghcr.io/xxwj225-james/tomihub-brain-worker:latest
-docker pull ghcr.io/xxwj225-james/tomihub-brain-beat:latest
+docker pull ghcr.io/xxwj225-james/tomihub-brain-api:v1.2.2
+docker pull ghcr.io/xxwj225-james/tomihub-brain-worker:v1.2.2
+docker pull ghcr.io/xxwj225-james/tomihub-brain-beat:v1.2.2
 ```
 
-Then run `docker/ docker-compose.enterprise.yml` and drop your license file
-into `docker/ai-brain.lic`.
+Then run `docker/docker-compose.enterprise.yml` and drop your license file
+into `docker/ai-brain.lic`. The compose file pins these same `v1.2.2` tags, so
+the images you pull are exactly the ones the stack starts.
+
+> Using a different version? Pull that tag and change the three `image:` lines
+> in `docker-compose.enterprise.yml` to match — the tags are pinned on purpose
+> so an upgrade is always an explicit, traceable action.
 
 **The license is what gates AI features**, not the download: without a valid
 `ai-brain.lic` the AI endpoints answer `403 license_required` and the AI
