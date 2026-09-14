@@ -19,6 +19,16 @@ connectors/redmine/
 └── README.md
 ```
 
+## Install
+
+Requires Python 3.11+. Install the package (only `httpx` + `asyncpg`):
+
+```bash
+cd connectors/redmine
+pip install -e .
+# or: uv pip install -e .
+```
+
 ## Usage
 
 ```bash
@@ -27,12 +37,16 @@ AIPM_REDMINE_URL=https://redmine.example.com \
 AIPM_REDMINE_API_KEY=<redmine-api-key> \
 AIPM_REDMINE_PROJECT_KEYS=myproj \
 AIPM_REDMINE_TENANT_ID=<tomihub-tenant-uuid> \
-AIPM_DATABASE_URL=postgresql://postgres:postgres@localhost:5432/ai_pm \
+AIPM_DATABASE_URL=postgresql://postgres:postgres@localhost:5433/ai_pm \
 python -m redmine_connector.cli --full
 
 # Incremental since the saved cursor
 python -m redmine_connector.cli --incremental
 ```
+
+> **Port note**: the shipped `docker/docker-compose.yml` maps PostgreSQL as
+> `5433:5432`, so the host-side DSN must use **5433**. Inside a container on
+> the compose network, use `postgres:5432` instead.
 
 See `docs/redmine-experiment.md` (in the main repo) for the full end-to-end
 experiment guide and `docs/redmine-connector-design.md` for the design.
