@@ -5,7 +5,7 @@ data model (`ai_pm` PostgreSQL) — issues, journals (→ comments/changelog),
 versions (→ sprints) and wiki pages — with full + incremental (updated_on
 cursor) sync.
 
-This is part of TomiHub batch-1 open source (AGPL-3.0). It is self-contained
+This is part of the TomiHub open-source base (AGPL-3.0). It is self-contained
 (httpx + asyncpg only) and does **not** require the TomiHub ai-brain service
 to run as a CLI tool. ai-brain consumes it as a library.
 
@@ -39,6 +39,6 @@ experiment guide and `docs/redmine-connector-design.md` for the design.
 
 ## License
 
-AGPL-3.0 — see LICENSE in the repository root. (Connector = open-source
-acquisition asset; the TomiHub ai-brain analysis engine that consumes the
-mirrored data is a separate closed component until batch-2 open source.)
+AGPL-3.0 — see LICENSE in the repository root. (The connector is
+open-source; the TomiHub ai-brain analysis engine that consumes the mirrored
+data is a separate component distributed under a commercial license.)

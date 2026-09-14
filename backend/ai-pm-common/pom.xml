@@ -125,7 +125,7 @@
     </build>
 
     <!-- ProGuard obfuscation is OPT-IN via -Pobfuscate. Not run by default:
-         the core modules are batch-1 open source (AGPL) and the license
+         the core modules are open source (AGPL) and the license
          verifier obfuscation used to protect was removed in P1. -->
     <profiles>
         <profile>

@@ -47,3 +47,11 @@ Thumbs.db
 logs/
 data/
 frontend/public/
+
+# ─── Internal-only files (must never be published) ───
+# The local AI test stack + its nginx overlay are maintained outside the
+# public tree. They were once added by accident — keep them ignored so a
+# broad `git add -A` can never publish them again.
+docker/docker-compose.ai-test.yml
+docker/nginx-frontend-ai.conf
+scripts/build_publish_tree.py

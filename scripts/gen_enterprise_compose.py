@@ -41,7 +41,7 @@ def main():
         yaml.safe_dump(data, f, sort_keys=False, allow_unicode=True)
     print(f"[ok] wrote {OUT}")
     print("NOTE: open services (core/auth/frontend) still build from source —")
-    print("      they are batch-1 open source. Only ai-brain is closed/pulled.")
+    print("      they are open source. Only ai-brain is closed/pulled.")
 
 
 if __name__ == "__main__":

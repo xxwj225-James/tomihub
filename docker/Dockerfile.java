@@ -16,7 +16,7 @@ RUN mvn dependency:go-offline -B -DexcludeReactor=true || \
     mvn dependency:resolve -B -DexcludeReactor=true
 
 # ═══ Stage 1: Build ═══
-# NOTE: no ProGuard obfuscation — core is batch-1 open source (AGPL), and the
+# NOTE: no ProGuard obfuscation — core is open source (AGPL), and the
 # license verifier it used to protect was removed (P1). Obfuscating open code
 # is pointless and broke the build (auth module).
 FROM deps AS builder

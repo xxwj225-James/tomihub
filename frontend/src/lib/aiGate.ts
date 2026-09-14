@@ -3,7 +3,7 @@
  *
  * `VITE_ENABLE_AI_FEATURES`:
  *   - unset / "true"  → AI features visible (default; full TomiHub with ai-brain)
- *   - "false"         → AI features hidden (no-AI self-hosted build, batch-1 open
+ *   - "false"         → AI features hidden (no-AI self-hosted build, open
  *                       source; pure project management)
  *
  * Usage: `import { aiEnabled } from '@/lib/aiGate';`
