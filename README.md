@@ -17,6 +17,24 @@ AI-powered project management platform — **open-source core, closed AI engine*
 > runs fine without any license, and with the ai-brain images + a valid license
 > you get the full AI edition — see [Enterprise / AI](#enterprise--ai).
 
+## Live demo
+
+Try TomiHub without installing anything — the official site runs a shared
+guest demo of the **full AI edition** (health radar, risk prediction, AI
+reports, assistant, knowledge map):
+
+**→ <http://124.223.90.64/login?demo=1>**
+
+Also reachable from the website: <https://tomatovector.com/hub> → "Live Demo".
+
+No account is needed — the link signs you in as a guest. It is a shared
+workspace: the data is common to all visitors and resets daily, with
+per-visitor quotas on AI features and issue creation.
+
+> Prefer your own instance? Start with the open compose in
+> [Quick start](#quick-start-self-hosted-no-ai-mode) — the project-management
+> stack needs no license.
+
 ## Screenshots
 
 Project Overview — AI health radar & risk monitoring (AI edition):
@@ -105,10 +123,11 @@ the images you pull are exactly the ones the stack starts.
 services refuse to start. Licensing is enforced in code (there is no
 configuration switch to disable it).
 
-Request a **free 14-day trial license** or a paid license at
-<https://tomatovector.com/hub-preview> — issued per deployment and bound to
-your machine on first start. Quotas: 1 tenant / 10 seats / 3 projects for the
-trial; paid tiers scale to 200+ seats.
+Want to see it before licensing? The [live demo](#live-demo) runs the full AI
+edition on a shared guest workspace. To run your own, request a **free 14-day
+trial license** or a paid license at <https://tomatovector.com/hub-preview> —
+issued per deployment and bound to your machine on first start. Quotas: 1
+tenant / 10 seats / 3 projects for the trial; paid tiers scale to 200+ seats.
 
 > **Proprietary component notice**: the `ai-brain` images are **proprietary
 > software distributed under a commercial license — they are NOT covered by
