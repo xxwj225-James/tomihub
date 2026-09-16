@@ -1,5 +1,7 @@
 # TomiHub
 
+**English** | [中文](README.zh.md)
+
 AI-powered project management platform — **open-source core, closed AI engine**.
 
 > TomiHub = project management (Issues / Board / Gantt / Wiki / Sprint /
